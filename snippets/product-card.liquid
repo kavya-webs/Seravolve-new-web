@@ -1,0 +1,36 @@
+{% comment %}
+  Renders a product card
+
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+  - dummy: {Boolean} Whether to render a dummy product (optional)
+
+  Usage:
+  {% render 'product-card', product: product %}
+{% endcomment %}
+
+{%- if dummy -%}
+  <a href="#" class="product-card">
+    <div class="product-card__image-wrapper">
+      <img class="product-card__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80" alt="Dummy Skincare Product" loading="lazy">
+    </div>
+    <div class="product-card__info">
+      <div>
+        <h3 class="product-card__title">Seravolve Glow Serum</h3>
+        <p class="product-card__price">$45.00</p>
+      </div>
+    </div>
+  </a>
+{%- else -%}
+  <a href="{{ product.url }}" class="product-card">
+    <div class="product-card__image-wrapper">
+      <img class="product-card__image" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" loading="lazy">
+    </div>
+    <div class="product-card__info">
+      <div>
+        <h3 class="product-card__title">{{ product.title }}</h3>
+        <p class="product-card__price">{{ product.price | money }}</p>
+      </div>
+    </div>
+  </a>
+{%- endif -%}

@@ -1,77 +1,90 @@
-{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
-
-{%- style -%}
-  @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
-    }
+<style>
+  .collection-banner {
+    padding: var(--spacing-xl) 0 var(--spacing-md) 0;
+    text-align: center;
+    background-color: var(--color-bg-primary);
   }
-{%- endstyle -%}
+  .collection-banner__title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 500;
+  }
+  
+  /* Category Carousel */
+  .category-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-sm) 0 var(--spacing-md) 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+  }
+  .category-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-text-heading);
+    scroll-snap-align: start;
+    min-width: 80px;
+  }
+  .category-item__image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .category-item:hover .category-item__image {
+    border-color: var(--color-bg-dark);
+  }
+  .category-item__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+</style>
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    <div class="collection-hero__text-wrapper">
-      <h1 class="collection-hero__title">
-        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        {{- collection.title | escape -}}
-      </h1>
-
-      {%- if section.settings.show_collection_description -%}
-        <div class="collection-hero__description rte">{{ collection.description }}</div>
-      {%- endif -%}
+<div class="collection-banner">
+  <div class="container">
+    <h1 class="collection-banner__title">
+      <span class="visually-hidden">Collection: </span>
+      {{ collection.title }}
+    </h1>
+    
+    <div class="category-carousel">
+      <!-- Dummy Category Tabs matching the reference structure -->
+      <a href="{{ routes.all_products_collection_url }}" class="category-item">
+        <img class="category-item__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80" alt="All">
+        <span class="category-item__label">All</span>
+      </a>
+      <a href="#" class="category-item">
+        <img class="category-item__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=200&q=80" alt="Serums">
+        <span class="category-item__label">Serums</span>
+      </a>
+      <a href="#" class="category-item">
+        <img class="category-item__image" src="https://images.unsplash.com/photo-1556228720-1c27befd6ce1?w=200&q=80" alt="Cleansers">
+        <span class="category-item__label">Cleansers</span>
+      </a>
+      <a href="#" class="category-item">
+        <img class="category-item__image" src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ceb0?w=200&q=80" alt="Moisturizers">
+        <span class="category-item__label">Moisturizers</span>
+      </a>
+      <a href="#" class="category-item">
+        <img class="category-item__image" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=200&q=80" alt="Sets">
+        <span class="category-item__label">Sets</span>
+      </a>
     </div>
-
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
-        <img
-          srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
-          src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
-          alt="{{ collection.image.alt | escape }}"
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
-        >
-      </div>
-    {%- endif -%}
   </div>
 </div>
 
 {% schema %}
 {
   "name": "t:sections.main-collection-banner.name",
-  "class": "section",
-  "settings": [
-    {
-      "type": "paragraph",
-      "content": "t:sections.main-collection-banner.settings.paragraph.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collection_description",
-      "default": true,
-      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collection_image",
-      "default": false,
-      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}
