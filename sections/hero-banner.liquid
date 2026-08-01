@@ -1,14 +1,36 @@
 <style>
-  .hero-banner {
+  .hero-slider-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 80vh;
+    min-height: 600px;
+    background-color: var(--color-bg-secondary);
+    /* Extra padding at top so header doesn't overlap text if it's placed near top */
+  }
+
+  .hero-slider {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+  }
+  .hero-slider::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .hero-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    position: relative;
     display: flex;
     align-items: center;
-    background-color: var(--color-bg-secondary);
-    overflow: hidden;
   }
-  .hero-banner__image {
+
+  .hero-slide__image {
     position: absolute;
     top: 0;
     left: 0;
@@ -17,73 +39,140 @@
     object-fit: cover;
     z-index: 1;
   }
-  /* Subtle overlay to ensure text is readable over image */
-  .hero-banner::after {
+
+  /* Overlay to make text readable */
+  .hero-slide::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(250, 246, 240, 0.8) 0%, rgba(250, 246, 240, 0.2) 100%);
+    background: linear-gradient(to right, rgba(250, 246, 240, 0.9) 0%, rgba(250, 246, 240, 0.3) 100%);
     z-index: 2;
   }
-  .hero-banner__content {
+
+  .hero-slide__content {
     position: relative;
     z-index: 3;
-    max-width: 600px;
-    /* Extra top padding so it clears the absolute header */
-    padding-top: 100px; 
+    max-width: 500px;
+    padding: 0 20px;
+    margin-top: 100px; /* offset for transparent header */
   }
-  .hero-banner__title {
+  @media (min-width: 768px) {
+    .hero-slide__content {
+      padding: 0 60px;
+    }
+  }
+
+  .hero-slide__title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: var(--spacing-sm);
+    line-height: 1.1;
   }
-  .hero-banner__text {
+  .hero-slide__text {
     font-size: 1.125rem;
     margin-bottom: var(--spacing-md);
   }
+
+  /* Navigation Dots */
+  .hero-slider-nav {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 4;
+  }
+  .hero-slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-bg-dark);
+    opacity: 0.3;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  .hero-slider-dot.is-active {
+    opacity: 1;
+  }
 </style>
 
-<section class="hero-banner">
-  <img class="hero-banner__image" src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1600&q=80" alt="Skincare Routine" loading="eager">
-  
-  <div class="container">
-    <div class="hero-banner__content">
-      <h1 class="hero-banner__title">{{ section.settings.title }}</h1>
-      <p class="hero-banner__text">{{ section.settings.text }}</p>
-      {%- if section.settings.btn_text != blank -%}
-        <a href="{{ routes.all_products_collection_url }}" class="btn">{{ section.settings.btn_text }}</a>
-      {%- endif -%}
+<section class="hero-slider-section">
+  <div class="hero-slider" id="HeroSlider">
+    
+    <!-- Slide 1 -->
+    <div class="hero-slide">
+      <img class="hero-slide__image" src="https://images.unsplash.com/photo-1615397323281-22e6cf8e5033?w=1600&q=80" alt="Seravolve Skincare" loading="eager">
+      <div class="hero-slide__content">
+        <h2 class="hero-slide__title">Elevate Your Skincare Routine</h2>
+        <p class="hero-slide__text">Discover scientifically backed formulas for glowing, healthy skin every day.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn">Shop Now</a>
+      </div>
     </div>
+
+    <!-- Slide 2 -->
+    <div class="hero-slide">
+      <img class="hero-slide__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1600&q=80" alt="Natural Ingredients" loading="lazy">
+      <div class="hero-slide__content">
+        <h2 class="hero-slide__title">Science Meets Nature</h2>
+        <p class="hero-slide__text">Potent active ingredients perfectly balanced with soothing botanical extracts.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn">Explore Ingredients</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="hero-slider-nav">
+    <div class="hero-slider-dot is-active" data-index="0"></div>
+    <div class="hero-slider-dot" data-index="1"></div>
   </div>
 </section>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('HeroSlider');
+    const dots = document.querySelectorAll('.hero-slider-dot');
+    
+    // Simple intersection observer to update dots on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // find index of slide
+          const slides = Array.from(slider.children);
+          const index = slides.indexOf(entry.target);
+          dots.forEach(d => d.classList.remove('is-active'));
+          if (dots[index]) dots[index].classList.add('is-active');
+        }
+      });
+    }, {
+      root: slider,
+      threshold: 0.5
+    });
+
+    Array.from(slider.children).forEach(slide => observer.observe(slide));
+
+    // Click dots to scroll
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index'));
+        const slide = slider.children[index];
+        if (slide) {
+          slide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        }
+      });
+    });
+  });
+</script>
+
 {% schema %}
 {
-  "name": "Hero Banner",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Heading",
-      "default": "Elevate Your Skincare Routine"
-    },
-    {
-      "type": "textarea",
-      "id": "text",
-      "label": "Text",
-      "default": "Discover scientifically backed formulas for glowing, healthy skin every day."
-    },
-    {
-      "type": "text",
-      "id": "btn_text",
-      "label": "Button Label",
-      "default": "Shop Now"
-    }
-  ],
+  "name": "Hero Slider",
+  "settings": [],
   "presets": [
     {
-      "name": "Hero Banner"
+      "name": "Hero Slider"
     }
   ]
 }

@@ -1,12 +1,14 @@
 <style>
   .marquee-section {
-    background-color: var(--color-bg-dark);
-    color: var(--color-bg-primary);
+    background-color: var(--color-bg-primary); /* Matches body background */
+    color: var(--color-text-heading);
     padding: var(--spacing-sm) 0;
     overflow: hidden;
     white-space: nowrap;
     display: flex;
     align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.05); /* Optional subtle border to anchor it */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
   }
   .marquee-content {
     display: flex;
@@ -14,7 +16,7 @@
   }
   .marquee-content__item {
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -26,7 +28,7 @@
   .marquee-content__dot {
     width: 6px;
     height: 6px;
-    background-color: var(--color-accent);
+    background-color: var(--color-bg-dark);
     border-radius: 50%;
   }
 
