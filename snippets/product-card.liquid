@@ -12,25 +12,34 @@
 {%- if dummy -%}
   <a href="#" class="product-card">
     <div class="product-card__image-wrapper">
+      <span class="product-card__badge">Bestseller</span>
       <img class="product-card__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80" alt="Dummy Skincare Product" loading="lazy">
+      <button class="product-card__quick-add">Quick View</button>
     </div>
     <div class="product-card__info">
-      <div>
-        <h3 class="product-card__title">Seravolve Glow Serum</h3>
-        <p class="product-card__price">$45.00</p>
-      </div>
+      <h3 class="product-card__title">Seravolve Glow Serum</h3>
+      <p class="product-card__price">$45.00</p>
     </div>
   </a>
 {%- else -%}
   <a href="{{ product.url }}" class="product-card">
     <div class="product-card__image-wrapper">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="product-card__badge">Sale</span>
+      {%- elsif forloop.index == 1 -%}
+        <span class="product-card__badge">Bestseller</span>
+      {%- endif -%}
       <img class="product-card__image" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" loading="lazy">
+      <button class="product-card__quick-add">Quick View</button>
     </div>
     <div class="product-card__info">
-      <div>
-        <h3 class="product-card__title">{{ product.title }}</h3>
-        <p class="product-card__price">{{ product.price | money }}</p>
-      </div>
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <p class="product-card__price">
+        {%- if product.compare_at_price > product.price -%}
+          <s style="opacity:0.5; margin-right:8px;">{{ product.compare_at_price | money }}</s>
+        {%- endif -%}
+        {{ product.price | money }}
+      </p>
     </div>
   </a>
 {%- endif -%}

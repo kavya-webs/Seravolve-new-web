@@ -1,110 +1,153 @@
 <style>
-  .header {
-    background-color: var(--color-bg-primary);
-    position: sticky;
+  /* Header Container */
+  .site-header-wrapper {
+    position: absolute;
     top: 0;
-    z-index: 100;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    left: 0;
+    width: 100%;
+    z-index: 1000;
   }
-  .header__inner {
-    display: flex;
-    justify-content: space-between;
+  
+  /* Announcement Bar */
+  .announcement-bar {
+    background-color: var(--color-bg-dark);
+    color: var(--color-bg-primary);
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Main Header */
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: var(--spacing-md) 0;
-  }
-  .header__logo {
-    font-family: var(--font-heading);
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--color-bg-dark);
-    text-decoration: none;
-    letter-spacing: -0.5px;
-  }
-  .header__nav {
-    display: none;
+    padding: var(--spacing-sm) 20px;
+    background: transparent;
   }
   @media (min-width: 768px) {
-    .header__nav {
-      display: flex;
-      gap: var(--spacing-lg);
+    .site-header {
+      padding: var(--spacing-sm) 40px;
     }
   }
-  .header__nav-link {
-    font-family: var(--font-heading);
-    font-size: 15px;
+
+  /* Navigation (Left) */
+  .header-nav {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .header-nav {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+  }
+  .header-nav__link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
     font-weight: 500;
-    color: var(--color-text-body);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-heading);
+    text-decoration: none;
   }
-  .header__nav-link:hover {
-    color: var(--color-bg-dark);
+
+  /* Logo (Center) */
+  .header-logo {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-align: center;
   }
-  .header__icons {
+
+  /* Icons / CTA (Right) */
+  .header-icons {
     display: flex;
-    gap: var(--spacing-md);
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-heading);
+    display: flex;
     align-items: center;
   }
-  .header__icon {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+  .header-quiz-btn {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .header-quiz-btn {
+      display: inline-flex;
+      margin-left: 16px;
+      padding: 10px 24px;
+      font-size: 0.75rem;
+    }
+  }
+
+  /* Mobile Menu Icon */
+  .header-mobile-menu {
+    display: flex;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .header-mobile-menu {
+      display: none;
+    }
   }
 </style>
 
-<header class="header">
-  <div class="container header__inner">
-    <!-- Logo -->
-    <a href="{{ routes.root_url }}" class="header__logo">
-      {%- if section.settings.logo != blank -%}
-        <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" width="{{ section.settings.logo_width }}">
-      {%- else -%}
-        Seravolve
-      {%- endif -%}
-    </a>
+<div class="site-header-wrapper">
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    Free Shipping on orders over $50
+  </div>
 
-    <!-- Desktop Navigation -->
-    <nav class="header__nav">
-      {%- for link in section.settings.menu.links -%}
-        <a href="{{ link.url }}" class="header__nav-link">{{ link.title }}</a>
-      {%- endfor -%}
-    </nav>
+  <!-- Main Header -->
+  <header class="site-header">
+    
+    <!-- Left: Navigation (Desktop) / Hamburger (Mobile) -->
+    <div style="display: flex; align-items: center;">
+      <button class="header-icon header-mobile-menu" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      
+      <nav class="header-nav">
+        <a href="{{ routes.root_url }}" class="header-nav__link">Home</a>
+        <a href="{{ routes.all_products_collection_url }}" class="header-nav__link">Shop</a>
+        <a href="#" class="header-nav__link">About</a>
+      </nav>
+    </div>
 
-    <!-- Icons -->
-    <div class="header__icons">
-      <a href="{{ routes.search_url }}" class="header__icon-link">
-        <svg class="header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      </a>
-      <a href="{{ routes.cart_url }}" class="header__icon-link">
-        <svg class="header__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+    <!-- Center: Logo -->
+    <div>
+      <a href="{{ routes.root_url }}" class="header-logo">
+        {{ shop.name }}
       </a>
     </div>
-  </div>
-</header>
+
+    <!-- Right: Icons & CTA -->
+    <div class="header-icons">
+      <a href="{{ routes.search_url }}" class="header-icon" aria-label="Search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="header-icon" aria-label="Cart" id="HeaderCartIcon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      </a>
+      <a href="#" class="btn header-quiz-btn">Take The Quiz</a>
+    </div>
+  </header>
+</div>
 
 {% schema %}
 {
-  "name": "t:sections.header.name",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "t:sections.header.settings.logo.label"
-    },
-    {
-      "type": "range",
-      "id": "logo_width",
-      "min": 50,
-      "max": 250,
-      "step": 10,
-      "default": 100,
-      "unit": "t:sections.header.settings.logo_width.unit",
-      "label": "t:sections.header.settings.logo_width.label"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "default": "main-menu",
-      "label": "t:sections.header.settings.menu.label"
-    }
-  ]
+  "name": "Header",
+  "settings": []
 }
 {% endschema %}

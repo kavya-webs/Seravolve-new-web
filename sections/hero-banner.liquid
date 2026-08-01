@@ -1,15 +1,14 @@
 <style>
-  .hero {
+  .hero-banner {
     position: relative;
     width: 100%;
-    height: 80vh;
-    min-height: 600px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    background-color: var(--color-bg-alternate);
+    background-color: var(--color-bg-secondary);
     overflow: hidden;
   }
-  .hero__image {
+  .hero-banner__image {
     position: absolute;
     top: 0;
     left: 0;
@@ -17,42 +16,43 @@
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    opacity: 0.8;
   }
-  .hero__content {
-    position: relative;
+  /* Subtle overlay to ensure text is readable over image */
+  .hero-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(250, 246, 240, 0.8) 0%, rgba(250, 246, 240, 0.2) 100%);
     z-index: 2;
+  }
+  .hero-banner__content {
+    position: relative;
+    z-index: 3;
     max-width: 600px;
+    /* Extra top padding so it clears the absolute header */
+    padding-top: 100px; 
   }
-  .hero__title {
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    color: var(--color-bg-dark);
-    margin-bottom: var(--spacing-md);
-    letter-spacing: -1px;
+  .hero-banner__title {
+    margin-bottom: var(--spacing-sm);
   }
-  .hero__text {
+  .hero-banner__text {
     font-size: 1.125rem;
-    color: var(--color-text-body);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
   }
 </style>
 
-<section class="hero">
-  {%- if section.settings.image != blank -%}
-    <img class="hero__image" src="{{ section.settings.image | image_url: width: 2000 }}" alt="{{ section.settings.title }}" loading="eager">
-  {%- else -%}
-    <!-- Dummy image for skincare vibe -->
-    <img class="hero__image" src="https://images.unsplash.com/photo-1615397323136-1e0dbb3a7a60?w=1600&q=80" alt="Seravolve Skincare" loading="eager">
-  {%- endif -%}
-
+<section class="hero-banner">
+  <img class="hero-banner__image" src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1600&q=80" alt="Skincare Routine" loading="eager">
+  
   <div class="container">
-    <div class="hero__content">
-      <h1 class="hero__title">{{ section.settings.title | default: "Elevate Your Skincare Routine" }}</h1>
-      <p class="hero__text">{{ section.settings.text | default: "Discover scientifically backed formulas for glowing, healthy skin every day." }}</p>
-      {%- if section.settings.btn_link != blank -%}
-        <a href="{{ section.settings.btn_link }}" class="btn">{{ section.settings.btn_text | default: "Shop Now" }}</a>
-      {%- else -%}
-        <a href="{{ routes.all_products_collection_url }}" class="btn">Shop Now</a>
+    <div class="hero-banner__content">
+      <h1 class="hero-banner__title">{{ section.settings.title }}</h1>
+      <p class="hero-banner__text">{{ section.settings.text }}</p>
+      {%- if section.settings.btn_text != blank -%}
+        <a href="{{ routes.all_products_collection_url }}" class="btn">{{ section.settings.btn_text }}</a>
       {%- endif -%}
     </div>
   </div>
@@ -63,11 +63,6 @@
   "name": "Hero Banner",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Background Image"
-    },
-    {
       "type": "text",
       "id": "title",
       "label": "Heading",
@@ -76,19 +71,14 @@
     {
       "type": "textarea",
       "id": "text",
-      "label": "Subheading",
+      "label": "Text",
       "default": "Discover scientifically backed formulas for glowing, healthy skin every day."
     },
     {
       "type": "text",
       "id": "btn_text",
-      "label": "Button Text",
+      "label": "Button Label",
       "default": "Shop Now"
-    },
-    {
-      "type": "url",
-      "id": "btn_link",
-      "label": "Button Link"
     }
   ],
   "presets": [
