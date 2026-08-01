@@ -1,0 +1,107 @@
+<style>
+  .search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 15vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .search-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .search-overlay__close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-bg-dark);
+  }
+  .search-overlay__form {
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+  }
+  .search-overlay__input {
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--color-bg-dark);
+    font-size: 2.5rem;
+    font-family: var(--font-heading);
+    color: var(--color-bg-dark);
+    padding: 10px 0;
+    outline: none;
+  }
+  .search-overlay__input::placeholder {
+    color: rgba(18, 59, 90, 0.3);
+  }
+  .search-overlay__btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-bg-dark);
+  }
+</style>
+
+<div class="search-overlay" id="SearchOverlay">
+  <button class="search-overlay__close" id="SearchOverlayClose">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  
+  <form action="{{ routes.search_url }}" method="get" class="search-overlay__form">
+    <input type="hidden" name="type" value="product">
+    <input type="search" name="q" class="search-overlay__input" placeholder="Search products..." id="SearchInput" autocomplete="off">
+    <button type="submit" class="search-overlay__btn">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('SearchOverlay');
+    const closeBtn = document.getElementById('SearchOverlayClose');
+    const searchInput = document.getElementById('SearchInput');
+    
+    function openSearch() {
+      overlay.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => searchInput.focus(), 300);
+    }
+    
+    function closeSearch() {
+      overlay.classList.remove('is-active');
+      document.body.style.overflow = '';
+      searchInput.value = '';
+    }
+
+    closeBtn.addEventListener('click', closeSearch);
+    
+    // Listen for search icon click in header
+    const searchIcons = document.querySelectorAll('a[href="{{ routes.search_url }}"]');
+    searchIcons.forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        e.preventDefault();
+        openSearch();
+      });
+    });
+  });
+</script>
