@@ -1,0 +1,69 @@
+<style>
+  .marquee-section {
+    background-color: var(--color-bg-dark);
+    color: var(--color-bg-primary);
+    padding: var(--spacing-sm) 0;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+  .marquee-content {
+    display: flex;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-content__item {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 0 var(--spacing-xl);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .marquee-content__dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>
+
+<section class="marquee-section">
+  <!-- We duplicate the content to create a seamless loop -->
+  <div class="marquee-content">
+    {%- for i in (1..6) -%}
+      <div class="marquee-content__item">
+        Vegan <span class="marquee-content__dot"></span>
+      </div>
+      <div class="marquee-content__item">
+        Cruelty-Free <span class="marquee-content__dot"></span>
+      </div>
+      <div class="marquee-content__item">
+        Science Backed <span class="marquee-content__dot"></span>
+      </div>
+      <div class="marquee-content__item">
+        Toxin-Free <span class="marquee-content__dot"></span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Marquee"
+    }
+  ]
+}
+{% endschema %}

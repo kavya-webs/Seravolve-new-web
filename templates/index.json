@@ -8,16 +8,26 @@
         "btn_text": "Shop Now"
       }
     },
+    "marquee": {
+      "type": "marquee",
+      "settings": {}
+    },
     "trending": {
       "type": "product-grid",
       "settings": {
         "title": "Trending Now",
         "limit": 4
       }
+    },
+    "ingredients": {
+      "type": "ingredients-education",
+      "settings": {}
     }
   },
   "order": [
     "hero",
-    "trending"
+    "marquee",
+    "trending",
+    "ingredients"
   ]
 }

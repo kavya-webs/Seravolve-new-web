@@ -1,0 +1,115 @@
+<style>
+  .ingredients-section {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--color-bg-secondary);
+  }
+  .ingredients-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .ingredients-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .ingredients-image-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background-color: var(--color-bg-alternate);
+  }
+  .ingredients-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ingredients-content__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-bg-dark);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.1;
+  }
+  .ingredients-content__text {
+    font-size: 1.125rem;
+    color: var(--color-text-body);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .ingredient-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  .ingredient-item {
+    background: #fff;
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .ingredient-item__name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-bg-dark);
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ingredient-item__percentage {
+    color: var(--color-cta);
+  }
+  .ingredient-item__desc {
+    color: var(--color-text-body);
+    font-size: 0.95rem;
+  }
+</style>
+
+<section class="ingredients-section">
+  <div class="container">
+    <div class="ingredients-grid">
+      <div class="ingredients-image-wrapper">
+        <img class="ingredients-image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80" alt="Clean Ingredients" loading="lazy">
+      </div>
+      <div class="ingredients-content">
+        <h2 class="ingredients-content__title">Science-Backed Ingredients</h2>
+        <p class="ingredients-content__text">We believe in complete transparency. Our formulas use clinically proven active ingredients at optimal concentrations to ensure maximum efficacy without compromising your skin's barrier.</p>
+        
+        <div class="ingredient-list">
+          <div class="ingredient-item">
+            <div class="ingredient-item__name">
+              Niacinamide <span class="ingredient-item__percentage">5%</span>
+            </div>
+            <div class="ingredient-item__desc">Brightens skin tone, reduces the appearance of enlarged pores, and strengthens the skin barrier.</div>
+          </div>
+          <div class="ingredient-item">
+            <div class="ingredient-item__name">
+              Hyaluronic Acid <span class="ingredient-item__percentage">2%</span>
+            </div>
+            <div class="ingredient-item__desc">Multi-molecular weight hydration that penetrates deep to plump skin and smooth fine lines.</div>
+          </div>
+          <div class="ingredient-item">
+            <div class="ingredient-item__name">
+              Squalane <span class="ingredient-item__percentage">Base</span>
+            </div>
+            <div class="ingredient-item__desc">A lightweight, non-comedogenic oil that mimics skin's natural sebum to lock in moisture.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients Education",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Ingredients Education"
+    }
+  ]
+}
+{% endschema %}
