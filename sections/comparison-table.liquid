@@ -1,0 +1,115 @@
+<style>
+  .comparison-table-section {
+    padding: var(--spacing-xl) 0;
+    background: var(--color-bg-primary);
+  }
+  .comparison-table-section h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 8px;
+    overflow-x: auto;
+    display: block;
+  }
+  @media (min-width: 768px) {
+    .comparison-table { display: table; }
+  }
+  .comparison-table th,
+  .comparison-table td {
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    min-width: 160px;
+  }
+  .comparison-table th {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding-bottom: var(--spacing-md);
+  }
+  .comparison-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--color-text-heading);
+  }
+
+  /* Highlighted brand column */
+  .brand-col {
+    background: #6B3A2A;
+    color: #fff !important;
+    border-radius: 12px;
+  }
+  .brand-col-head {
+    background: #6B3A2A;
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+  }
+  .brand-col-foot {
+    border-radius: 0 0 12px 12px;
+  }
+  .competitor-col {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+  }
+</style>
+
+<section class="comparison-table-section">
+  <div class="container">
+    <h2>Why Choose Seravolve?</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="brand-col brand-col-head">Seravolve</th>
+          <th class="competitor-col">Brand B</th>
+          <th class="competitor-col">Brand C</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Clean ingredients</td>
+          <td class="brand-col">Yes</td>
+          <td class="competitor-col">Yes</td>
+          <td class="competitor-col">No</td>
+        </tr>
+        <tr>
+          <td>Cruelty-free & vegan</td>
+          <td class="brand-col">Yes</td>
+          <td class="competitor-col">Yes</td>
+          <td class="competitor-col">No</td>
+        </tr>
+        <tr>
+          <td>Ingredient transparency</td>
+          <td class="brand-col">Yes</td>
+          <td class="competitor-col">No</td>
+          <td class="competitor-col">No</td>
+        </tr>
+        <tr>
+          <td>Suitable for sensitive skin</td>
+          <td class="brand-col">Yes</td>
+          <td class="competitor-col">No</td>
+          <td class="competitor-col">Yes</td>
+        </tr>
+        <tr>
+          <td>Eco-conscious packaging</td>
+          <td class="brand-col brand-col-foot">Yes</td>
+          <td class="competitor-col">No</td>
+          <td class="competitor-col">No</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [],
+  "presets": [{ "name": "Comparison Table" }]
+}
+{% endschema %}

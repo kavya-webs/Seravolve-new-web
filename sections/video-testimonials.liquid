@@ -1,0 +1,181 @@
+<style>
+  .video-testimonials {
+    padding: var(--spacing-xl) 0;
+    background: var(--color-bg-primary);
+  }
+  .video-testimonials__heading {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  .video-testimonials__track {
+    display: flex;
+    gap: var(--spacing-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 40px;
+    scrollbar-width: none;
+  }
+  .video-testimonials__track::-webkit-scrollbar { display: none; }
+
+  .video-card {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: var(--color-bg-secondary);
+  }
+  .video-card__media {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+  .video-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video-card__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #C0392B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.3s;
+  }
+  .video-card__play:hover { transform: translate(-50%, -50%) scale(1.1); }
+  .video-card__play svg { margin-left: 3px; }
+
+  .video-card__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+  }
+  .video-card__thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #fff;
+  }
+  .video-card__name {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .video-card__price {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.85rem;
+  }
+</style>
+
+<section class="video-testimonials">
+  <div class="container">
+    <h2 class="video-testimonials__heading">What Healthy Skin Looks Like</h2>
+  </div>
+  <div class="video-testimonials__track">
+    <div class="video-card">
+      <div class="video-card__media">
+        <img class="video-card__image" src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&q=80" alt="Model skincare" loading="lazy">
+        <button class="video-card__play" aria-label="Play video">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </button>
+        <div class="video-card__info">
+          <img class="video-card__thumb" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=80&q=80" alt="Product" loading="lazy">
+          <div>
+            <div class="video-card__name">Targeted Serum</div>
+            <div class="video-card__price">Rs. 7,300.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-card__media">
+        <img class="video-card__image" src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=400&q=80" alt="Model applying cream" loading="lazy">
+        <button class="video-card__play" aria-label="Play video">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </button>
+        <div class="video-card__info">
+          <img class="video-card__thumb" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=80&q=80" alt="Product" loading="lazy">
+          <div>
+            <div class="video-card__name">Cherry Red Lip Oil</div>
+            <div class="video-card__price">Rs. 7,300.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-card__media">
+        <img class="video-card__image" src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=400&q=80" alt="Model skincare routine" loading="lazy">
+        <button class="video-card__play" aria-label="Play video">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </button>
+        <div class="video-card__info">
+          <img class="video-card__thumb" src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ceb0?w=80&q=80" alt="Product" loading="lazy">
+          <div>
+            <div class="video-card__name">Lightweight Moisturizing Cream</div>
+            <div class="video-card__price">Rs. 15,200.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-card__media">
+        <img class="video-card__image" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80" alt="Skincare application" loading="lazy">
+        <button class="video-card__play" aria-label="Play video">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </button>
+        <div class="video-card__info">
+          <img class="video-card__thumb" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=80&q=80" alt="Product" loading="lazy">
+          <div>
+            <div class="video-card__name">Advanced Hydra Cream</div>
+            <div class="video-card__price">Rs. 11,100.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-card__media">
+        <img class="video-card__image" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80" alt="Model healthy skin" loading="lazy">
+        <button class="video-card__play" aria-label="Play video">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </button>
+        <div class="video-card__info">
+          <img class="video-card__thumb" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=80&q=80" alt="Product" loading="lazy">
+          <div>
+            <div class="video-card__name">Rosie Lip Oil</div>
+            <div class="video-card__price">Rs. 6,000.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video Testimonials",
+  "settings": [],
+  "presets": [{ "name": "Video Testimonials" }]
+}
+{% endschema %}

@@ -2,32 +2,60 @@
   "sections": {
     "hero": {
       "type": "hero-banner",
-      "settings": {
-        "title": "Elevate Your Skincare Routine",
-        "text": "Discover scientifically backed formulas for glowing, healthy skin every day.",
-        "btn_text": "Shop Now"
-      }
+      "settings": {}
     },
     "marquee": {
       "type": "marquee",
       "settings": {}
     },
-    "trending": {
-      "type": "product-grid",
-      "settings": {
-        "title": "Trending Now",
-        "limit": 4
-      }
+    "featured-tabbed": {
+      "type": "featured-products-tabbed",
+      "settings": {}
     },
-    "ingredients": {
-      "type": "ingredients-education",
+    "video-testimonials": {
+      "type": "video-testimonials",
+      "settings": {}
+    },
+    "collection-categories": {
+      "type": "collection-categories",
+      "settings": {}
+    },
+    "sale-banner": {
+      "type": "sale-banner",
+      "settings": {}
+    },
+    "featured-dark": {
+      "type": "featured-dark",
+      "settings": {}
+    },
+    "self-care-grid": {
+      "type": "self-care-grid",
+      "settings": {}
+    },
+    "comparison-table": {
+      "type": "comparison-table",
+      "settings": {}
+    },
+    "cta-banner": {
+      "type": "cta-banner",
+      "settings": {}
+    },
+    "shoppable-lookbook": {
+      "type": "shoppable-lookbook",
       "settings": {}
     }
   },
   "order": [
     "hero",
     "marquee",
-    "trending",
-    "ingredients"
+    "featured-tabbed",
+    "video-testimonials",
+    "collection-categories",
+    "sale-banner",
+    "featured-dark",
+    "self-care-grid",
+    "comparison-table",
+    "cta-banner",
+    "shoppable-lookbook"
   ]
 }

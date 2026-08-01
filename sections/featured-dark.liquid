@@ -1,0 +1,142 @@
+<style>
+  .featured-dark {
+    background: #6B3A2A;
+    padding: var(--spacing-xl) 0;
+    color: #fff;
+    overflow: hidden;
+  }
+  .featured-dark__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .featured-dark__layout {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .featured-dark__image-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+  }
+  .featured-dark__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .featured-dark__content {
+    text-align: center;
+  }
+  @media (min-width: 900px) {
+    .featured-dark__content { text-align: left; }
+  }
+  .featured-dark__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #fff;
+    margin-bottom: var(--spacing-sm);
+    font-style: italic;
+  }
+  .featured-dark__text {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: var(--spacing-lg);
+    max-width: 500px;
+  }
+
+  .featured-dark__products {
+    display: flex;
+    gap: var(--spacing-md);
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+  .featured-dark__products::-webkit-scrollbar { display: none; }
+
+  .dark-product-card {
+    flex: 0 0 200px;
+    text-decoration: none;
+  }
+  .dark-product-card__image-wrapper {
+    aspect-ratio: 3/4;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .dark-product-card__image {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .dark-product-card__badge {
+    position: absolute;
+    top: 8px; left: 8px;
+    background: #C0392B;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+  .dark-product-card__title {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .dark-product-card__price {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+  }
+</style>
+
+<section class="featured-dark">
+  <div class="container">
+    <div class="featured-dark__layout">
+      <div class="featured-dark__image-wrapper">
+        <img class="featured-dark__image" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Model in water" loading="lazy">
+      </div>
+      <div class="featured-dark__content">
+        <h2 class="featured-dark__title">Made For Every Skin Type</h2>
+        <p class="featured-dark__text">Perfect for all skin types, our products nourish and balance your skin with gentle, effective ingredients</p>
+
+        <div class="featured-dark__products">
+          <a href="#" class="dark-product-card">
+            <div class="dark-product-card__image-wrapper">
+              <span class="dark-product-card__badge">Trending</span>
+              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ceb0?w=300&q=80" alt="Product" loading="lazy">
+            </div>
+            <div class="dark-product-card__title">Hydrating Gel</div>
+            <div class="dark-product-card__price">Rs. 1,600.00</div>
+          </a>
+          <a href="#" class="dark-product-card">
+            <div class="dark-product-card__image-wrapper">
+              <span class="dark-product-card__badge">Best Seller</span>
+              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=300&q=80" alt="Product" loading="lazy">
+            </div>
+            <div class="dark-product-card__title">Brightening Serum</div>
+            <div class="dark-product-card__price">Rs. 15,200.00</div>
+          </a>
+          <a href="#" class="dark-product-card">
+            <div class="dark-product-card__image-wrapper">
+              <span class="dark-product-card__badge">Best Seller</span>
+              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=300&q=80" alt="Product" loading="lazy">
+            </div>
+            <div class="dark-product-card__title">Moisturizing Cream</div>
+            <div class="dark-product-card__price">Rs. 15,200.00</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Dark",
+  "settings": [],
+  "presets": [{ "name": "Featured Dark" }]
+}
+{% endschema %}
