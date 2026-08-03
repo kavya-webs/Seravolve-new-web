@@ -2,6 +2,7 @@
   .lookbook-section {
     padding: var(--spacing-xl) 0;
     background: var(--color-bg-alternate);
+    overflow: hidden;
   }
   .lookbook-section__heading {
     text-align: center;
@@ -15,42 +16,42 @@
     margin-left: auto;
     margin-right: auto;
   }
-  
-  /* Bento Grid for Photos and Videos */
-  .lookbook-grid {
+
+  /* Responsive Gallery Grid */
+  .gallery-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
-  @media (min-width: 768px) {
-    .lookbook-grid {
-      grid-template-columns: 1.5fr 1fr;
-      grid-template-rows: auto auto;
+  @media (min-width: 600px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
-    .lookbook-grid__item--large {
-      grid-row: 1 / 3;
+  }
+  @media (min-width: 900px) {
+    .gallery-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
   }
 
-  .lookbook-card {
+  .gallery-item {
     position: relative;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
     background: #fff;
-    box-shadow: 0 8px 30px rgba(0,149,255,0.05);
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,149,255,0.03);
+    cursor: pointer;
+  }
+  
+  /* Highlight videos with a slightly larger grid space or just badge */
+  .gallery-item--video {
+    border: 2px solid var(--color-cta);
   }
 
-  .lookbook-card__media {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .lookbook-card__image,
-  .lookbook-card__video {
+  .gallery-item__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -58,134 +59,221 @@
     transition: transform 0.6s ease;
   }
 
-  .lookbook-card:hover .lookbook-card__image {
-    transform: scale(1.03);
+  .gallery-item:hover .gallery-item__image {
+    transform: scale(1.05);
   }
 
-  .lookbook-grid__item--large {
-    min-height: 550px;
-  }
-  .lookbook-grid__item--small {
-    min-height: 260px;
-  }
-
-  /* Video Badge and Controls */
-  .video-play-overlay {
+  .gallery-item__badge {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 10px;
+    right: 10px;
+    background: rgba(18,59,90,0.85);
+    color: #fff;
+    padding: 3px 8px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 4px;
+    z-index: 2;
+  }
+  .gallery-item__badge--video {
+    background: var(--color-cta);
+  }
+
+  .gallery-item__play-btn {
+    position: absolute;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 70px;
-    height: 70px;
-    background: rgba(0, 149, 255, 0.9);
-    border: 3px solid #fff;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.9);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    z-index: 3;
-    transition: transform 0.3s, background-color 0.3s;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   }
-  .video-play-overlay:hover {
-    transform: translate(-50%, -50%) scale(1.08);
-    background: var(--color-cta-hover);
-  }
-  .video-play-overlay svg {
-    margin-left: 4px;
-    fill: #fff;
+  .gallery-item__play-btn svg {
+    margin-left: 2px;
+    fill: var(--color-cta);
   }
 
-  /* Info / Overlay Tag */
-  .lookbook-card__info {
+  /* Lightbox Modal (Premium feature) */
+  .lightbox-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(18,59,90,0.95);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .lightbox-modal__close {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 24px;
-    background: linear-gradient(to top, rgba(18,59,90,0.85) 0%, transparent 100%);
+    top: 20px; right: 20px;
+    background: none;
+    border: none;
     color: #fff;
-    z-index: 2;
+    font-size: 2rem;
+    cursor: pointer;
   }
-  .lookbook-card__date {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--color-accent);
-    margin-bottom: 4px;
-    font-weight: 600;
+  .lightbox-modal__content {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   }
-  .lookbook-card__title {
-    font-family: var(--font-heading);
-    font-size: clamp(1.2rem, 2vw, 1.8rem);
-    color: #fff;
-    margin: 0;
-  }
-  .lookbook-card__badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: rgba(255,255,255,0.9);
-    color: var(--color-bg-dark);
-    padding: 6px 14px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 50px;
-    z-index: 2;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  .lightbox-modal__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
   }
 </style>
 
 <section class="lookbook-section" aria-labelledby="lookbook-heading">
   <div class="container">
-    <h2 id="lookbook-heading" class="lookbook-section__heading">Seravolve Launch Event</h2>
-    <p class="lookbook-section__subtext">A celebration of water aesthetics and clean skincare. Relive our launch event from 25th June.</p>
+    <h2 id="lookbook-heading" class="lookbook-section__heading">Seravolve Launch Event Gallery</h2>
+    <p class="lookbook-section__subtext">A grand celebration of clean skincare & water aesthetics on 25th June. Here are the 12 highlight memories and 2 videos.</p>
     
-    <div class="lookbook-grid">
-      <!-- Main Video/Large Card -->
-      <div class="lookbook-card lookbook-grid__item--large">
-        <div class="lookbook-card__badge">Highlight Video</div>
-        <div class="lookbook-card__media">
-          <!-- Poster image from launch event folder -->
-          <img class="lookbook-card__image" src="{{ 'smooth-skin-routine-lifestyle.png' | asset_url }}" alt="Seravolve Launch Event highlight poster" loading="lazy">
-          
-          <button class="video-play-overlay" aria-label="Play Launch Event Video">
-            <svg width="24" height="24" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          </button>
-          
-          <div class="lookbook-card__info">
-            <div class="lookbook-card__date">June 25, 2026</div>
-            <h3 class="lookbook-card__title">Official Launch Ceremony</h3>
-          </div>
+    <div class="gallery-grid">
+      <!-- Video 1 -->
+      <div class="gallery-item gallery-item--video" data-type="video" aria-label="Play Launch Event Video 1">
+        <span class="gallery-item__badge gallery-item__badge--video">Video</span>
+        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-lifestyle.png' | asset_url }}" alt="Launch Event Ceremony Video" loading="lazy">
+        <div class="gallery-item__play-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
       </div>
 
-      <!-- Photo 1: Event Display -->
-      <div class="lookbook-card lookbook-grid__item--small">
-        <div class="lookbook-card__badge">Gallery</div>
-        <div class="lookbook-card__media">
-          <img class="lookbook-card__image" src="{{ 'uv-defence-routine-lifestyle.png' | asset_url }}" alt="Seravolve product display at the launch event" loading="lazy">
-          <div class="lookbook-card__info">
-            <div class="lookbook-card__date">June 25, 2026</div>
-            <h3 class="lookbook-card__title">Product Showcase & Aesthetic Booth</h3>
-          </div>
+      <!-- Video 2 -->
+      <div class="gallery-item gallery-item--video" data-type="video" aria-label="Play Launch Event Video 2">
+        <span class="gallery-item__badge gallery-item__badge--video">Video</span>
+        <img class="gallery-item__image" src="{{ 'uv-defence-routine-lifestyle.png' | asset_url }}" alt="Product Demonstration Video" loading="lazy">
+        <div class="gallery-item__play-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
       </div>
 
-      <!-- Photo 2: Live Demonstration -->
-      <div class="lookbook-card lookbook-grid__item--small">
-        <div class="lookbook-card__badge">Live Demo</div>
-        <div class="lookbook-card__media">
-          <img class="lookbook-card__image" src="{{ 'acne-control-routine-whatsapp-image-2026-06-28-at-8.35.41-pm.jpeg' | asset_url }}" alt="Live routine demonstration during the launch" loading="lazy">
-          <div class="lookbook-card__info">
-            <div class="lookbook-card__date">June 25, 2026</div>
-            <h3 class="lookbook-card__title">5-Step Routine Demonstration</h3>
-          </div>
-        </div>
+      <!-- Photo 3 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 3">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'acne-control-routine-whatsapp-image-2026-06-28-at-8.35.41-pm.jpeg' | asset_url }}" alt="Skincare Booth Demonstration" loading="lazy">
+      </div>
+
+      <!-- Photo 4 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 4">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-1.png' | asset_url }}" alt="Event Display Setup" loading="lazy">
+      </div>
+
+      <!-- Photo 5 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 5">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-2.png' | asset_url }}" alt="Event Display Setup" loading="lazy">
+      </div>
+
+      <!-- Photo 6 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 6">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-3.png' | asset_url }}" alt="Product Display" loading="lazy">
+      </div>
+
+      <!-- Photo 7 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 7">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-4.png' | asset_url }}" alt="Routine Showcase" loading="lazy">
+      </div>
+
+      <!-- Photo 8 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 8">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'uv-defence-routine-1.png' | asset_url }}" alt="Aesthetic Display" loading="lazy">
+      </div>
+
+      <!-- Photo 9 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 9">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'uv-defence-routine-2.png' | asset_url }}" alt="Skincare routine model photoshoot" loading="lazy">
+      </div>
+
+      <!-- Photo 10 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 10">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'uv-defence-routine-3.png' | asset_url }}" alt="Launch Event Model Photoshoot" loading="lazy">
+      </div>
+
+      <!-- Photo 11 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 11">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'skin-brightining-routine-1.png' | asset_url }}" alt="Routine Photoshoot" loading="lazy">
+      </div>
+
+      <!-- Photo 12 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 12">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'skin-brightining-routine-2.png' | asset_url }}" alt="Launch Event Setup" loading="lazy">
+      </div>
+
+      <!-- Photo 13 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 13">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'barrier-repair-and-hydration-routine-1.png' | asset_url }}" alt="Hydration Routine Display" loading="lazy">
+      </div>
+
+      <!-- Photo 14 -->
+      <div class="gallery-item" data-type="image" aria-label="View Photo 14">
+        <span class="gallery-item__badge">Photo</span>
+        <img class="gallery-item__image" src="{{ 'full-seravolve-routine-1.png' | asset_url }}" alt="Launch Event Showcase" loading="lazy">
       </div>
     </div>
   </div>
 </section>
+
+<!-- Lightbox Modal -->
+<div class="lightbox-modal" id="LightboxModal">
+  <button class="lightbox-modal__close" id="LightboxClose" aria-label="Close lightbox">&times;</button>
+  <div class="lightbox-modal__content">
+    <img class="lightbox-modal__img" id="LightboxImg" src="" alt="Zoomed view">
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('LightboxModal');
+  const modalImg = document.getElementById('LightboxImg');
+  const closeBtn = document.getElementById('LightboxClose');
+  const items = document.querySelectorAll('.gallery-item');
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const type = item.getAttribute('data-type');
+      const img = item.querySelector('.gallery-item__image');
+      if (type === 'image' && img && modal && modalImg) {
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+        modal.style.display = 'flex';
+      } else if (type === 'video') {
+        alert('Opening video stream of the launch event...');
+      }
+    });
+  });
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
+});
+</script>
 
 {% schema %}
 {

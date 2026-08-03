@@ -1,90 +1,161 @@
 <style>
   .featured-dark {
     background: var(--color-bg-dark);
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-lg) 0;
     color: #fff;
     overflow: hidden;
   }
+  @media (min-width: 900px) {
+    .featured-dark {
+      padding: var(--spacing-xl) 0;
+    }
+  }
+
   .featured-dark__layout {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
     align-items: center;
   }
   @media (min-width: 900px) {
     .featured-dark__layout {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.1fr;
+      gap: var(--spacing-lg);
     }
   }
+
   .featured-dark__image-wrapper {
     border-radius: 20px;
     overflow: hidden;
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/3;
+    max-height: 350px;
   }
+  @media (min-width: 900px) {
+    .featured-dark__image-wrapper {
+      aspect-ratio: 3/4;
+      max-height: none;
+    }
+  }
+
   .featured-dark__image {
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
-  .featured-dark__content { text-align: center; }
-  @media (min-width: 900px) {
-    .featured-dark__content { text-align: left; }
+
+  .featured-dark__content {
+    text-align: center;
+    width: 100%;
   }
+  @media (min-width: 900px) {
+    .featured-dark__content {
+      text-align: left;
+    }
+  }
+
   .featured-dark__title {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
     color: #fff;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    font-family: var(--font-heading);
     font-style: italic;
   }
+
   .featured-dark__text {
-    color: rgba(255,255,255,0.7);
-    margin-bottom: var(--spacing-lg);
-    max-width: 500px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: var(--spacing-md);
+    font-size: 0.95rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (min-width: 900px) {
+    .featured-dark__text {
+      margin-left: 0;
+    }
+  }
+
+  /* Responsive Horizontal Scroll Container */
+  .featured-dark__products-wrapper {
+    margin: 0 -20px;
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .featured-dark__products-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .featured-dark__products-wrapper {
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+    }
   }
 
   .featured-dark__products {
     display: flex;
-    gap: var(--spacing-md);
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 8px;
+    gap: 16px;
+    width: max-content;
   }
-  .featured-dark__products::-webkit-scrollbar { display: none; }
+  @media (min-width: 900px) {
+    .featured-dark__products {
+      width: auto;
+    }
+  }
 
   .dark-product-card {
-    flex: 0 0 200px;
+    width: 140px;
     text-decoration: none;
+    flex-shrink: 0;
+    text-align: left;
   }
+  @media (min-width: 900px) {
+    .dark-product-card {
+      width: 170px;
+    }
+  }
+
   .dark-product-card__image-wrapper {
     aspect-ratio: 3/4;
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 8px;
     position: relative;
+    background: rgba(255,255,255,0.05);
   }
+
   .dark-product-card__image {
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
+
   .dark-product-card__badge {
     position: absolute;
-    top: 8px; left: 8px;
+    top: 8px;
+    left: 8px;
     background: var(--color-cta);
     color: #fff;
-    padding: 4px 10px;
-    font-size: 0.7rem;
+    padding: 3px 8px;
+    font-size: 0.65rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     border-radius: 4px;
     z-index: 2;
   }
+
   .dark-product-card__title {
     font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: #fff;
-    margin-bottom: 4px;
-  }
-  .dark-product-card__price {
     font-size: 0.85rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+
+  .dark-product-card__price {
+    font-size: 0.8rem;
     color: rgba(255,255,255,0.7);
   }
 </style>
@@ -92,38 +163,50 @@
 <section class="featured-dark">
   <div class="container">
     <div class="featured-dark__layout">
+      <!-- Top/Left: Event lifestyle context shot -->
       <div class="featured-dark__image-wrapper">
-        <img class="featured-dark__image" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Seravolve skincare" loading="lazy">
+        <img class="featured-dark__image" src="{{ 'smooth-skin-routine-lifestyle.png' | asset_url }}" alt="Seravolve clean routine lifestyle" loading="lazy">
       </div>
+      
+      <!-- Bottom/Right: Text and scrollable steps -->
       <div class="featured-dark__content">
         <h2 class="featured-dark__title">Made For Every Skin Type</h2>
         <p class="featured-dark__text">Our 5-step system works for all skin types — from oily and acne-prone to dry and sensitive. Just pick the routine that fits your goals.</p>
 
-        <div class="featured-dark__products">
-          <a href="#" class="dark-product-card">
-            <div class="dark-product-card__image-wrapper">
-              <span class="dark-product-card__badge">Step 1</span>
-              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&q=80" alt="Facewash" loading="lazy">
-            </div>
-            <div class="dark-product-card__title">Facewash</div>
-            <div class="dark-product-card__price">Cleanse</div>
-          </a>
-          <a href="#" class="dark-product-card">
-            <div class="dark-product-card__image-wrapper">
-              <span class="dark-product-card__badge">Step 3</span>
-              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80" alt="Serum" loading="lazy">
-            </div>
-            <div class="dark-product-card__title">Serum</div>
-            <div class="dark-product-card__price">Treat & Target</div>
-          </a>
-          <a href="#" class="dark-product-card">
-            <div class="dark-product-card__image-wrapper">
-              <span class="dark-product-card__badge">Step 5</span>
-              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1532947974-2e3966a8b9e6?w=300&q=80" alt="Sunscreen" loading="lazy">
-            </div>
-            <div class="dark-product-card__title">Sunscreen</div>
-            <div class="dark-product-card__price">Protect & Shield</div>
-          </a>
+        <div class="featured-dark__products-wrapper">
+          <div class="featured-dark__products">
+            
+            <!-- Step 1 Card -->
+            <a href="#" class="dark-product-card" aria-label="Facewash Cleanse Step">
+              <div class="dark-product-card__image-wrapper">
+                <span class="dark-product-card__badge">Step 1</span>
+                <img class="dark-product-card__image" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="Facewash" loading="lazy">
+              </div>
+              <div class="dark-product-card__title">Facewash</div>
+              <div class="dark-product-card__price">Cleanse</div>
+            </a>
+            
+            <!-- Step 3 Card -->
+            <a href="#" class="dark-product-card" aria-label="Serum Treat Step">
+              <div class="dark-product-card__image-wrapper">
+                <span class="dark-product-card__badge">Step 3</span>
+                <img class="dark-product-card__image" src="{{ 'all-5-products-serum-front.jpeg' | asset_url }}" alt="Serum" loading="lazy">
+              </div>
+              <div class="dark-product-card__title">Serum</div>
+              <div class="dark-product-card__price">Treat & Target</div>
+            </a>
+            
+            <!-- Step 5 Card -->
+            <a href="#" class="dark-product-card" aria-label="Sunscreen Protect Step">
+              <div class="dark-product-card__image-wrapper">
+                <span class="dark-product-card__badge">Step 5</span>
+                <img class="dark-product-card__image" src="{{ 'all-5-products-sunscreen-front.jpeg' | asset_url }}" alt="Sunscreen" loading="lazy">
+              </div>
+              <div class="dark-product-card__title">Sunscreen</div>
+              <div class="dark-product-card__price">Protect & Shield</div>
+            </a>
+
+          </div>
         </div>
       </div>
     </div>
