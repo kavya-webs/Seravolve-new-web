@@ -18,3 +18,10 @@ node_modules/
 # Environment
 .env
 .env.*
+
+# Local Media folders
+Images/
+Event/
+copy_images.py
+copy_event_photos.py
+copy_serum_img.py
