@@ -3,6 +3,10 @@
     padding: var(--spacing-xl) 0;
     background: var(--color-bg-primary);
   }
+  .collection-categories__heading {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
   .collection-categories__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -15,7 +19,7 @@
   }
   .category-card {
     position: relative;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     aspect-ratio: 3/4;
     display: flex;
@@ -33,31 +37,39 @@
   .category-card:hover .category-card__image {
     transform: scale(1.05);
   }
+  .category-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 40%;
+    background: linear-gradient(to top, rgba(18,59,90,0.7), transparent);
+    z-index: 1;
+  }
   .category-card__label {
     position: relative;
     z-index: 2;
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
     color: #fff;
     padding-bottom: var(--spacing-lg);
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 </style>
 
 <section class="collection-categories">
   <div class="container">
+    <h2 class="collection-categories__heading">Shop By Category</h2>
     <div class="collection-categories__grid">
       <a href="{{ routes.all_products_collection_url }}" class="category-card">
-        <img class="category-card__image" src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80" alt="Skin Care" loading="lazy">
-        <span class="category-card__label">Skin Care</span>
+        <img class="category-card__image" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80" alt="Individual Products" loading="lazy">
+        <span class="category-card__label">Products</span>
       </a>
       <a href="{{ routes.all_products_collection_url }}" class="category-card">
-        <img class="category-card__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80" alt="Sets" loading="lazy">
-        <span class="category-card__label">Sets</span>
+        <img class="category-card__image" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="Curated Routines" loading="lazy">
+        <span class="category-card__label">Routines</span>
       </a>
       <a href="{{ routes.all_products_collection_url }}" class="category-card">
-        <img class="category-card__image" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Make Up" loading="lazy">
-        <span class="category-card__label">Make Up</span>
+        <img class="category-card__image" src="https://images.unsplash.com/photo-1532947974-2e3966a8b9e6?w=600&q=80" alt="Bestsellers" loading="lazy">
+        <span class="category-card__label">Bestsellers</span>
       </a>
     </div>
   </div>

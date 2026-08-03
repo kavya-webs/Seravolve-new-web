@@ -1,7 +1,11 @@
 <style>
   .lookbook-section {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-primary);
+    background: var(--color-bg-alternate);
+  }
+  .lookbook-section__heading {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
   }
   .lookbook-grid {
     display: grid;
@@ -19,12 +23,11 @@
   }
   .lookbook-item {
     position: relative;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
   }
   .lookbook-item__image {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.6s ease;
@@ -32,51 +35,56 @@
   .lookbook-item:hover .lookbook-item__image {
     transform: scale(1.03);
   }
-  .lookbook-grid__item--large {
-    min-height: 500px;
-  }
-  .lookbook-grid__item--small {
-    min-height: 240px;
-  }
+  .lookbook-grid__item--large { min-height: 500px; }
+  .lookbook-grid__item--small { min-height: 240px; }
 
-  /* Hotspot dots */
   .hotspot {
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 50%;
-    background: #C0392B;
+    background: var(--color-cta);
     border: 3px solid #fff;
     cursor: pointer;
     z-index: 3;
     animation: hotspot-pulse 2s infinite;
   }
   @keyframes hotspot-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
-    50% { box-shadow: 0 0 0 10px rgba(192,57,43,0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,149,255,0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(0,149,255,0); }
+  }
+
+  .lookbook-item__label {
+    position: absolute;
+    bottom: 16px; left: 16px;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-heading);
+    z-index: 3;
   }
 </style>
 
 <section class="lookbook-section">
   <div class="container">
+    <h2 class="lookbook-section__heading">The Seravolve Lookbook</h2>
     <div class="lookbook-grid">
-      <!-- Large image (left, spans 2 rows) -->
       <div class="lookbook-item lookbook-grid__item--large">
-        <img class="lookbook-item__image" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80" alt="Model with skincare" loading="lazy">
+        <img class="lookbook-item__image" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80" alt="Seravolve skincare routine" loading="lazy">
         <span class="hotspot" style="top: 40%; left: 35%;"></span>
         <span class="hotspot" style="top: 70%; left: 50%;"></span>
+        <span class="lookbook-item__label">Full Seravolve Routine</span>
       </div>
-
-      <!-- Top-right image -->
       <div class="lookbook-item lookbook-grid__item--small">
-        <img class="lookbook-item__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=500&q=80" alt="Product bottles" loading="lazy">
+        <img class="lookbook-item__image" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80" alt="Seravolve Serum" loading="lazy">
         <span class="hotspot" style="top: 45%; left: 40%;"></span>
+        <span class="lookbook-item__label">Vitamin C Serum</span>
       </div>
-
-      <!-- Bottom-right image -->
       <div class="lookbook-item lookbook-grid__item--small">
-        <img class="lookbook-item__image" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&q=80" alt="Close-up skincare" loading="lazy">
+        <img class="lookbook-item__image" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&q=80" alt="Seravolve Moisturiser" loading="lazy">
         <span class="hotspot" style="top: 50%; left: 60%;"></span>
+        <span class="lookbook-item__label">Moisturiser</span>
       </div>
     </div>
   </div>

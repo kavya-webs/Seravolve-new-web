@@ -1,11 +1,11 @@
 <style>
   .hero-slider-section {
     position: relative;
-    padding: 0 80px;
+    padding: 20px 80px;
     background-color: var(--color-bg-primary);
   }
   @media (max-width: 768px) {
-    .hero-slider-section { padding: 0 16px; }
+    .hero-slider-section { padding: 16px 16px; }
   }
 
   .hero-slider-track {
@@ -21,29 +21,32 @@
     display: flex;
     width: 100%;
     height: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+    overflow: hidden;
+    position: relative;
   }
-  .hero-slider::-webkit-scrollbar { display: none; }
 
   .hero-slide {
-    flex: 0 0 100%;
+    position: absolute;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
-    scroll-snap-align: start;
-    position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     padding-bottom: 80px;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+  }
+  .hero-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .hero-slide__image {
     position: absolute;
     top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     z-index: 1;
   }
@@ -52,9 +55,8 @@
     content: '';
     position: absolute;
     bottom: 0; left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+    width: 100%; height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
     z-index: 2;
   }
 
@@ -75,8 +77,9 @@
     align-items: center;
     justify-content: center;
     padding: 16px 40px;
-    background-color: #C0392B;
+    background-color: var(--color-cta);
     color: #fff;
+    font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -87,7 +90,7 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  .hero-slide__btn:hover { background-color: #A93226; opacity: 1; }
+  .hero-slide__btn:hover { background-color: var(--color-cta-hover); opacity: 1; }
 
   /* Navigation */
   .hero-nav {
@@ -122,26 +125,33 @@
   .hero-progress__bar {
     height: 100%;
     background: #fff;
-    width: 50%;
-    transition: width 0.3s;
+    width: 33%;
+    transition: width 0.5s;
   }
 </style>
 
 <section class="hero-slider-section">
   <div class="hero-slider-track">
     <div class="hero-slider" id="HeroSlider">
-      <div class="hero-slide">
-        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1600&q=80" alt="Beautiful skin model" loading="eager">
+      <div class="hero-slide is-active">
+        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1600&q=80" alt="Seravolve Skincare" loading="eager">
         <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Your Skin's New Best Friend<br>Effortlessly to Use</h2>
+          <h2 class="hero-slide__title">Your Complete Skincare Routine<br>In Just 5 Steps</h2>
           <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Shop Now</a>
         </div>
       </div>
       <div class="hero-slide">
-        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80" alt="Skincare routine essentials" loading="lazy">
+        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80" alt="Build your routine" loading="lazy">
         <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Unlock Your Best Skin<br>Daily Essentials</h2>
-          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Explore Now</a>
+          <h2 class="hero-slide__title">Build Your Perfect Routine<br>Facewash to Sunscreen</h2>
+          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Build Routine</a>
+        </div>
+      </div>
+      <div class="hero-slide">
+        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1600&q=80" alt="Science-backed skincare" loading="lazy">
+        <div class="hero-slide__content">
+          <h2 class="hero-slide__title">Science-Backed Formulas<br>For Every Skin Type</h2>
+          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Explore Products</a>
         </div>
       </div>
     </div>
@@ -160,22 +170,21 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const slider = document.getElementById('HeroSlider');
+  const slides = document.querySelectorAll('.hero-slide');
   const prev = document.getElementById('HeroPrev');
   const next = document.getElementById('HeroNext');
   const bar = document.getElementById('HeroProgressBar');
-  const slides = slider.children;
   let current = 0;
 
   function goTo(i) {
+    slides[current].classList.remove('is-active');
     current = (i + slides.length) % slides.length;
-    slides[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    slides[current].classList.add('is-active');
     bar.style.width = ((current + 1) / slides.length * 100) + '%';
   }
+
   prev.addEventListener('click', () => goTo(current - 1));
   next.addEventListener('click', () => goTo(current + 1));
-
-  // Auto-advance every 5s
   setInterval(() => goTo(current + 1), 5000);
 });
 </script>

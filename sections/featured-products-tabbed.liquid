@@ -1,7 +1,7 @@
 <style>
   .tabbed-products {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-primary);
+    background: var(--color-bg-secondary);
   }
   .tabbed-products__heading {
     text-align: center;
@@ -25,163 +25,130 @@
     transition: all 0.3s;
   }
   .tabbed-products__tab.is-active {
-    color: var(--color-text-heading);
-    border-bottom-color: var(--color-text-heading);
+    color: var(--color-cta);
+    border-bottom-color: var(--color-cta);
   }
 
   .tabbed-products__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: var(--spacing-md);
   }
   @media (min-width: 900px) {
     .tabbed-products__grid {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
   }
 
-  /* Large lifestyle card (first column) */
-  .lifestyle-card {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    aspect-ratio: 3/4;
-    display: flex;
-    align-items: flex-end;
+  .product-tab-card {
     text-decoration: none;
-  }
-  .lifestyle-card__image {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .lifestyle-card__content {
-    position: relative;
-    z-index: 2;
-    padding: var(--spacing-md);
-    color: #fff;
-  }
-  .lifestyle-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-    z-index: 1;
-  }
-  .lifestyle-card__title {
-    font-size: 1.5rem;
-    color: #fff;
-    margin-bottom: 4px;
-  }
-  .lifestyle-card__subtitle {
-    font-size: 0.9rem;
-    opacity: 0.8;
-  }
-
-  /* Product card with swatches */
-  .swatch-card {
+    color: inherit;
     display: flex;
     flex-direction: column;
   }
-  .swatch-card__image-wrapper {
+  .product-tab-card__image-wrapper {
     aspect-ratio: 3/4;
-    background: var(--color-bg-secondary);
-    border-radius: 12px;
+    background: var(--color-bg-alternate);
+    border-radius: 16px;
     overflow: hidden;
     margin-bottom: 12px;
+    position: relative;
   }
-  .swatch-card__image {
-    width: 100%;
-    height: 100%;
+  .product-tab-card__image {
+    width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
   }
-  .swatch-card:hover .swatch-card__image {
+  .product-tab-card:hover .product-tab-card__image {
     transform: scale(1.05);
   }
-  .swatch-card__title {
+  .product-tab-card__step {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--color-cta);
+    color: #fff;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+  }
+  .product-tab-card__title {
     font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 500;
+    text-align: center;
     margin-bottom: 4px;
+    color: var(--color-text-heading);
   }
-  .swatch-card__price {
-    font-size: 0.9rem;
+  .product-tab-card__subtitle {
+    font-size: 0.8rem;
+    text-align: center;
     color: var(--color-text-body);
-    margin-bottom: 8px;
-  }
-  .swatch-card__price s {
-    opacity: 0.5;
-    margin-right: 8px;
-  }
-  .swatch-dots {
-    display: flex;
-    gap: 6px;
-  }
-  .swatch-dot {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 2px solid rgba(0,0,0,0.1);
   }
 </style>
 
 <section class="tabbed-products">
   <div class="container">
-    <h2 class="tabbed-products__heading">Explore Our Top Choices</h2>
+    <h2 class="tabbed-products__heading">Your 5-Step Routine</h2>
     <div class="tabbed-products__tabs">
-      <button class="tabbed-products__tab is-active">What's hot</button>
-      <button class="tabbed-products__tab">Basic Care</button>
+      <button class="tabbed-products__tab is-active">All Products</button>
+      <button class="tabbed-products__tab">Best Sellers</button>
     </div>
 
     <div class="tabbed-products__grid">
-      <!-- Lifestyle Card -->
-      <a href="#" class="lifestyle-card">
-        <img class="lifestyle-card__image" src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&q=80" alt="Pretty in Pink" loading="lazy">
-        <div class="lifestyle-card__content">
-          <h3 class="lifestyle-card__title">Pretty in Pink</h3>
-          <p class="lifestyle-card__subtitle">Shop the Sale now</p>
+      <!-- Step 1: Facewash -->
+      <a href="#" class="product-tab-card">
+        <div class="product-tab-card__image-wrapper">
+          <span class="product-tab-card__step">1</span>
+          <img class="product-tab-card__image" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80" alt="Seravolve Facewash" loading="lazy">
         </div>
+        <h3 class="product-tab-card__title">Facewash</h3>
+        <p class="product-tab-card__subtitle">Cleanse</p>
       </a>
 
-      <!-- Product Cards -->
-      <div class="swatch-card">
-        <div class="swatch-card__image-wrapper">
-          <img class="swatch-card__image" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&q=80" alt="Cherry Red Lip Oil" loading="lazy">
+      <!-- Step 2: Toner -->
+      <a href="#" class="product-tab-card">
+        <div class="product-tab-card__image-wrapper">
+          <span class="product-tab-card__step">2</span>
+          <img class="product-tab-card__image" src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=500&q=80" alt="Seravolve Toner" loading="lazy">
         </div>
-        <h3 class="swatch-card__title">Cherry Red Lip Oil</h3>
-        <p class="swatch-card__price"><s>Rs. 8,600.00</s> Rs. 7,300.00</p>
-        <div class="swatch-dots">
-          <span class="swatch-dot" style="background:#8B4513;"></span>
-          <span class="swatch-dot" style="background:#E8B4B8;"></span>
-          <span class="swatch-dot" style="background:#D4A0A0;"></span>
-          <span class="swatch-dot" style="background:#F5C6AA;"></span>
-        </div>
-      </div>
+        <h3 class="product-tab-card__title">Toner</h3>
+        <p class="product-tab-card__subtitle">Prep & Balance</p>
+      </a>
 
-      <div class="swatch-card">
-        <div class="swatch-card__image-wrapper">
-          <img class="swatch-card__image" src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ceb0?w=500&q=80" alt="Advanced Hydra Cream" loading="lazy">
+      <!-- Step 3: Serum -->
+      <a href="#" class="product-tab-card">
+        <div class="product-tab-card__image-wrapper">
+          <span class="product-tab-card__step">3</span>
+          <img class="product-tab-card__image" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80" alt="Seravolve Serum" loading="lazy">
         </div>
-        <h3 class="swatch-card__title">Advanced Hydra Moisturizing Cream</h3>
-        <p class="swatch-card__price"><s>Rs. 15,200.00</s> Rs. 11,100.00</p>
-      </div>
+        <h3 class="product-tab-card__title">Serum</h3>
+        <p class="product-tab-card__subtitle">Treat & Target</p>
+      </a>
 
-      <div class="swatch-card">
-        <div class="swatch-card__image-wrapper">
-          <img class="swatch-card__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=500&q=80" alt="Wine Red Blush" loading="lazy">
+      <!-- Step 4: Moisturiser -->
+      <a href="#" class="product-tab-card">
+        <div class="product-tab-card__image-wrapper">
+          <span class="product-tab-card__step">4</span>
+          <img class="product-tab-card__image" src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ceb0?w=500&q=80" alt="Seravolve Moisturiser" loading="lazy">
         </div>
-        <h3 class="swatch-card__title">Wine Red Blush</h3>
-        <p class="swatch-card__price"><s>Rs. 12,200.00</s> Rs. 9,200.00</p>
-        <div class="swatch-dots">
-          <span class="swatch-dot" style="background:#6B2737;"></span>
-          <span class="swatch-dot" style="background:#F5C6D0;"></span>
+        <h3 class="product-tab-card__title">Moisturiser</h3>
+        <p class="product-tab-card__subtitle">Hydrate & Nourish</p>
+      </a>
+
+      <!-- Step 5: Sunscreen -->
+      <a href="#" class="product-tab-card">
+        <div class="product-tab-card__image-wrapper">
+          <span class="product-tab-card__step">5</span>
+          <img class="product-tab-card__image" src="https://images.unsplash.com/photo-1532947974-2e3966a8b9e6?w=500&q=80" alt="Seravolve Sunscreen" loading="lazy">
         </div>
-      </div>
+        <h3 class="product-tab-card__title">Sunscreen</h3>
+        <p class="product-tab-card__subtitle">Protect & Shield</p>
+      </a>
     </div>
   </div>
 </section>

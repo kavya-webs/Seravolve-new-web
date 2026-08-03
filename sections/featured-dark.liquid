@@ -1,6 +1,6 @@
 <style>
   .featured-dark {
-    background: #6B3A2A;
+    background: var(--color-bg-dark);
     padding: var(--spacing-xl) 0;
     color: #fff;
     overflow: hidden;
@@ -17,18 +17,15 @@
     }
   }
   .featured-dark__image-wrapper {
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     aspect-ratio: 3/4;
   }
   .featured-dark__image {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
   }
-  .featured-dark__content {
-    text-align: center;
-  }
+  .featured-dark__content { text-align: center; }
   @media (min-width: 900px) {
     .featured-dark__content { text-align: left; }
   }
@@ -71,7 +68,7 @@
   .dark-product-card__badge {
     position: absolute;
     top: 8px; left: 8px;
-    background: #C0392B;
+    background: var(--color-cta);
     color: #fff;
     padding: 4px 10px;
     font-size: 0.7rem;
@@ -96,36 +93,36 @@
   <div class="container">
     <div class="featured-dark__layout">
       <div class="featured-dark__image-wrapper">
-        <img class="featured-dark__image" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Model in water" loading="lazy">
+        <img class="featured-dark__image" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Seravolve skincare" loading="lazy">
       </div>
       <div class="featured-dark__content">
         <h2 class="featured-dark__title">Made For Every Skin Type</h2>
-        <p class="featured-dark__text">Perfect for all skin types, our products nourish and balance your skin with gentle, effective ingredients</p>
+        <p class="featured-dark__text">Our 5-step system works for all skin types — from oily and acne-prone to dry and sensitive. Just pick the routine that fits your goals.</p>
 
         <div class="featured-dark__products">
           <a href="#" class="dark-product-card">
             <div class="dark-product-card__image-wrapper">
-              <span class="dark-product-card__badge">Trending</span>
-              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ceb0?w=300&q=80" alt="Product" loading="lazy">
+              <span class="dark-product-card__badge">Step 1</span>
+              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&q=80" alt="Facewash" loading="lazy">
             </div>
-            <div class="dark-product-card__title">Hydrating Gel</div>
-            <div class="dark-product-card__price">Rs. 1,600.00</div>
+            <div class="dark-product-card__title">Facewash</div>
+            <div class="dark-product-card__price">Cleanse</div>
           </a>
           <a href="#" class="dark-product-card">
             <div class="dark-product-card__image-wrapper">
-              <span class="dark-product-card__badge">Best Seller</span>
-              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=300&q=80" alt="Product" loading="lazy">
+              <span class="dark-product-card__badge">Step 3</span>
+              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80" alt="Serum" loading="lazy">
             </div>
-            <div class="dark-product-card__title">Brightening Serum</div>
-            <div class="dark-product-card__price">Rs. 15,200.00</div>
+            <div class="dark-product-card__title">Serum</div>
+            <div class="dark-product-card__price">Treat & Target</div>
           </a>
           <a href="#" class="dark-product-card">
             <div class="dark-product-card__image-wrapper">
-              <span class="dark-product-card__badge">Best Seller</span>
-              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=300&q=80" alt="Product" loading="lazy">
+              <span class="dark-product-card__badge">Step 5</span>
+              <img class="dark-product-card__image" src="https://images.unsplash.com/photo-1532947974-2e3966a8b9e6?w=300&q=80" alt="Sunscreen" loading="lazy">
             </div>
-            <div class="dark-product-card__title">Moisturizing Cream</div>
-            <div class="dark-product-card__price">Rs. 15,200.00</div>
+            <div class="dark-product-card__title">Sunscreen</div>
+            <div class="dark-product-card__price">Protect & Shield</div>
           </a>
         </div>
       </div>

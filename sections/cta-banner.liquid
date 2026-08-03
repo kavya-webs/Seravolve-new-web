@@ -20,7 +20,7 @@
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: linear-gradient(135deg, rgba(18,59,90,0.85), rgba(0,149,255,0.6));
     z-index: 2;
   }
   .cta-banner__content {
@@ -44,24 +44,26 @@
   .cta-banner__btn {
     display: inline-flex;
     padding: 16px 40px;
-    background: #C0392B;
-    color: #fff;
+    background: #fff;
+    color: var(--color-bg-dark);
+    font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
     border-radius: 50px;
     text-decoration: none;
+    transition: all 0.3s;
   }
-  .cta-banner__btn:hover { opacity: 0.9; }
+  .cta-banner__btn:hover { background: var(--color-accent); color: #fff; opacity: 1; }
 </style>
 
 <section class="cta-banner">
-  <img class="cta-banner__image" src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=1600&q=80" alt="Models skincare" loading="lazy">
+  <img class="cta-banner__image" src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=1600&q=80" alt="Seravolve skincare" loading="lazy">
   <div class="cta-banner__content">
-    <h2 class="cta-banner__title">Effective, clean skincare is all that's needed for great results.</h2>
-    <p class="cta-banner__text">Discover our complete range of science-backed formulas</p>
-    <a href="{{ routes.all_products_collection_url }}" class="cta-banner__btn">Shop Now</a>
+    <h2 class="cta-banner__title">5 Products. 6 Routines.<br>One Brand You Can Trust.</h2>
+    <p class="cta-banner__text">Build your perfect skincare routine from facewash to sunscreen</p>
+    <a href="{{ routes.all_products_collection_url }}" class="cta-banner__btn">Shop All Products</a>
   </div>
 </section>
 

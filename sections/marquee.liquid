@@ -1,7 +1,7 @@
 <style>
   .marquee-section {
     background-color: var(--color-bg-primary);
-    padding: var(--spacing-md) 0;
+    padding: 14px 0;
     overflow: hidden;
     white-space: nowrap;
     border-top: 1px solid rgba(0,0,0,0.05);
@@ -10,24 +10,24 @@
   .marquee-content {
     display: flex;
     align-items: center;
-    animation: marquee 25s linear infinite;
+    animation: marquee 12s linear infinite;
   }
   .marquee-content__item {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 400;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
     letter-spacing: 1px;
+    text-transform: uppercase;
     padding: 0 var(--spacing-lg);
     display: inline-flex;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
     color: var(--color-text-heading);
   }
-  .marquee-content__thumb {
-    width: 50px;
-    height: 50px;
+  .marquee-content__dot {
+    width: 6px; height: 6px;
+    background: var(--color-cta);
     border-radius: 50%;
-    object-fit: cover;
     flex-shrink: 0;
   }
 
@@ -39,22 +39,21 @@
 
 <section class="marquee-section">
   <div class="marquee-content">
-    {%- for i in (1..4) -%}
+    {%- for i in (1..6) -%}
       <div class="marquee-content__item">
-        <img class="marquee-content__thumb" src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=100&q=80" alt="Skincare" loading="lazy">
-        Premium skincare
+        Vegan <span class="marquee-content__dot"></span>
       </div>
       <div class="marquee-content__item">
-        <img class="marquee-content__thumb" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=100&q=80" alt="Beauty deals" loading="lazy">
-        Limited-time beauty deals
+        Cruelty-Free <span class="marquee-content__dot"></span>
       </div>
       <div class="marquee-content__item">
-        <img class="marquee-content__thumb" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=100&q=80" alt="Sale" loading="lazy">
-        All up to 30% off
+        Science Backed <span class="marquee-content__dot"></span>
       </div>
       <div class="marquee-content__item">
-        <img class="marquee-content__thumb" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=100&q=80" alt="Skincare meets science" loading="lazy">
-        Science meets skincare
+        Toxin-Free <span class="marquee-content__dot"></span>
+      </div>
+      <div class="marquee-content__item">
+        For All Skin Types <span class="marquee-content__dot"></span>
       </div>
     {%- endfor -%}
   </div>
