@@ -158,6 +158,29 @@
     font-size: 0.8rem;
     color: rgba(255,255,255,0.7);
   }
+  .featured-dark__btn {
+    display: inline-flex;
+    margin-bottom: var(--spacing-md);
+    padding: 12px 32px;
+    background: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .featured-dark__btn:hover {
+    background: #ffffff;
+    color: var(--color-bg-dark);
+    opacity: 1;
+    transform: translateY(-2px);
+  }
 </style>
 
 <section class="featured-dark">
@@ -172,6 +195,8 @@
       <div class="featured-dark__content">
         <h2 class="featured-dark__title">Made For Every Skin Type</h2>
         <p class="featured-dark__text">Our 5-step system works for all skin types — from oily and acne-prone to dry and sensitive. Just pick the routine that fits your goals.</p>
+
+        <a href="#" class="featured-dark__btn">Make Your Own Routine</a>
 
         <div class="featured-dark__products-wrapper">
           <div class="featured-dark__products">
