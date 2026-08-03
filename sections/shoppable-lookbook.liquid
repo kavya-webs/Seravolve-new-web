@@ -10,18 +10,18 @@
     }
   }
 
-  /* Mobile-first Layout: Simple, scrollable or 2-column grid */
+  /* Mobile-first Layout: 2-column grid of portrait cards */
   .gallery-collage {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 12px;
   }
 
   @media (min-width: 900px) {
     .gallery-collage {
-      grid-template-columns: 1.2fr 1fr 1.5fr 1fr 1.2fr;
-      grid-template-rows: 150px 100px 150px;
-      gap: 16px;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(3, auto);
+      gap: 20px;
       align-items: center;
     }
   }
@@ -37,6 +37,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    aspect-ratio: 3 / 4;
     box-shadow: 0 4px 15px rgba(0,149,255,0.05);
     border: 1px solid rgba(0,149,255,0.1);
   }
@@ -44,12 +45,12 @@
     .gallery-collage__text-block {
       grid-column: 2 / 5;
       grid-row: 2;
-      height: 100%;
       border-radius: 0;
       border: none;
       background: transparent;
       box-shadow: none;
       padding: 0;
+      aspect-ratio: auto;
     }
   }
 
@@ -68,7 +69,7 @@
     font-weight: 600;
   }
 
-  /* Gallery Item Cards */
+  /* Gallery Item Cards - Portrait aspect ratio 3/4 */
   .gallery-item {
     position: relative;
     border-radius: 12px;
@@ -77,13 +78,11 @@
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     width: 100%;
-    height: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 4;
   }
   @media (min-width: 900px) {
     .gallery-item {
       border-radius: 16px;
-      aspect-ratio: auto;
     }
   }
 
@@ -135,26 +134,26 @@
   /* Specific spans for Desktop Grid matching the ellipse shape */
   @media (min-width: 900px) {
     /* Column 1 */
-    .gi-1 { grid-column: 1; grid-row: 1; height: 150px; }
-    .gi-2 { grid-column: 1; grid-row: 2; height: 100px; }
-    .gi-3 { grid-column: 1; grid-row: 3; height: 150px; }
+    .gi-1 { grid-column: 1; grid-row: 1; }
+    .gi-2 { grid-column: 1; grid-row: 2; }
+    .gi-3 { grid-column: 1; grid-row: 3; }
 
     /* Column 2 */
-    .gi-4 { grid-column: 2; grid-row: 1; height: 120px; align-self: end; }
-    .gi-5 { grid-column: 2; grid-row: 3; height: 120px; align-self: start; }
+    .gi-4 { grid-column: 2; grid-row: 1; }
+    .gi-5 { grid-column: 2; grid-row: 3; }
 
     /* Column 3 */
-    .gi-6 { grid-column: 3; grid-row: 1; height: 150px; }
-    .gi-7 { grid-column: 3; grid-row: 3; height: 150px; }
+    .gi-6 { grid-column: 3; grid-row: 1; }
+    .gi-7 { grid-column: 3; grid-row: 3; }
 
     /* Column 4 */
-    .gi-8 { grid-column: 4; grid-row: 1; height: 120px; align-self: end; }
-    .gi-9 { grid-column: 4; grid-row: 3; height: 120px; align-self: start; }
+    .gi-8 { grid-column: 4; grid-row: 1; }
+    .gi-9 { grid-column: 4; grid-row: 3; }
 
     /* Column 5 */
-    .gi-10 { grid-column: 5; grid-row: 1; height: 150px; }
-    .gi-11 { grid-column: 5; grid-row: 2; height: 100px; }
-    .gi-12 { grid-column: 5; grid-row: 3; height: 150px; }
+    .gi-10 { grid-column: 5; grid-row: 1; }
+    .gi-11 { grid-column: 5; grid-row: 2; }
+    .gi-12 { grid-column: 5; grid-row: 3; }
   }
 
   /* Lightbox Modal */
@@ -206,34 +205,34 @@
       <!-- Column 1 (Left-most) -->
       <div class="gallery-item gi-1" data-type="image" aria-label="View Event Photo 1">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'acne-control-routine-whatsapp-image-2026-06-28-at-8.35.41-pm.jpeg' | asset_url }}" alt="Launch showcase display" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5916.jpg' | asset_url }}" alt="Launch event photo 5916" loading="lazy">
       </div>
 
       <div class="gallery-item gi-2" data-type="image" aria-label="View Event Photo 2">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-1.png' | asset_url }}" alt="Event product presentation" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5917.jpg' | asset_url }}" alt="Launch event photo 5917" loading="lazy">
       </div>
 
       <div class="gallery-item gi-3" data-type="image" aria-label="View Event Photo 3">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-2.png' | asset_url }}" alt="Routine launch setup" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5918.jpg' | asset_url }}" alt="Launch event photo 5918" loading="lazy">
       </div>
 
       <!-- Column 2 -->
       <div class="gallery-item gi-4" data-type="image" aria-label="View Event Photo 4">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-3.png' | asset_url }}" alt="Water aesthetics booth" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5919.jpg' | asset_url }}" alt="Launch event photo 5919" loading="lazy">
       </div>
 
       <div class="gallery-item gi-5" data-type="image" aria-label="View Event Photo 5">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-4.png' | asset_url }}" alt="Clean skincare display" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5920.jpg' | asset_url }}" alt="Launch event photo 5920" loading="lazy">
       </div>
 
       <!-- Column 3 (Center Top & Center Bottom) -->
       <div class="gallery-item gi-6 gallery-item--video" data-type="video" aria-label="Play Launch Event Ceremony Video">
         <span class="gallery-item__badge gallery-item__badge--video">Video</span>
-        <img class="gallery-item__image" src="{{ 'smooth-skin-routine-lifestyle.png' | asset_url }}" alt="Launch Event Ceremony Video" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5921.jpg' | asset_url }}" alt="Launch event video 1" loading="lazy">
         <div class="gallery-item__play-btn">
           <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
@@ -241,7 +240,7 @@
 
       <div class="gallery-item gi-7 gallery-item--video" data-type="video" aria-label="Play Launch Event Video 2">
         <span class="gallery-item__badge gallery-item__badge--video">Video</span>
-        <img class="gallery-item__image" src="{{ 'uv-defence-routine-lifestyle.png' | asset_url }}" alt="Product Demonstration Video" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5922.jpg' | asset_url }}" alt="Launch event video 2" loading="lazy">
         <div class="gallery-item__play-btn">
           <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
@@ -250,28 +249,28 @@
       <!-- Column 4 -->
       <div class="gallery-item gi-8" data-type="image" aria-label="View Event Photo 6">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'uv-defence-routine-1.png' | asset_url }}" alt="Launch booth visitors" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5923.jpg' | asset_url }}" alt="Launch event photo 5923" loading="lazy">
       </div>
 
       <div class="gallery-item gi-9" data-type="image" aria-label="View Event Photo 7">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'uv-defence-routine-2.png' | asset_url }}" alt="Routine launch model" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5924.jpg' | asset_url }}" alt="Launch event photo 5924" loading="lazy">
       </div>
 
       <!-- Column 5 (Right-most) -->
       <div class="gallery-item gi-10" data-type="image" aria-label="View Event Photo 8">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'uv-defence-routine-3.png' | asset_url }}" alt="Water routine display" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5925.jpg' | asset_url }}" alt="Launch event photo 5925" loading="lazy">
       </div>
 
       <div class="gallery-item gi-11" data-type="image" aria-label="View Event Photo 9">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'skin-brightining-routine-1.png' | asset_url }}" alt="Launch presentation screen" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5926.jpg' | asset_url }}" alt="Launch event photo 5926" loading="lazy">
       </div>
 
       <div class="gallery-item gi-12" data-type="image" aria-label="View Event Photo 10">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'barrier-repair-and-hydration-routine-1.png' | asset_url }}" alt="Launch party group picture" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5931.jpg' | asset_url }}" alt="Launch event photo 5931" loading="lazy">
       </div>
 
     </div>
