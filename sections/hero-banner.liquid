@@ -21,7 +21,6 @@
     display: flex;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     position: relative;
   }
 
@@ -56,7 +55,7 @@
     position: absolute;
     bottom: 0; left: 0;
     width: 100%; height: 50%;
-    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(18,59,90,0.6) 0%, transparent 100%);
     z-index: 2;
   }
 
@@ -65,12 +64,15 @@
     z-index: 3;
     text-align: center;
     color: #fff;
+    padding: 0 20px;
   }
   .hero-slide__title {
     font-size: clamp(2rem, 4vw, 3.5rem);
     color: #fff;
     margin-bottom: var(--spacing-sm);
+    font-family: var(--font-heading);
     font-style: italic;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
   }
   .hero-slide__btn {
     display: inline-flex;
@@ -88,9 +90,13 @@
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
   }
-  .hero-slide__btn:hover { background-color: var(--color-cta-hover); opacity: 1; }
+  .hero-slide__btn:hover { 
+    background-color: var(--color-cta-hover); 
+    transform: scale(1.02);
+    opacity: 1; 
+  }
 
   /* Navigation */
   .hero-nav {
@@ -125,7 +131,7 @@
   .hero-progress__bar {
     height: 100%;
     background: #fff;
-    width: 33%;
+    width: 33.3%;
     transition: width 0.5s;
   }
 </style>
@@ -133,27 +139,34 @@
 <section class="hero-slider-section">
   <div class="hero-slider-track">
     <div class="hero-slider" id="HeroSlider">
+      
+      <!-- Slide 1: Full Seravolve Routine -->
       <div class="hero-slide is-active">
-        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=1600&q=80" alt="Seravolve Skincare" loading="eager">
+        <img class="hero-slide__image" src="{{ 'full-seravolve-routine-hero.png' | asset_url }}" alt="Full Seravolve Routine" loading="eager">
         <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Your Complete Skincare Routine<br>In Just 5 Steps</h2>
-          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Shop Now</a>
+          <h2 class="hero-slide__title">Complete 5-Step Skincare Routine</h2>
+          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Shop the Routine</a>
         </div>
       </div>
+
+      <!-- Slide 2: Smooth Skin Routine -->
       <div class="hero-slide">
-        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80" alt="Build your routine" loading="lazy">
+        <img class="hero-slide__image" src="{{ 'smooth-skin-routine-hero.png' | asset_url }}" alt="Smooth Skin Routine" loading="lazy">
         <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Build Your Perfect Routine<br>Facewash to Sunscreen</h2>
+          <h2 class="hero-slide__title">Get Smooth, Hydrated Skin</h2>
+          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Explore Routine</a>
+        </div>
+      </div>
+
+      <!-- Slide 3: Skin Brightening Routine -->
+      <div class="hero-slide">
+        <img class="hero-slide__image" src="{{ 'skin-brightining-routine-hero.png' | asset_url }}" alt="Skin Brightening Routine" loading="lazy">
+        <div class="hero-slide__content">
+          <h2 class="hero-slide__title">Brighten & Glow Every Day</h2>
           <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Build Routine</a>
         </div>
       </div>
-      <div class="hero-slide">
-        <img class="hero-slide__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1600&q=80" alt="Science-backed skincare" loading="lazy">
-        <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Science-Backed Formulas<br>For Every Skin Type</h2>
-          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Explore Products</a>
-        </div>
-      </div>
+
     </div>
 
     <div class="hero-nav">
@@ -177,15 +190,21 @@ document.addEventListener('DOMContentLoaded', () => {
   let current = 0;
 
   function goTo(i) {
+    if (slides.length === 0) return;
     slides[current].classList.remove('is-active');
     current = (i + slides.length) % slides.length;
     slides[current].classList.add('is-active');
-    bar.style.width = ((current + 1) / slides.length * 100) + '%';
+    if (bar) {
+      bar.style.width = ((current + 1) / slides.length * 100) + '%';
+    }
   }
 
-  prev.addEventListener('click', () => goTo(current - 1));
-  next.addEventListener('click', () => goTo(current + 1));
-  setInterval(() => goTo(current + 1), 5000);
+  if (prev && next) {
+    prev.addEventListener('click', () => goTo(current - 1));
+    next.addEventListener('click', () => goTo(current + 1));
+  }
+  
+  setInterval(() => goTo(current + 1), 6000);
 });
 </script>
 

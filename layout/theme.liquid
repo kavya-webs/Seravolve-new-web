@@ -1,10 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
-    <meta charset="utf-seo">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="">
+    <meta name="theme-color" content="#123B5A">
     <link rel="canonical" href="{{ canonical_url }}">
     
     {%- if settings.favicon != blank -%}
@@ -23,6 +23,26 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CosmeticStore",
+        "name": {{ shop.name | json }},
+        "url": {{ canonical_url | json }},
+        "description": "Clean, science-backed skincare and routines tailored to your skin type.",
+        "telephone": "+91 9978099097",
+        "email": "info@seravolve",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IN"
+        },
+        "sameAs": [
+          "https://www.facebook.com/people/Seravolve/61590433214671/",
+          "https://pin.it/2rym1fiZH"
+        ]
+      }
+    </script>
 
     {{ content_for_header }}
 
