@@ -2,12 +2,11 @@
   .sale-banner {
     position: relative;
     width: 100%;
-    min-height: 500px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: var(--color-bg-alternate);
   }
   .sale-banner__bg {
     position: absolute;
@@ -15,98 +14,176 @@
     width: 100%; height: 100%;
     object-fit: cover;
     z-index: 1;
-    opacity: 0.15;
   }
-  .sale-banner__content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    background: rgba(255,255,255,0.95);
-    padding: var(--spacing-xl) var(--spacing-xxl);
-    border-radius: 20px;
-    max-width: 600px;
-    box-shadow: 0 8px 40px rgba(0,149,255,0.08);
-  }
+
+  /* Spinning SALE badge — top left of section */
   .sale-banner__badge {
     position: absolute;
-    top: -40px;
-    left: -40px;
-    width: 120px;
-    height: 120px;
-    background: var(--color-cta);
+    top: 40px;
+    left: 40px;
+    width: 130px;
+    height: 130px;
+    background: #E74C3C;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    animation: spin 8s linear infinite;
     z-index: 4;
+    animation: spin 8s linear infinite;
+    overflow: hidden;
   }
+  .sale-banner__badge-inner {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.8rem;
+    text-align: center;
+    line-height: 1;
+  }
+  .sale-banner__badge-ring {
+    position: absolute;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sale-banner__badge-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .sale-banner__badge-text span {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    transform-origin: 0 65px;
+  }
+
   @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
+
+  @media (max-width: 768px) {
+    .sale-banner__badge {
+      width: 90px; height: 90px;
+      top: 20px; left: 20px;
+    }
+    .sale-banner__badge-inner { font-size: 1.2rem; }
+  }
+
+  /* Content Card */
+  .sale-banner__content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    background: rgba(250, 248, 240, 0.92);
+    padding: 60px 80px;
+    border-radius: 20px;
+    max-width: 650px;
+    width: 90%;
+  }
+  @media (max-width: 768px) {
+    .sale-banner__content {
+      padding: 40px 24px;
+    }
+  }
+
   .sale-banner__title {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    margin-bottom: 8px;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    margin-bottom: 12px;
+    font-style: italic;
   }
   .sale-banner__text {
     font-size: 1rem;
     color: var(--color-text-body);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
   }
+
+  /* Countdown */
   .countdown {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
   }
   .countdown__item { text-align: center; }
   .countdown__number {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--color-cta);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: #E74C3C;
     line-height: 1;
+    font-weight: 500;
   }
   .countdown__label {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--color-text-body);
+    margin-top: 4px;
   }
   .countdown__sep {
-    font-size: 2rem;
-    color: var(--color-cta);
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #E74C3C;
     line-height: 1;
-    padding-top: 2px;
+    padding-top: 4px;
   }
+
+  /* Button */
   .sale-banner__btn {
     display: inline-flex;
-    padding: 16px 40px;
-    background: var(--color-cta);
+    padding: 16px 44px;
+    background: #E74C3C;
     color: #fff;
     font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    border-radius: 50px;
+    border-radius: 8px;
     text-decoration: none;
     border: none;
     cursor: pointer;
+    transition: background 0.3s;
   }
-  .sale-banner__btn:hover { background: var(--color-cta-hover); opacity: 1; }
+  .sale-banner__btn:hover { background: #C0392B; opacity: 1; }
 </style>
 
 <section class="sale-banner">
-  <img class="sale-banner__bg" src="https://images.unsplash.com/photo-1563804447971-6e113ab80713?w=1600&q=80" alt="Sale background" loading="lazy">
+  <!-- Full-page background image (soap bubbles / foam) -->
+  <img class="sale-banner__bg" src="https://images.unsplash.com/photo-1563804447971-6e113ab80713?w=1920&q=80" alt="Sale background" loading="lazy">
+
+  <!-- Spinning SALE badge — top left -->
+  <div class="sale-banner__badge">
+    <div class="sale-banner__badge-inner">%</div>
+    <div class="sale-banner__badge-text">
+      <span style="transform: rotate(0deg)">S</span>
+      <span style="transform: rotate(22.5deg)">A</span>
+      <span style="transform: rotate(45deg)">L</span>
+      <span style="transform: rotate(67.5deg)">E</span>
+      <span style="transform: rotate(90deg)"> </span>
+      <span style="transform: rotate(112.5deg)">S</span>
+      <span style="transform: rotate(135deg)">A</span>
+      <span style="transform: rotate(157.5deg)">L</span>
+      <span style="transform: rotate(180deg)">E</span>
+      <span style="transform: rotate(202.5deg)"> </span>
+      <span style="transform: rotate(225deg)">S</span>
+      <span style="transform: rotate(247.5deg)">A</span>
+      <span style="transform: rotate(270deg)">L</span>
+      <span style="transform: rotate(292.5deg)">E</span>
+      <span style="transform: rotate(315deg)"> </span>
+      <span style="transform: rotate(337.5deg)">•</span>
+    </div>
+  </div>
+
+  <!-- Content Card -->
   <div class="sale-banner__content">
-    <div class="sale-banner__badge">SALE %</div>
-    <h2 class="sale-banner__title">Launch Offer</h2>
-    <p class="sale-banner__text">Get your complete skincare routine at up to 50% off</p>
+    <h2 class="sale-banner__title">Limited-time Launch Offers</h2>
+    <p class="sale-banner__text">Up to 50% Off. Don't miss out on our exclusive launch deals</p>
     <div class="countdown" id="SaleCountdown">
       <div class="countdown__item">
         <div class="countdown__number" id="cd-days">30</div>
