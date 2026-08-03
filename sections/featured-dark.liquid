@@ -16,6 +16,8 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
     align-items: center;
+    width: 100%;
+    min-width: 0;
   }
   @media (min-width: 900px) {
     .featured-dark__layout {
@@ -46,6 +48,8 @@
   .featured-dark__content {
     text-align: center;
     width: 100%;
+    min-width: 0;
+    overflow: hidden;
   }
   @media (min-width: 900px) {
     .featured-dark__content {
@@ -59,6 +63,9 @@
     margin-bottom: var(--spacing-xs);
     font-family: var(--font-heading);
     font-style: italic;
+    max-width: 100%;
+    word-wrap: break-word;
+    display: inline-block;
   }
 
   .featured-dark__text {
@@ -161,7 +168,7 @@
   .featured-dark__btn {
     display: inline-flex;
     margin-bottom: var(--spacing-md);
-    padding: 12px 32px;
+    padding: 12px 24px;
     background: transparent;
     border: 1px solid #ffffff;
     color: #ffffff;
@@ -174,6 +181,9 @@
     transition: all 0.3s ease;
     text-decoration: none;
     cursor: pointer;
+    max-width: calc(100% - 40px);
+    text-align: center;
+    white-space: normal;
   }
   .featured-dark__btn:hover {
     background: #ffffff;
