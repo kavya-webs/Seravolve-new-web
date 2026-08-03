@@ -86,14 +86,16 @@
     }
   }
 
-  .gallery-item__image {
+  .gallery-item__image,
+  .gallery-item__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.6s ease;
   }
-  .gallery-item:hover .gallery-item__image {
+  .gallery-item:hover .gallery-item__image,
+  .gallery-item:hover .gallery-item__video {
     transform: scale(1.05);
   }
 
@@ -183,10 +185,14 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .lightbox-modal__img {
-    width: 100%;
-    height: 100%;
+  .lightbox-modal__media {
+    max-width: 100%;
+    max-height: 80vh;
     object-fit: contain;
     display: block;
   }
@@ -203,74 +209,78 @@
       </div>
 
       <!-- Column 1 (Left-most) -->
-      <div class="gallery-item gi-1" data-type="image" aria-label="View Event Photo 1">
+      <div class="gallery-item gi-1" data-type="image" data-src="{{ 'event-sky_5654.jpg' | asset_url }}" aria-label="View Event Photo 5654">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5916.jpg' | asset_url }}" alt="Launch event photo 5916" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5654.jpg' | asset_url }}" alt="Launch Event Photo 5654" loading="lazy">
       </div>
 
-      <div class="gallery-item gi-2" data-type="image" aria-label="View Event Photo 2">
+      <div class="gallery-item gi-2" data-type="image" data-src="{{ 'event-sky_5660.jpg' | asset_url }}" aria-label="View Event Photo 5660">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5917.jpg' | asset_url }}" alt="Launch event photo 5917" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5660.jpg' | asset_url }}" alt="Launch Event Photo 5660" loading="lazy">
       </div>
 
-      <div class="gallery-item gi-3" data-type="image" aria-label="View Event Photo 3">
+      <div class="gallery-item gi-3" data-type="image" data-src="{{ 'event-sky_5671.jpg' | asset_url }}" aria-label="View Event Photo 5671">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5918.jpg' | asset_url }}" alt="Launch event photo 5918" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5671.jpg' | asset_url }}" alt="Launch Event Photo 5671" loading="lazy">
       </div>
 
       <!-- Column 2 -->
-      <div class="gallery-item gi-4" data-type="image" aria-label="View Event Photo 4">
+      <div class="gallery-item gi-4" data-type="image" data-src="{{ 'event-sky_5712.jpg' | asset_url }}" aria-label="View Event Photo 5712">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5919.jpg' | asset_url }}" alt="Launch event photo 5919" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5712.jpg' | asset_url }}" alt="Launch Event Photo 5712" loading="lazy">
       </div>
 
-      <div class="gallery-item gi-5" data-type="image" aria-label="View Event Photo 5">
+      <div class="gallery-item gi-5" data-type="image" data-src="{{ 'event-sky_5714.jpg' | asset_url }}" aria-label="View Event Photo 5714">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5920.jpg' | asset_url }}" alt="Launch event photo 5920" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5714.jpg' | asset_url }}" alt="Launch Event Photo 5714" loading="lazy">
       </div>
 
-      <!-- Column 3 (Center Top & Center Bottom) -->
-      <div class="gallery-item gi-6 gallery-item--video" data-type="video" aria-label="Play Launch Event Ceremony Video">
+      <!-- Column 3 (Center Top & Center Bottom - Videos) -->
+      <div class="gallery-item gi-6" data-type="video" data-src="{{ 'event-video-1.mp4' | asset_url }}" aria-label="Play Launch Event Video 1">
         <span class="gallery-item__badge gallery-item__badge--video">Video</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5921.jpg' | asset_url }}" alt="Launch event video 1" loading="lazy">
+        <video class="gallery-item__video" autoplay loop muted playsinline>
+          <source src="{{ 'event-video-1.mp4' | asset_url }}" type="video/mp4">
+        </video>
         <div class="gallery-item__play-btn">
           <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
       </div>
 
-      <div class="gallery-item gi-7 gallery-item--video" data-type="video" aria-label="Play Launch Event Video 2">
+      <div class="gallery-item gi-7" data-type="video" data-src="{{ 'event-video-2.mp4' | asset_url }}" aria-label="Play Launch Event Video 2">
         <span class="gallery-item__badge gallery-item__badge--video">Video</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5922.jpg' | asset_url }}" alt="Launch event video 2" loading="lazy">
+        <video class="gallery-item__video" autoplay loop muted playsinline>
+          <source src="{{ 'event-video-2.mp4' | asset_url }}" type="video/mp4">
+        </video>
         <div class="gallery-item__play-btn">
           <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
       </div>
 
       <!-- Column 4 -->
-      <div class="gallery-item gi-8" data-type="image" aria-label="View Event Photo 6">
+      <div class="gallery-item gi-8" data-type="image" data-src="{{ 'event-sky_5831.jpg' | asset_url }}" aria-label="View Event Photo 5831">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5923.jpg' | asset_url }}" alt="Launch event photo 5923" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5831.jpg' | asset_url }}" alt="Launch Event Photo 5831" loading="lazy">
       </div>
 
-      <div class="gallery-item gi-9" data-type="image" aria-label="View Event Photo 7">
+      <div class="gallery-item gi-9" data-type="image" data-src="{{ 'event-sky_5859.jpg' | asset_url }}" aria-label="View Event Photo 5859">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5924.jpg' | asset_url }}" alt="Launch event photo 5924" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5859.jpg' | asset_url }}" alt="Launch Event Photo 5859" loading="lazy">
       </div>
 
       <!-- Column 5 (Right-most) -->
-      <div class="gallery-item gi-10" data-type="image" aria-label="View Event Photo 8">
+      <div class="gallery-item gi-10" data-type="image" data-src="{{ 'event-sky_5871.jpg' | asset_url }}" aria-label="View Event Photo 5871">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5925.jpg' | asset_url }}" alt="Launch event photo 5925" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_5871.jpg' | asset_url }}" alt="Launch Event Photo 5871" loading="lazy">
       </div>
 
-      <div class="gallery-item gi-11" data-type="image" aria-label="View Event Photo 9">
+      <div class="gallery-item gi-11" data-type="image" data-src="{{ 'event-sky_6016.jpg' | asset_url }}" aria-label="View Event Photo 6016">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5926.jpg' | asset_url }}" alt="Launch event photo 5926" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_6016.jpg' | asset_url }}" alt="Launch Event Photo 6016" loading="lazy">
       </div>
 
-      <div class="gallery-item gi-12" data-type="image" aria-label="View Event Photo 10">
+      <div class="gallery-item gi-12" data-type="image" data-src="{{ 'event-sky_6081.jpg' | asset_url }}" aria-label="View Event Photo 6081">
         <span class="gallery-item__badge">Photo</span>
-        <img class="gallery-item__image" src="{{ 'event-sky_5931.jpg' | asset_url }}" alt="Launch event photo 5931" loading="lazy">
+        <img class="gallery-item__image" src="{{ 'event-sky_6081.jpg' | asset_url }}" alt="Launch Event Photo 6081" loading="lazy">
       </div>
 
     </div>
@@ -280,41 +290,67 @@
 <!-- Lightbox Modal -->
 <div class="lightbox-modal" id="LightboxModal">
   <button class="lightbox-modal__close" id="LightboxClose" aria-label="Close lightbox">&times;</button>
-  <div class="lightbox-modal__content">
-    <img class="lightbox-modal__img" id="LightboxImg" src="" alt="Zoomed view">
+  <div class="lightbox-modal__content" id="LightboxContent">
+    <!-- Dynamic content will be injected here -->
   </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('LightboxModal');
-  const modalImg = document.getElementById('LightboxImg');
+  const content = document.getElementById('LightboxContent');
   const closeBtn = document.getElementById('LightboxClose');
   const items = document.querySelectorAll('.gallery-item');
 
   items.forEach(item => {
     item.addEventListener('click', () => {
       const type = item.getAttribute('data-type');
-      const img = item.querySelector('.gallery-item__image');
-      if (type === 'image' && img && modal && modalImg) {
-        modalImg.src = img.src;
-        modalImg.alt = img.alt;
-        modal.style.display = 'flex';
+      const src = item.getAttribute('data-src');
+      
+      if (!modal || !content || !src) return;
+
+      content.innerHTML = ''; // Clear previous content
+
+      if (type === 'image') {
+        const img = document.createElement('img');
+        img.className = 'lightbox-modal__media';
+        img.src = src;
+        img.alt = item.querySelector('img').alt;
+        content.appendChild(img);
       } else if (type === 'video') {
-        alert('Opening video stream of the launch event...');
+        const video = document.createElement('video');
+        video.className = 'lightbox-modal__media';
+        video.src = src;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        content.appendChild(video);
       }
+
+      modal.style.display = 'flex';
     });
   });
 
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => {
+  if (closeBtn && modal && content) {
+    const closeModal = () => {
       modal.style.display = 'none';
-    });
+      content.innerHTML = ''; // Stop video playback
+    };
+
+    closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.style.display = 'none';
+        closeModal();
       }
     });
   }
 });
 </script>
+
+{% schema %}
+{
+  "name": "Shoppable Lookbook",
+  "settings": [],
+  "presets": [{ "name": "Shoppable Lookbook" }]
+}
+{% endschema %}
