@@ -30,12 +30,13 @@
     </div>
     
     <div class="product-grid">
-      {%- if section.settings.collection != blank and section.settings.collection.products_count > 0 -%}
-        {%- for product in section.settings.collection.products limit: section.settings.limit -%}
+      {%- assign grid_collection = section.settings.collection | default: collections['all'] -%}
+      {%- if grid_collection and grid_collection.products_count > 0 -%}
+        {%- for product in grid_collection.products limit: section.settings.limit -%}
           {% render 'product-card', product: product %}
         {%- endfor -%}
       {%- else -%}
-        <!-- Dummy Products -->
+        <!-- Fallback Products -->
         {%- for i in (1..4) -%}
           {% render 'product-card', dummy: true %}
         {%- endfor -%}

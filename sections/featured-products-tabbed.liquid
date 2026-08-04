@@ -144,73 +144,105 @@
     </div>
 
     <div class="tabbed-products__grid" id="TabbedProductGrid">
-      <!-- Step 1: Facewash (Bestseller) -->
-      <a href="#" class="product-tab-card" data-bestseller="true">
-        <div class="product-tab-card__image-wrapper">
-          <span class="product-tab-card__step">1</span>
-          <span class="product-tab-card__badge">Bestseller</span>
-          <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="Seravolve Facewash" loading="lazy">
-          <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-facewash-back.jpeg' | asset_url }}" alt="Seravolve Facewash Back" loading="lazy">
-        </div>
-        <div class="product-tab-card__content">
-          <h3 class="product-tab-card__title">Facewash</h3>
-          <p class="product-tab-card__subtitle">Cleanse</p>
-        </div>
-      </a>
+      {%- assign all_products = collections['all'].products -%}
+      {%- if all_products and all_products.size > 0 -%}
+        {%- for product in all_products limit: 10 -%}
+          {%- assign is_bestseller = false -%}
+          {%- if product.tags contains 'bestseller' or product.tags contains 'Best Seller' or forloop.index == 1 or forloop.index == 3 or forloop.index == 5 -%}
+            {%- assign is_bestseller = true -%}
+          {%- endif -%}
+          <a href="{{ product.url }}" class="product-tab-card" data-bestseller="{{ is_bestseller }}">
+            <div class="product-tab-card__image-wrapper">
+              <span class="product-tab-card__step">{{ forloop.index }}</span>
+              {%- if is_bestseller -%}
+                <span class="product-tab-card__badge">Bestseller</span>
+              {%- endif -%}
+              {%- if product.featured_image -%}
+                <img class="product-tab-card__image product-tab-card__image--main" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">
+                {%- if product.images[1] -%}
+                  <img class="product-tab-card__image product-tab-card__image--hover" src="{{ product.images[1] | image_url: width: 600 }}" alt="{{ product.title | escape }} Alternate View" loading="lazy">
+                {%- else -%}
+                  <img class="product-tab-card__image product-tab-card__image--hover" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">
+                {%- endif -%}
+              {%- else -%}
+                <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="{{ product.title }}" loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="product-tab-card__content">
+              <h3 class="product-tab-card__title">{{ product.title }}</h3>
+              <p class="product-tab-card__subtitle">{{ product.price | money }}</p>
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Step 1: Facewash (Bestseller) -->
+        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="true">
+          <div class="product-tab-card__image-wrapper">
+            <span class="product-tab-card__step">1</span>
+            <span class="product-tab-card__badge">Bestseller</span>
+            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="Seravolve Facewash" loading="lazy">
+            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-facewash-back.jpeg' | asset_url }}" alt="Seravolve Facewash Back" loading="lazy">
+          </div>
+          <div class="product-tab-card__content">
+            <h3 class="product-tab-card__title">Facewash</h3>
+            <p class="product-tab-card__subtitle">Cleanse</p>
+          </div>
+        </a>
 
-      <!-- Step 2: Toner -->
-      <a href="#" class="product-tab-card" data-bestseller="false">
-        <div class="product-tab-card__image-wrapper">
-          <span class="product-tab-card__step">2</span>
-          <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-toner-front.jpeg' | asset_url }}" alt="Seravolve Toner" loading="lazy">
-          <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-toner-back.jpeg' | asset_url }}" alt="Seravolve Toner Back" loading="lazy">
-        </div>
-        <div class="product-tab-card__content">
-          <h3 class="product-tab-card__title">Toner</h3>
-          <p class="product-tab-card__subtitle">Prep & Balance</p>
-        </div>
-      </a>
+        <!-- Step 2: Toner -->
+        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="false">
+          <div class="product-tab-card__image-wrapper">
+            <span class="product-tab-card__step">2</span>
+            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-toner-front.jpeg' | asset_url }}" alt="Seravolve Toner" loading="lazy">
+            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-toner-back.jpeg' | asset_url }}" alt="Seravolve Toner Back" loading="lazy">
+          </div>
+          <div class="product-tab-card__content">
+            <h3 class="product-tab-card__title">Toner</h3>
+            <p class="product-tab-card__subtitle">Prep & Balance</p>
+          </div>
+        </a>
 
-      <!-- Step 3: Serum (Bestseller) -->
-      <a href="#" class="product-tab-card" data-bestseller="true">
-        <div class="product-tab-card__image-wrapper">
-          <span class="product-tab-card__step">3</span>
-          <span class="product-tab-card__badge">Bestseller</span>
-          <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Seravolve Serum" loading="lazy">
-          <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-serum-back.jpeg' | asset_url }}" alt="Seravolve Serum Back" loading="lazy">
-        </div>
-        <div class="product-tab-card__content">
-          <h3 class="product-tab-card__title">Serum</h3>
-          <p class="product-tab-card__subtitle">Treat & Target</p>
-        </div>
-      </a>
+        <!-- Step 3: Serum (Bestseller) -->
+        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="true">
+          <div class="product-tab-card__image-wrapper">
+            <span class="product-tab-card__step">3</span>
+            <span class="product-tab-card__badge">Bestseller</span>
+            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Seravolve Serum" loading="lazy">
+            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-serum-back.jpeg' | asset_url }}" alt="Seravolve Serum Back" loading="lazy">
+          </div>
+          <div class="product-tab-card__content">
+            <h3 class="product-tab-card__title">Serum</h3>
+            <p class="product-tab-card__subtitle">Treat & Target</p>
+          </div>
+        </a>
 
-      <!-- Step 4: Moisturiser -->
-      <a href="#" class="product-tab-card" data-bestseller="false">
-        <div class="product-tab-card__image-wrapper">
-          <span class="product-tab-card__step">4</span>
-          <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-moisturiser-front.jpeg' | asset_url }}" alt="Seravolve Moisturiser" loading="lazy">
-          <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-moisturiser-back.jpeg' | asset_url }}" alt="Seravolve Moisturiser Back" loading="lazy">
-        </div>
-        <div class="product-tab-card__content">
-          <h3 class="product-tab-card__title">Moisturiser</h3>
-          <p class="product-tab-card__subtitle">Hydrate & Nourish</p>
-        </div>
-      </a>
+        <!-- Step 4: Moisturiser -->
+        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="false">
+          <div class="product-tab-card__image-wrapper">
+            <span class="product-tab-card__step">4</span>
+            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-moisturiser-front.jpeg' | asset_url }}" alt="Seravolve Moisturiser" loading="lazy">
+            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-moisturiser-back.jpeg' | asset_url }}" alt="Seravolve Moisturiser Back" loading="lazy">
+          </div>
+          <div class="product-tab-card__content">
+            <h3 class="product-tab-card__title">Moisturiser</h3>
+            <p class="product-tab-card__subtitle">Hydrate & Nourish</p>
+          </div>
+        </a>
 
-      <!-- Step 5: Sunscreen (Bestseller) -->
-      <a href="#" class="product-tab-card" data-bestseller="true">
-        <div class="product-tab-card__image-wrapper">
-          <span class="product-tab-card__step">5</span>
-          <span class="product-tab-card__badge">Bestseller</span>
-          <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-sunscreen-front.jpeg' | asset_url }}" alt="Seravolve Sunscreen" loading="lazy">
-          <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-sunscreen-back.jpeg' | asset_url }}" alt="Seravolve Sunscreen Back" loading="lazy">
-        </div>
-        <div class="product-tab-card__content">
-          <h3 class="product-tab-card__title">Sunscreen</h3>
-          <p class="product-tab-card__subtitle">Protect & Shield</p>
-        </div>
-      </a>
+        <!-- Step 5: Sunscreen (Bestseller) -->
+        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="true">
+          <div class="product-tab-card__image-wrapper">
+            <span class="product-tab-card__step">5</span>
+            <span class="product-tab-card__badge">Bestseller</span>
+            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-sunscreen-front.jpeg' | asset_url }}" alt="Seravolve Sunscreen" loading="lazy">
+            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-sunscreen-back.jpeg' | asset_url }}" alt="Seravolve Sunscreen Back" loading="lazy">
+          </div>
+          <div class="product-tab-card__content">
+            <h3 class="product-tab-card__title">Sunscreen</h3>
+            <p class="product-tab-card__subtitle">Protect & Shield</p>
+          </div>
+        </a>
+      {%- endif -%}
     </div>
   </div>
 </section>
