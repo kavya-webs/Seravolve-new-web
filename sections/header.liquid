@@ -1,13 +1,20 @@
 <style>
-  /* Sticky Main Navbar */
+  /* Main Navbar Base & Sticky State */
   .site-header-wrapper {
-    position: sticky;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
     z-index: 1000;
     background: #fff;
     box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .site-header-wrapper.is-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   }
 
   /* Top Utility Announcement Bar */
@@ -503,6 +510,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  // Sticky Navbar Scroll Handler
+  const headerWrapper = document.querySelector('.site-header-wrapper');
+  const announcementBar = document.querySelector('.announcement-bar');
+
+  if (headerWrapper && announcementBar) {
+    const handleScroll = () => {
+      const threshold = announcementBar.offsetHeight || 40;
+      if (window.scrollY > threshold) {
+        if (!headerWrapper.classList.contains('is-sticky')) {
+          headerWrapper.classList.add('is-sticky');
+          document.body.style.paddingTop = `${headerWrapper.offsetHeight}px`;
+        }
+      } else {
+        if (headerWrapper.classList.contains('is-sticky')) {
+          headerWrapper.classList.remove('is-sticky');
+          document.body.style.paddingTop = '0px';
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
 });
 </script>
 
