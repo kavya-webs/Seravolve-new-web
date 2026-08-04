@@ -454,8 +454,9 @@
       <a href="{{ routes.search_url }}" class="header-icon" aria-label="Search">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </a>
-      <a href="{{ routes.cart_url }}" class="header-icon" aria-label="Cart" id="HeaderCartIcon">
+      <a href="{{ routes.cart_url }}" class="header-icon" aria-label="Cart" id="HeaderCartIcon" style="position:relative;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span class="header-cart-badge" id="HeaderCartCountBadge" style="position:absolute;top:-6px;right:-8px;background:#0095FF;color:#FFF;font-size:0.65rem;font-weight:700;padding:1px 6px;border-radius:50px;min-width:18px;text-align:center;">{{ cart.item_count }}</span>
       </a>
       <a href="/pages/quiz" class="btn header-quiz-btn">Build Routine</a>
     </div>
