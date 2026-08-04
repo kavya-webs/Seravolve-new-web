@@ -1,12 +1,14 @@
 <style>
   /* ============================================
-     SERAVOLVE RICH PRODUCT DETAIL PAGE (PDP)
-     Matches reference layout & Seravolve Blue Palette
+     SERAVOLVE HIGH-PERFORMANCE PDP
+     Matches routine-preset reference PDP design & functionality
+     Dynamically powered by Shopify product & collection data
      ============================================ */
 
-  .pdp-section {
+  .pdp-wrapper {
     padding: var(--spacing-md) 0 var(--spacing-xxl);
     background-color: var(--color-bg-primary);
+    color: var(--color-text-heading);
   }
 
   /* Breadcrumbs */
@@ -21,6 +23,7 @@
   .pdp-breadcrumbs a {
     color: var(--color-text-body);
     text-decoration: none;
+    transition: color 0.2s;
   }
   .pdp-breadcrumbs a:hover {
     color: var(--color-cta);
@@ -29,7 +32,7 @@
     opacity: 0.4;
   }
 
-  /* Main 2-Column Grid */
+  /* Main 2-Column Product Section */
   .pdp-main-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -42,183 +45,242 @@
     }
   }
 
-  /* Gallery */
-  .pdp-gallery {
+  /* Gallery Component */
+  .pdp-gallery-container {
     position: relative;
   }
   @media (min-width: 900px) {
-    .pdp-gallery {
+    .pdp-gallery-container {
       position: sticky;
       top: 100px;
     }
   }
-  .pdp-gallery__featured {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: 16px;
-    background-color: var(--color-bg-secondary);
-    margin-bottom: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  }
-  .pdp-gallery__thumbnails {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .pdp-gallery__thumb {
+  .pdp-main-media-wrapper {
+    position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 12px;
+    border-radius: 20px;
+    overflow: hidden;
     background-color: var(--color-bg-secondary);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    margin-bottom: 16px;
+  }
+  .pdp-main-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+  }
+  .pdp-main-media:hover {
+    transform: scale(1.03);
+  }
+  .pdp-gallery-thumbnails {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+  .pdp-thumbnail {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    border-radius: 12px;
+    overflow: hidden;
     cursor: pointer;
     border: 2px solid transparent;
-    transition: all 0.3s ease;
+    background-color: var(--color-bg-secondary);
+    transition: all 0.25s ease;
   }
-  .pdp-gallery__thumb:hover,
-  .pdp-gallery__thumb.is-active {
+  .pdp-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pdp-thumbnail.is-active,
+  .pdp-thumbnail:hover {
     border-color: var(--color-cta);
+    opacity: 1;
   }
 
-  /* Product Summary Column */
-  .pdp-info {
+  /* Right Buy Column */
+  .pdp-details-column {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
-  .pdp-info__rating {
+  .pdp-vendor {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-cta);
+  }
+  .pdp-title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+    line-height: 1.15;
+    margin: 0;
+  }
+  
+  /* Rating */
+  .pdp-rating-row {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.85rem;
     color: var(--color-text-body);
   }
-  .pdp-info__stars {
+  .pdp-stars {
     color: #FFB800;
-    font-size: 1rem;
     letter-spacing: 2px;
   }
-  .pdp-info__title {
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
-    font-family: var(--font-heading);
-    color: var(--color-text-heading);
-    line-height: 1.15;
-    margin: 0;
-  }
-  .pdp-info__price-row {
+
+  /* Price & Stock */
+  .pdp-price-row {
     display: flex;
     align-items: center;
     gap: 12px;
   }
-  .pdp-info__price {
-    font-size: 1.6rem;
+  .pdp-current-price {
+    font-size: 1.65rem;
     font-weight: 700;
     color: var(--color-text-heading);
   }
-  .pdp-info__compare-price {
+  .pdp-compare-price {
     font-size: 1.1rem;
     color: #94A3B8;
     text-decoration: line-through;
   }
-  .pdp-info__discount-badge {
-    background: #EEF8FF;
-    color: var(--color-cta);
-    padding: 4px 10px;
+  .pdp-badge-bestseller {
+    background: var(--color-bg-dark);
+    color: #FFF;
+    padding: 4px 12px;
     border-radius: 50px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
   }
+  .pdp-stock-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #10B981;
+  }
+  .pdp-stock-status.is-out {
+    color: #EF4444;
+  }
+  .pdp-stock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+  }
 
-  .pdp-info__summary {
+  .pdp-description-excerpt {
     color: var(--color-text-body);
     font-size: 0.95rem;
     line-height: 1.6;
   }
 
-  /* Key Highlights Badges */
-  .pdp-highlights {
+  /* Mini Feature Badges */
+  .pdp-mini-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
     padding: 12px 0;
     border-top: 1px solid rgba(0,0,0,0.06);
     border-bottom: 1px solid rgba(0,0,0,0.06);
   }
-  .pdp-highlight-item {
-    display: flex;
+  .pdp-mini-badge {
+    display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.825rem;
+    background: var(--color-bg-alternate);
+    color: var(--color-cta);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: var(--color-text-heading);
   }
 
-  /* Sale Timer Pill Bar */
-  .pdp-sale-timer {
+  /* Countdown Banner Bar */
+  .pdp-sale-banner {
     background: linear-gradient(135deg, #123B5A 0%, #0A5C8F 100%);
     color: #FFF;
-    padding: 12px 18px;
-    border-radius: 12px;
+    padding: 14px 18px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 0.85rem;
     font-weight: 600;
+    box-shadow: 0 4px 16px rgba(18, 59, 90, 0.2);
   }
-  .pdp-sale-timer__pills {
+  .pdp-timer-group {
     display: flex;
-    gap: 6px;
     align-items: center;
+    gap: 4px;
   }
-  .pdp-timer-pill {
-    background: rgba(255,255,255,0.15);
+  .pdp-timer-box {
+    background: rgba(255, 255, 255, 0.18);
     color: #FFF;
-    padding: 3px 8px;
+    padding: 4px 8px;
     border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
-
-  /* Variant & Quantity Selectors */
-  .pdp-variant-picker__label {
     font-size: 0.85rem;
     font-weight: 700;
-    margin-bottom: 8px;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  /* Variants Picker */
+  .pdp-option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pdp-option-title {
+    font-size: 0.85rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--color-text-heading);
   }
-  .pdp-variant-options {
+  .pdp-option-pills {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
   }
-  .pdp-variant-option {
+  .pdp-option-pill {
     padding: 10px 22px;
     border: 2px solid #E2E8F0;
     border-radius: 50px;
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.25s ease;
     background: #FFF;
+    transition: all 0.25s ease;
+    user-select: none;
   }
-  .pdp-variant-option.is-selected {
+  .pdp-option-pill.is-selected,
+  .pdp-option-pill:hover {
     border-color: var(--color-cta);
-    background: #EEF8FF;
+    background: var(--color-bg-alternate);
     color: var(--color-cta);
   }
 
-  /* Ingredients Breakdown Bar */
-  .pdp-ingredients-bar {
+  /* Key Ingredients Breakdown Bar */
+  .pdp-ingredients-card {
     background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 14px 16px;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 16px;
   }
-  .pdp-ingredients-bar__title {
+  .pdp-ingredients-header {
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -226,106 +288,111 @@
     color: var(--color-text-heading);
     margin-bottom: 10px;
   }
-  .pdp-ingredients-list {
+  .pdp-ingredients-flex {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
   }
-  .pdp-ingredient-chip {
+  .pdp-ingredient-tag {
     display: flex;
     align-items: center;
     gap: 6px;
     background: #FFF;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 50px;
-    border: 1px solid #E2E8F0;
-    font-size: 0.8rem;
+    border: 1px solid #CBD5E1;
+    font-size: 0.825rem;
     font-weight: 600;
     color: var(--color-text-heading);
   }
-  .pdp-ingredient-chip span {
+  .pdp-ingredient-tag strong {
     color: var(--color-cta);
   }
 
-  /* Form & Actions */
-  .pdp-actions {
+  /* Add to Cart / Form Buttons */
+  .pdp-form-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     margin-top: 8px;
   }
-  .pdp-actions__row {
+  .pdp-actions-row {
     display: flex;
     gap: 12px;
   }
-  .pdp-qty {
+  .pdp-qty-stepper {
     display: flex;
     align-items: center;
     border: 2px solid #E2E8F0;
     border-radius: 50px;
     overflow: hidden;
+    background: #FFF;
   }
-  .pdp-qty__btn {
-    width: 40px;
+  .pdp-qty-btn {
+    width: 42px;
     height: 48px;
     background: none;
     border: none;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
     color: var(--color-text-heading);
+    transition: background 0.2s;
   }
-  .pdp-qty__input {
-    width: 40px;
+  .pdp-qty-btn:hover {
+    background: #F1F5F9;
+  }
+  .pdp-qty-val {
+    width: 36px;
     text-align: center;
     border: none;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 700;
     outline: none;
   }
-  .btn-pdp-cart {
+  .btn-add-cart {
     flex: 1;
     height: 48px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 700;
+    border-radius: 50px;
   }
-  .btn-pdp-buy {
+  .btn-buy-now {
     width: 100%;
     height: 48px;
     background: #FFF;
     color: var(--color-cta);
-    border: 2px solid var(--color-cta);
-    font-size: 0.9rem;
+    border: 2.5px solid var(--color-cta);
+    font-size: 0.95rem;
     font-weight: 700;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
   }
-  .btn-pdp-buy:hover {
+  .btn-buy-now:hover {
     background: var(--color-cta);
     color: #FFF;
   }
 
   /* Trust Badges */
-  .pdp-trust-badges {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    padding-top: 8px;
-    opacity: 0.75;
+  .pdp-trust-bar {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-body);
+    opacity: 0.85;
   }
 
-  /* Part of Routine Callout Box */
-  .pdp-routine-box {
+  /* Part of Routine Section */
+  .pdp-routine-callout {
     background: #EEF8FF;
-    border: 1px solid rgba(0, 149, 255, 0.2);
-    border-radius: 16px;
-    padding: 18px;
-    margin-top: 12px;
+    border: 1.5px solid rgba(0, 149, 255, 0.25);
+    border-radius: 18px;
+    padding: 20px;
+    margin-top: 8px;
   }
-  .pdp-routine-box__title {
+  .pdp-routine-callout__title {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -333,68 +400,45 @@
     color: var(--color-cta);
     margin-bottom: 12px;
   }
-  .pdp-customer-avatars {
+  .pdp-routine-avatars {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 16px;
   }
-  .pdp-avatar {
+  .pdp-avatar-circle {
     position: relative;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid #FFF;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
-  .pdp-avatar img {
+  .pdp-avatar-circle img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .pdp-avatar__play {
+  .pdp-avatar-play {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.35);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #FFF;
-    font-size: 0.6rem;
-  }
-  .pdp-routine-pairs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  .pdp-pair-card {
-    background: #FFF;
-    border-radius: 12px;
-    padding: 12px;
-    border: 1px solid #E2E8F0;
-  }
-  .pdp-pair-card__tag {
     font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--color-cta);
-    text-transform: uppercase;
-  }
-  .pdp-pair-card__title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-text-heading);
-    margin: 2px 0 4px;
   }
 
   /* Accordions */
-  .pdp-accordions {
+  .pdp-accordion-group {
     margin-top: 12px;
     border-top: 1px solid #E2E8F0;
   }
-  .pdp-accordion {
+  .pdp-accordion-item {
     border-bottom: 1px solid #E2E8F0;
   }
-  .pdp-accordion__btn {
+  .pdp-accordion-trigger {
     width: 100%;
     padding: 16px 0;
     background: none;
@@ -403,28 +447,28 @@
     justify-content: space-between;
     align-items: center;
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--color-text-heading);
     cursor: pointer;
     text-align: left;
   }
-  .pdp-accordion__content {
+  .pdp-accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  .pdp-accordion.is-open .pdp-accordion__content {
-    max-height: 300px;
+  .pdp-accordion-item.is-open .pdp-accordion-content {
+    max-height: 400px;
     padding-bottom: 16px;
   }
-  .pdp-accordion.is-open .pdp-accordion__icon {
-    transform: rotate(45deg);
-  }
-  .pdp-accordion__icon {
-    transition: transform 0.3s;
-    font-size: 1.2rem;
+  .pdp-accordion-icon {
+    font-size: 1.3rem;
     color: var(--color-cta);
+    transition: transform 0.3s;
+  }
+  .pdp-accordion-item.is-open .pdp-accordion-icon {
+    transform: rotate(45deg);
   }
 
   /* ============================================
@@ -435,49 +479,54 @@
     background: var(--color-bg-secondary);
     text-align: center;
   }
-  .pdp-steps-section__title {
+  .pdp-steps-header {
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     margin-bottom: var(--spacing-xl);
+    font-family: var(--font-heading);
   }
-  .pdp-steps-grid {
+  .pdp-steps-cards-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
   @media (min-width: 768px) {
-    .pdp-steps-grid {
+    .pdp-steps-cards-grid {
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
     }
   }
-  .pdp-step-card {
+  .pdp-step-card-box {
     background: #FFF;
-    border-radius: 16px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     text-align: center;
     padding-bottom: 20px;
     border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.3s;
   }
-  .pdp-step-card__img-wrapper {
+  .pdp-step-card-box:hover {
+    transform: translateY(-4px);
+  }
+  .pdp-step-card-media {
     position: relative;
     aspect-ratio: 4 / 5;
     overflow: hidden;
     margin-bottom: 14px;
   }
-  .pdp-step-card__img {
+  .pdp-step-card-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .pdp-step-card__badge {
+  .pdp-step-pill-badge {
     position: absolute;
     bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--color-cta);
     color: #FFF;
-    padding: 4px 16px;
+    padding: 5px 18px;
     border-radius: 50px;
     font-size: 0.75rem;
     font-weight: 700;
@@ -485,38 +534,40 @@
     letter-spacing: 1px;
     box-shadow: 0 4px 12px rgba(0,149,255,0.4);
   }
-  .pdp-step-card__title {
-    font-size: 1.1rem;
+  .pdp-step-card-title {
+    font-size: 1.15rem;
     font-family: var(--font-heading);
     margin-bottom: 4px;
     color: var(--color-text-heading);
   }
-  .pdp-step-card__desc {
+  .pdp-step-card-text {
     font-size: 0.825rem;
     color: var(--color-text-body);
     padding: 0 12px;
+    line-height: 1.5;
   }
 
   /* ============================================
      SECTION 3: WHY YOU'LL LOVE IT (RADIAL DIAGRAM)
      ============================================ */
-  .pdp-why-section {
+  .pdp-why-love-section {
     padding: var(--spacing-xxl) 0;
     background: #FFF;
     text-align: center;
   }
-  .pdp-why-section__title {
+  .pdp-why-love-title {
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     margin-bottom: 8px;
+    font-family: var(--font-heading);
   }
-  .pdp-why-section__subtitle {
+  .pdp-why-love-sub {
     color: var(--color-text-body);
     font-size: 0.95rem;
     margin-bottom: var(--spacing-xl);
   }
-  .pdp-radial-container {
+  .pdp-radial-wrapper {
     position: relative;
-    max-width: 900px;
+    max-width: 920px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr;
@@ -524,70 +575,71 @@
     align-items: center;
   }
   @media (min-width: 768px) {
-    .pdp-radial-container {
+    .pdp-radial-wrapper {
       grid-template-columns: 1fr 280px 1fr;
     }
   }
-  .pdp-radial-center {
-    width: 220px;
-    height: 220px;
+  .pdp-radial-center-node {
+    width: 230px;
+    height: 230px;
     margin: 0 auto;
     border-radius: 50%;
     background: #EEF8FF;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 0 20px rgba(238, 248, 255, 0.5);
+    box-shadow: 0 0 0 24px rgba(238, 248, 255, 0.6);
   }
-  .pdp-radial-center img {
-    max-height: 180px;
+  .pdp-radial-center-node img {
+    max-height: 190px;
     object-fit: contain;
   }
-  .pdp-radial-node {
+  .pdp-benefit-card {
     background: #FFF;
     border: 1.5px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 16px 20px;
+    border-radius: 18px;
+    padding: 18px 20px;
     text-align: left;
     box-shadow: 0 4px 16px rgba(0,0,0,0.03);
     transition: transform 0.3s, border-color 0.3s;
   }
-  .pdp-radial-node:hover {
+  .pdp-benefit-card:hover {
     border-color: var(--color-cta);
     transform: translateY(-4px);
   }
-  .pdp-radial-node__num {
+  .pdp-benefit-num {
     display: inline-block;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: #EEF8FF;
     color: var(--color-cta);
     font-size: 0.75rem;
     font-weight: 700;
     text-align: center;
-    line-height: 24px;
-    margin-bottom: 6px;
+    line-height: 26px;
+    margin-bottom: 8px;
   }
-  .pdp-radial-node__title {
+  .pdp-benefit-head {
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--color-text-heading);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
-  .pdp-radial-node__desc {
-    font-size: 0.8rem;
+  .pdp-benefit-desc {
+    font-size: 0.825rem;
     color: var(--color-text-body);
+    line-height: 1.45;
   }
 
   /* ============================================
-     SECTION 4: SEE THE DIFFERENCE
+     SECTION 4: SEE THE DIFFERENCE (BEFORE / AFTER)
      ============================================ */
-  .pdp-diff-section {
+  .pdp-difference-section {
     padding: var(--spacing-xxl) 0;
     background: var(--color-bg-primary);
   }
-  .pdp-diff-card {
+  .pdp-difference-card {
     display: grid;
     grid-template-columns: 1fr;
     border-radius: 24px;
@@ -595,131 +647,133 @@
     background: #EEF8FF;
   }
   @media (min-width: 768px) {
-    .pdp-diff-card {
+    .pdp-difference-card {
       grid-template-columns: 1fr 1fr;
     }
   }
-  .pdp-diff-content {
+  .pdp-difference-info {
     padding: var(--spacing-xl);
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  .pdp-diff-content__title {
+  .pdp-difference-title {
     font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-family: var(--font-heading);
     margin-bottom: 16px;
   }
-  .pdp-diff-content__text {
+  .pdp-difference-text {
     color: var(--color-text-body);
     font-size: 1rem;
     line-height: 1.7;
     margin-bottom: 24px;
   }
-  .pdp-diff-image-wrapper {
+  .pdp-difference-media {
     position: relative;
-    min-height: 340px;
+    min-height: 360px;
   }
-  .pdp-diff-image-wrapper img {
+  .pdp-difference-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .pdp-diff-tag {
+  .pdp-tag-pill {
     position: absolute;
     bottom: 20px;
-    background: var(--color-cta);
-    color: #FFF;
-    padding: 6px 18px;
+    padding: 6px 20px;
     border-radius: 50px;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    color: #FFF;
   }
-  .pdp-diff-tag--before { left: 20px; background: rgba(0,0,0,0.6); }
-  .pdp-diff-tag--after { right: 20px; }
+  .pdp-tag-pill--day1 { left: 20px; background: rgba(0,0,0,0.65); }
+  .pdp-tag-pill--day14 { right: 20px; background: var(--color-cta); box-shadow: 0 4px 14px rgba(0,149,255,0.4); }
 
   /* ============================================
      SECTION 5: FIND YOUR PERFECT MATCH (MATRIX)
      ============================================ */
-  .pdp-matrix-section {
+  .pdp-comparison-section {
     padding: var(--spacing-xxl) 0;
     background: #FFF;
     text-align: center;
   }
-  .pdp-matrix-section__title {
+  .pdp-comparison-title {
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     margin-bottom: var(--spacing-xl);
+    font-family: var(--font-heading);
   }
-  .pdp-matrix-table-wrapper {
+  .pdp-matrix-overflow {
     overflow-x: auto;
   }
-  .pdp-matrix-grid {
+  .pdp-matrix-layout {
     display: grid;
-    grid-template-columns: 180px repeat(3, 1fr);
-    gap: 12px;
-    min-width: 700px;
-    max-width: 960px;
+    grid-template-columns: 190px repeat(3, 1fr);
+    gap: 14px;
+    min-width: 720px;
+    max-width: 980px;
     margin: 0 auto;
     align-items: stretch;
   }
-  .pdp-matrix-col {
+  .pdp-matrix-column {
     background: #F8FAFC;
-    border-radius: 20px;
-    padding: 20px 16px;
+    border-radius: 22px;
+    padding: 22px 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid #E2E8F0;
+    border: 1.5px solid #E2E8F0;
   }
-  .pdp-matrix-col--highlight {
+  .pdp-matrix-column--hero {
     background: var(--color-bg-dark);
     color: #FFF;
     border-color: var(--color-bg-dark);
-    box-shadow: 0 12px 36px rgba(18, 59, 90, 0.25);
+    box-shadow: 0 16px 40px rgba(18, 59, 90, 0.28);
   }
-  .pdp-matrix-col__img {
-    height: 100px;
+  .pdp-matrix-prod-img {
+    height: 110px;
     object-fit: contain;
     margin: 0 auto 12px;
   }
-  .pdp-matrix-col__name {
+  .pdp-matrix-prod-name {
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1rem;
     margin-bottom: 4px;
   }
-  .pdp-matrix-col__price {
+  .pdp-matrix-prod-price {
     font-size: 0.85rem;
-    opacity: 0.8;
-    margin-bottom: 16px;
+    opacity: 0.85;
+    margin-bottom: 18px;
   }
-  .pdp-matrix-cell {
-    padding: 12px 0;
+  .pdp-matrix-row-cell {
+    padding: 14px 0;
     border-top: 1px solid rgba(0,0,0,0.06);
-    font-size: 0.85rem;
+    font-size: 0.875rem;
   }
-  .pdp-matrix-col--highlight .pdp-matrix-cell {
+  .pdp-matrix-column--hero .pdp-matrix-row-cell {
     border-top-color: rgba(255,255,255,0.15);
   }
 
   /* ============================================
      SECTION 6: LIFESTYLE HERO BANNER
      ============================================ */
-  .pdp-lifestyle-banner {
+  .pdp-hero-banner {
     position: relative;
-    min-height: 420px;
+    min-height: 440px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(18,59,90,0.85) 100%),
+    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(18,59,90,0.88) 100%),
                 url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80') center center / cover no-repeat;
     padding: var(--spacing-xxl) 20px;
   }
-  .pdp-lifestyle-banner__title {
+  .pdp-hero-banner-title {
     color: #FFF;
-    font-size: clamp(2rem, 5vw, 3.4rem);
-    margin-bottom: 20px;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 24px;
+    font-family: var(--font-heading);
   }
 </style>
 
@@ -730,19 +784,23 @@
   "@type": "Product",
   "name": {{ product.title | default: "Glow Drip Vitamin C Serum" | json }},
   "image": [
-    {{ product.featured_image | default: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=800" | image_url: width: 800 | json }}
+    {%- if product.featured_image -%}
+      {{ product.featured_image | image_url: width: 800 | json }}
+    {%- else -%}
+      "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=800"
+    {%- endif -%}
   ],
-  "description": {{ product.description | default: "Restore your skin youth & vibrancy with 10% Vitamin C Serum, lightweight hydration & barrier defense." | strip_html | json }},
+  "description": {{ product.description | default: "Packed with powerful antioxidants, our Vitamin C Serum brightens, firms, and evens skin tone." | strip_html | json }},
   "brand": {
     "@type": "Brand",
-    "name": "Seravolve"
+    "name": {{ product.vendor | default: "Seravolve" | json }}
   },
   "offers": {
     "@type": "Offer",
     "url": {{ canonical_url | json }},
-    "priceCurrency": "INR",
-    "price": "749.00",
-    "availability": "https://schema.org/InStock"
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | json }},
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
   },
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -752,10 +810,10 @@
 }
 </script>
 
-<div class="pdp-section">
+<div class="pdp-wrapper">
   <div class="container">
 
-    <!-- Breadcrumbs -->
+    <!-- Breadcrumb Navigation -->
     <nav class="pdp-breadcrumbs" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
       <span class="pdp-breadcrumbs__sep">/</span>
@@ -764,167 +822,203 @@
       <span>{{ product.title | default: "Glow Drip Vitamin C Serum" }}</span>
     </nav>
 
-    <!-- ===== TOP 2-COLUMN PDP GRID ===== -->
+    <!-- ===== TOP 2-COLUMN PRODUCT GRID ===== -->
     <div class="pdp-main-grid">
 
-      <!-- LEFT: MEDIA GALLERY -->
-      <div class="pdp-gallery">
-        {%- if product.featured_image -%}
-          <img class="pdp-gallery__featured" id="PDPMainImg" src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.title }}">
-        {%- else -%}
-          <img class="pdp-gallery__featured" id="PDPMainImg" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Glow Drip Vitamin C Serum">
-        {%- endif -%}
+      <!-- LEFT: DYNAMIC MEDIA GALLERY -->
+      <div class="pdp-gallery-container">
+        <div class="pdp-main-media-wrapper">
+          {%- if product.featured_image -%}
+            <img class="pdp-main-media" id="PDPMainImage" src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.title | escape }}">
+          {%- else -%}
+            <img class="pdp-main-media" id="PDPMainImage" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="{{ product.title | escape }}">
+          {%- endif -%}
+        </div>
 
-        <div class="pdp-gallery__thumbnails">
-          <img class="pdp-gallery__thumb is-active" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80" alt="Model Skin Application" onclick="document.getElementById('PDPMainImg').src=this.src">
-          <img class="pdp-gallery__thumb" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80" alt="Serum Droplet Texture" onclick="document.getElementById('PDPMainImg').src=this.src">
+        <!-- Thumbnails Strip -->
+        <div class="pdp-gallery-thumbnails">
+          {%- if product.images.size > 0 -%}
+            {%- for image in product.images -%}
+              <div class="pdp-thumbnail {% if forloop.first %}is-active{% endif %}" onclick="changePDPImage('{{ image | image_url: width: 1000 }}', this)">
+                <img src="{{ image | image_url: width: 200 }}" alt="{{ product.title | escape }} View {{ forloop.index }}">
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="pdp-thumbnail is-active" onclick="changePDPImage('{{ \'seravolve-vitamin-c-serum.png\' | asset_url }}', this)">
+              <img src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Bottle Front">
+            </div>
+            <div class="pdp-thumbnail" onclick="changePDPImage('https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80', this)">
+              <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80" alt="Model Skin Application">
+            </div>
+            <div class="pdp-thumbnail" onclick="changePDPImage('https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80', this)">
+              <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=200&q=80" alt="Serum Texture Close-Up">
+            </div>
+          {%- endif -%}
         </div>
       </div>
 
-      <!-- RIGHT: PRODUCT BUY COLUMN -->
-      <div class="pdp-info">
+      <!-- RIGHT: DYNAMIC PRODUCT DETAILS & BUY COLUMN -->
+      <div class="pdp-details-column">
 
-        <!-- Rating -->
-        <div class="pdp-info__rating">
-          <span class="pdp-info__stars">★★★★★</span>
-          <span>5.0 (42 verified reviews)</span>
+        <!-- Vendor & Rating -->
+        <div class="pdp-vendor">{{ product.vendor | default: "Seravolve" }}</div>
+        <h1 class="pdp-title">{{ product.title | default: "Glow Drip Vitamin C Serum" }}</h1>
+
+        <div class="pdp-rating-row">
+          <span class="pdp-stars">★★★★★</span>
+          <span>5.0 (42 customer reviews)</span>
         </div>
 
-        <!-- Title -->
-        <h1 class="pdp-info__title">{{ product.title | default: "Glow Drip Vitamin C Serum" }}</h1>
+        <!-- Price & Stock Status -->
+        <div class="pdp-price-row">
+          <span class="pdp-current-price" id="PDPProductPrice">
+            {{ product.selected_or_first_available_variant.price | default: 74900 | money }}
+          </span>
+          {%- if product.compare_at_price > product.price -%}
+            <span class="pdp-compare-price" id="PDPComparePrice">{{ product.compare_at_price | money }}</span>
+          {%- else -%}
+            <span class="pdp-compare-price" id="PDPComparePrice" style="display:none;">₹999.00</span>
+          {%- endif -%}
+          <span class="pdp-badge-bestseller">BESTSELLER</span>
+        </div>
 
-        <!-- Price -->
-        <div class="pdp-info__price-row">
-          <span class="pdp-info__price">₹749.00</span>
-          <span class="pdp-info__compare-price">₹999.00</span>
-          <span class="pdp-info__discount-badge">25% OFF</span>
+        <div class="pdp-stock-status {% unless product.available %}is-out{% endunless %}" id="PDPStockStatus">
+          <span class="pdp-stock-dot"></span>
+          <span id="PDPStockText">{% if product.available %}In Stock — Ships within 24 Hours{% else %}Out of Stock{% endif %}</span>
         </div>
 
         <!-- Summary -->
-        <p class="pdp-info__summary">
-          Restore your skin's youth & vibrancy with 10% Vitamin C Serum, lightweight hydration & barrier defense. Clinical-grade formulation co-developed with dermatologists.
-        </p>
-
-        <!-- Highlights Checklist -->
-        <div class="pdp-highlights">
-          <div class="pdp-highlight-item">💧 100% Vegan</div>
-          <div class="pdp-highlight-item">🌿 Paraben Free</div>
-          <div class="pdp-highlight-item">🛡️ Dermatologist Tested</div>
+        <div class="pdp-description-excerpt">
+          {{ product.description | default: "Packed with powerful antioxidants, our Vitamin C Serum brightens, firms, and evens skin tone, leaving your complexion radiant and youthful." }}
         </div>
 
-        <!-- Flash Sale Timer Bar -->
-        <div class="pdp-sale-timer">
-          <span>⚡ Flash Sale Ends In:</span>
-          <div class="pdp-sale-timer__pills">
-            <span class="pdp-timer-pill">27d</span> :
-            <span class="pdp-timer-pill">17h</span> :
-            <span class="pdp-timer-pill">34m</span> :
-            <span class="pdp-timer-pill">39s</span>
+        <!-- Mini Feature Badges -->
+        <div class="pdp-mini-badges">
+          <div class="pdp-mini-badge">💧 All Skin Types</div>
+          <div class="pdp-mini-badge">🌿 Cruelty-Free</div>
+          <div class="pdp-mini-badge">🛡️ Hypoallergenic</div>
+        </div>
+
+        <!-- Countdown Banner -->
+        <div class="pdp-sale-banner">
+          <span>Christmas Sale ⚡ Flat 20% Off!</span>
+          <div class="pdp-timer-group">
+            <span class="pdp-timer-box" id="PDPTimerDays">27D</span> :
+            <span class="pdp-timer-box" id="PDPTimerHours">15H</span> :
+            <span class="pdp-timer-box" id="PDPTimerMins">06M</span> :
+            <span class="pdp-timer-box" id="PDPTimerSecs">38S</span>
           </div>
         </div>
 
-        <!-- Variant Selector -->
-        <div>
-          <div class="pdp-variant-picker__label">Select Size</div>
-          <div class="pdp-variant-options">
-            <button class="pdp-variant-option is-selected">30ml (Standard)</button>
-            <button class="pdp-variant-option">50ml (Value Pack)</button>
+        <!-- Variant Picker (Size / Options) -->
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="pdp-option-group">
+              <div class="pdp-option-title">Size: <span id="PDPOptionVal">{{ option.selected_value }}</span></div>
+              <div class="pdp-option-pills">
+                {%- for value in option.values -%}
+                  <div class="pdp-option-pill {% if option.selected_value == value %}is-selected{% endif %}" onclick="selectPDPVariantOption('{{ value | escape }}', this)">
+                    {{ value }}
+                  </div>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="pdp-option-group">
+            <div class="pdp-option-title">Size: <span>30 ml</span></div>
+            <div class="pdp-option-pills">
+              <div class="pdp-option-pill is-selected" onclick="selectPDPVariantOption('30 ml', this)">30 ml</div>
+              <div class="pdp-option-pill" onclick="selectPDPVariantOption('50 ml', this)">50 ml</div>
+            </div>
+          </div>
+        {%- endunless -%}
+
+        <!-- Key Ingredients Breakdown -->
+        <div class="pdp-ingredients-card">
+          <div class="pdp-ingredients-header">Key Ingredients</div>
+          <div class="pdp-ingredients-flex">
+            <div class="pdp-ingredient-tag">🧪 Madecassoside <strong>(4%)</strong></div>
+            <div class="pdp-ingredient-tag">🍊 Vitamin C <strong>(3%)</strong></div>
+            <div class="pdp-ingredient-tag">🌱 Bakuchiol <strong>(2%)</strong></div>
           </div>
         </div>
 
-        <!-- Active Ingredients Bar -->
-        <div class="pdp-ingredients-bar">
-          <div class="pdp-ingredients-bar__title">Key Active Ingredients</div>
-          <div class="pdp-ingredients-list">
-            <div class="pdp-ingredient-chip">🧪 <span>10%</span> Vitamin C</div>
-            <div class="pdp-ingredient-chip">💧 <span>2%</span> Hyaluronic Acid</div>
-            <div class="pdp-ingredient-chip">🌿 <span>1%</span> Ferulic Acid</div>
-          </div>
-        </div>
-
-        <!-- Quantity & Buy Form -->
-        {%- form 'product', product, class: 'pdp-actions' -%}
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <!-- Add to Cart Form -->
+        {%- form 'product', product, class: 'pdp-form-actions' -%}
+          <input type="hidden" name="id" id="PDPVariantId" value="{{ product.selected_or_first_available_variant.id }}">
           
-          <div class="pdp-actions__row">
-            <div class="pdp-qty">
-              <button type="button" class="pdp-qty__btn" onclick="let input=this.nextElementSibling; if(input.value>1) input.value--;">-</button>
-              <input type="number" name="quantity" class="pdp-qty__input" value="1" min="1">
-              <button type="button" class="pdp-qty__btn" onclick="let input=this.previousElementSibling; input.value++;">+</button>
+          <div class="pdp-actions-row">
+            <div class="pdp-qty-stepper">
+              <button type="button" class="pdp-qty-btn" onclick="let inp=document.getElementById('PDPQtyInput'); if(inp.value>1) inp.value--;">-</button>
+              <input type="number" name="quantity" id="PDPQtyInput" class="pdp-qty-val" value="1" min="1">
+              <button type="button" class="pdp-qty-btn" onclick="let inp=document.getElementById('PDPQtyInput'); inp.value++;">+</button>
             </div>
 
-            <button type="submit" name="add" class="btn btn-pdp-cart">
-              ADD TO CART
+            <button type="submit" name="add" class="btn btn-add-cart" id="PDPAddToCartBtn" {% if product.available == false %}disabled{% endif %}>
+              {%- if product.available -%}
+                ADD TO CART
+              {%- else -%}
+                OUT OF STOCK
+              {%- endif -%}
             </button>
           </div>
 
-          <button type="button" class="btn-pdp-buy">
+          <button type="button" class="btn-buy-now" onclick="document.getElementById('PDPAddToCartBtn').click();">
             BUY IT NOW
           </button>
         {%- endform -%}
 
-        <!-- Payment Security Badges -->
-        <div class="pdp-trust-badges">
-          <span style="font-size: 0.75rem; font-weight: 600;">🔒 Guaranteed Safe Checkout: VISA • Mastercard • UPI • GPay • PhonePe</span>
+        <!-- Trust Badges -->
+        <div class="pdp-trust-bar">
+          🔒 Guaranteed Safe & Secured Checkout via VISA • Mastercard • UPI • GPay
         </div>
 
-        <!-- Part of Routine Callout Box -->
-        <div class="pdp-routine-box">
-          <div class="pdp-routine-box__title">Part of the Seravolve Routine</div>
-          <div class="pdp-customer-avatars">
-            <div class="pdp-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Customer"><div class="pdp-avatar__play">▶</div></div>
-            <div class="pdp-avatar"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100" alt="Customer"><div class="pdp-avatar__play">▶</div></div>
-            <div class="pdp-avatar"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" alt="Customer"><div class="pdp-avatar__play">▶</div></div>
-            <div class="pdp-avatar"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100" alt="Customer"><div class="pdp-avatar__play">▶</div></div>
-          </div>
-          <div class="pdp-routine-pairs">
-            <div class="pdp-pair-card">
-              <div class="pdp-pair-card__tag">🌸 Step 4: Hydrate</div>
-              <div class="pdp-pair-card__title">Seravolve Moisturiser</div>
-              <a href="#" style="color:var(--color-cta);font-size:0.75rem;font-weight:700;">Add to Routine →</a>
-            </div>
-            <div class="pdp-pair-card">
-              <div class="pdp-pair-card__tag">☀️ Step 5: Protect</div>
-              <div class="pdp-pair-card__title">Seravolve Sunscreen</div>
-              <a href="#" style="color:var(--color-cta);font-size:0.75rem;font-weight:700;">Add to Routine →</a>
-            </div>
+        <!-- Part of Routine Callout -->
+        <div class="pdp-routine-callout">
+          <div class="pdp-routine-callout__title">Part of the Seravolve Routine</div>
+          <div class="pdp-routine-avatars">
+            <div class="pdp-avatar-circle"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Customer Reel"><div class="pdp-avatar-play">▶</div></div>
+            <div class="pdp-avatar-circle"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100" alt="Customer Reel"><div class="pdp-avatar-play">▶</div></div>
+            <div class="pdp-avatar-circle"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" alt="Customer Reel"><div class="pdp-avatar-play">▶</div></div>
+            <div class="pdp-avatar-circle"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100" alt="Customer Reel"><div class="pdp-avatar-play">▶</div></div>
           </div>
         </div>
 
         <!-- Accordions -->
-        <div class="pdp-accordions">
-          <div class="pdp-accordion">
-            <button class="pdp-accordion__btn">
-              <span>📖 How to Use & Routine Steps</span>
-              <span class="pdp-accordion__icon">+</span>
+        <div class="pdp-accordion-group">
+          <div class="pdp-accordion-item">
+            <button class="pdp-accordion-trigger">
+              <span>Skincare Made for Every Skin</span>
+              <span class="pdp-accordion-icon">+</span>
             </button>
-            <div class="pdp-accordion__content">
-              <p style="font-size: 0.9rem; color: var(--color-text-body); line-height: 1.6;">
-                Apply 3-4 drops onto cleansed skin morning and evening. Gently press into face and neck before applying moisturiser and sunscreen.
+            <div class="pdp-accordion-content">
+              <p style="font-size:0.9rem;color:var(--color-text-body);line-height:1.6;">
+                Engineered to balance all skin types including oily, combination, and dry complexions without clogging pores.
               </p>
             </div>
           </div>
 
-          <div class="pdp-accordion">
-            <button class="pdp-accordion__btn">
-              <span>🧪 Detailed Ingredients & Clinical Results</span>
-              <span class="pdp-accordion__icon">+</span>
+          <div class="pdp-accordion-item">
+            <button class="pdp-accordion-trigger">
+              <span>Cruelty-Free Skincare You Can Trust</span>
+              <span class="pdp-accordion-icon">+</span>
             </button>
-            <div class="pdp-accordion__content">
-              <p style="font-size: 0.9rem; color: var(--color-text-body); line-height: 1.6;">
-                Water/Aqua, L-Ascorbic Acid (10%), Sodium Hyaluronate (2%), Ferulic Acid (1%), Glycerin, Tocopherol (Vitamin E), Phenoxyethanol. 98% of users reported brighter skin in 14 days.
+            <div class="pdp-accordion-content">
+              <p style="font-size:0.9rem;color:var(--color-text-body);line-height:1.6;">
+                100% vegan, cruelty-free, and ethical. Formulated without parabens, sulfates, or artificial fragrances.
               </p>
             </div>
           </div>
 
-          <div class="pdp-accordion">
-            <button class="pdp-accordion__btn">
-              <span>🚚 Shipping, Returns & Guarantee</span>
-              <span class="pdp-accordion__icon">+</span>
+          <div class="pdp-accordion-item">
+            <button class="pdp-accordion-trigger">
+              <span>Gentle Care for Sensitive Skin</span>
+              <span class="pdp-accordion-icon">+</span>
             </button>
-            <div class="pdp-accordion__content">
-              <p style="font-size: 0.9rem; color: var(--color-text-body); line-height: 1.6;">
-                Free shipping on orders above ₹999. 30-day hassle-free money-back guarantee if you're not fully satisfied.
+            <div class="pdp-accordion-content">
+              <p style="font-size:0.9rem;color:var(--color-text-body);line-height:1.6;">
+                Dermatologist patch tested to ensure maximum tolerance for reactive and sensitive skin barriers.
               </p>
             </div>
           </div>
@@ -938,182 +1032,190 @@
 <!-- ===== SECTION 2: STEPS TO HEALTHIER SKIN ===== -->
 <section class="pdp-steps-section">
   <div class="container">
-    <h2 class="pdp-steps-section__title">Steps to Healthier Skin</h2>
+    <h2 class="pdp-steps-header">Steps to Healthier Skin</h2>
 
-    <div class="pdp-steps-grid">
+    <div class="pdp-steps-cards-grid">
       <!-- Step 1 -->
-      <div class="pdp-step-card">
-        <div class="pdp-step-card__img-wrapper">
-          <img class="pdp-step-card__img" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80" alt="Step 1 Cleanse">
-          <span class="pdp-step-card__badge">Step 1</span>
+      <div class="pdp-step-card-box">
+        <div class="pdp-step-card-media">
+          <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80" alt="Cleanser">
+          <span class="pdp-step-pill-badge">Step 1</span>
         </div>
-        <h3 class="pdp-step-card__title">Cleanser</h3>
-        <p class="pdp-step-card__desc">Purify pores & remove impurities</p>
+        <h3 class="pdp-step-card-title">Cleanser</h3>
+        <p class="pdp-step-card-text">Wash away impurities & prep skin</p>
       </div>
 
       <!-- Step 2 -->
-      <div class="pdp-step-card">
-        <div class="pdp-step-card__img-wrapper">
-          <img class="pdp-step-card__img" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Step 2 Serum">
-          <span class="pdp-step-card__badge">Step 2</span>
+      <div class="pdp-step-card-box">
+        <div class="pdp-step-card-media">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Serum">
+          <span class="pdp-step-pill-badge">Step 2</span>
         </div>
-        <h3 class="pdp-step-card__title">Serum</h3>
-        <p class="pdp-step-card__desc">Target dark spots & boost collagen</p>
+        <h3 class="pdp-step-card-title">Serum</h3>
+        <p class="pdp-step-card-text">Target dark spots & brighten complexion</p>
       </div>
 
       <!-- Step 3 -->
-      <div class="pdp-step-card">
-        <div class="pdp-step-card__img-wrapper">
-          <img class="pdp-step-card__img" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=500&q=80" alt="Step 3 Moisturise">
-          <span class="pdp-step-card__badge">Step 3</span>
+      <div class="pdp-step-card-box">
+        <div class="pdp-step-card-media">
+          <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=500&q=80" alt="Moisturiser">
+          <span class="pdp-step-pill-badge">Step 3</span>
         </div>
-        <h3 class="pdp-step-card__title">Moisturiser</h3>
-        <p class="pdp-step-card__desc">Lock in moisture & repair barrier</p>
+        <h3 class="pdp-step-card-title">Moisturizer</h3>
+        <p class="pdp-step-card-text">Lock in hydration & restore barrier</p>
       </div>
 
       <!-- Step 4 -->
-      <div class="pdp-step-card">
-        <div class="pdp-step-card__img-wrapper">
-          <img class="pdp-step-card__img" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&q=80" alt="Step 4 Sunscreen">
-          <span class="pdp-step-card__badge">Step 4</span>
+      <div class="pdp-step-card-box">
+        <div class="pdp-step-card-media">
+          <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&q=80" alt="Sunscreen">
+          <span class="pdp-step-pill-badge">Step 4</span>
         </div>
-        <h3 class="pdp-step-card__title">Sunscreen</h3>
-        <p class="pdp-step-card__desc">Shield from UV & pollution</p>
+        <h3 class="pdp-step-card-title">Sunscreen</h3>
+        <p class="pdp-step-card-text">Protect against UV rays & photoaging</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===== SECTION 3: WHY YOU'LL LOVE IT (RADIAL DIAGRAM) ===== -->
-<section class="pdp-why-section">
+<section class="pdp-why-love-section">
   <div class="container">
-    <h2 class="pdp-why-section__title">Why You'll Love It</h2>
-    <p class="pdp-why-section__subtitle">Clinically proven formulas designed for maximum absorption and daily wear</p>
+    <h2 class="pdp-why-love-title">Why You'll Love It</h2>
+    <p class="pdp-why-love-sub">Clinically proven formulas designed for maximum absorption and daily wear</p>
 
-    <div class="pdp-radial-container">
+    <div class="pdp-radial-wrapper">
       <!-- Left Nodes -->
       <div style="display:flex;flex-direction:column;gap:16px;">
-        <div class="pdp-radial-node">
-          <span class="pdp-radial-node__num">1</span>
-          <div class="pdp-radial-node__title">Deep Hydration Shield</div>
-          <div class="pdp-radial-node__desc">Locks in moisture for 24h smooth, plump skin.</div>
+        <div class="pdp-benefit-card">
+          <span class="pdp-benefit-num">1</span>
+          <div class="pdp-benefit-head">Hydrates Skin</div>
+          <div class="pdp-benefit-desc">Deep moisture retention for smooth, plump skin.</div>
         </div>
-        <div class="pdp-radial-node">
-          <span class="pdp-radial-node__num">2</span>
-          <div class="pdp-radial-node__title">Brightening Complex</div>
-          <div class="pdp-radial-node__desc">Fades dark spots and unifies skin tone.</div>
+        <div class="pdp-benefit-card">
+          <span class="pdp-benefit-num">2</span>
+          <div class="pdp-benefit-head">3 Step Brightening Complex</div>
+          <div class="pdp-benefit-desc">Fades dark spots and unifies skin tone.</div>
         </div>
-        <div class="pdp-radial-node">
-          <span class="pdp-radial-node__num">3</span>
-          <div class="pdp-radial-node__title">Antioxidant Defense</div>
-          <div class="pdp-radial-node__desc">Shields against free radicals & pollution.</div>
+        <div class="pdp-benefit-card">
+          <span class="pdp-benefit-num">3</span>
+          <div class="pdp-benefit-head">Antioxidant Protection</div>
+          <div class="pdp-benefit-desc">Shields against free radicals & pollution.</div>
         </div>
       </div>
 
-      <!-- Center Product Image -->
-      <div class="pdp-radial-center">
-        <img src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Seravolve Glow Drip Serum">
+      <!-- Center Image Node -->
+      <div class="pdp-radial-center-node">
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}">
+        {%- else -%}
+          <img src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Serum Bottle">
+        {%- endif -%}
       </div>
 
       <!-- Right Nodes -->
       <div style="display:flex;flex-direction:column;gap:16px;">
-        <div class="pdp-radial-node">
-          <span class="pdp-radial-node__num">4</span>
-          <div class="pdp-radial-node__title">Lightweight Water Texture</div>
-          <div class="pdp-radial-node__desc">Fast-absorbing, non-greasy finish.</div>
+        <div class="pdp-benefit-card">
+          <span class="pdp-benefit-num">4</span>
+          <div class="pdp-benefit-head">Lightweight Formula</div>
+          <div class="pdp-benefit-desc">Fast-absorbing water texture with zero grease.</div>
         </div>
-        <div class="pdp-radial-node">
-          <span class="pdp-radial-node__num">5</span>
-          <div class="pdp-radial-node__title">Ferulic Acid Boost</div>
-          <div class="pdp-radial-node__desc">Stabilizes Vitamin C for peak potency.</div>
+        <div class="pdp-benefit-card">
+          <span class="pdp-benefit-num">5</span>
+          <div class="pdp-benefit-head">Evens Skin Tone</div>
+          <div class="pdp-benefit-desc">Promotes collagen and visibly smooths texture.</div>
         </div>
-        <div class="pdp-radial-node">
-          <span class="pdp-radial-node__num">6</span>
-          <div class="pdp-radial-node__title">Dermatologist Tested</div>
-          <div class="pdp-radial-node__desc">Hypoallergenic & ideal for sensitive skin.</div>
+        <div class="pdp-benefit-card">
+          <span class="pdp-benefit-num">6</span>
+          <div class="pdp-benefit-head">Suitable for Most Skin Types</div>
+          <div class="pdp-benefit-desc">Hypoallergenic & dermatologist tested formula.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 4: SEE THE DIFFERENCE ===== -->
-<section class="pdp-diff-section">
+<!-- ===== SECTION 4: SEE THE DIFFERENCE (BEFORE/AFTER) ===== -->
+<section class="pdp-difference-section">
   <div class="container">
-    <div class="pdp-diff-card">
-      <div class="pdp-diff-content">
-        <h2 class="pdp-diff-content__title">See the Difference</h2>
-        <p class="pdp-diff-content__text">
-          Formulated to transform your skin barrier in 14 days without harsh chemicals, synthetic dyes, or artificial fragrances. Experience glowing, resilient skin.
+    <div class="pdp-difference-card">
+      <div class="pdp-difference-info">
+        <h2 class="pdp-difference-title">See the Difference</h2>
+        <p class="pdp-difference-text">
+          Formulated to transform your skin barrier in 14 days without harsh chemicals, synthetic dyes, or artificial fragrances.
         </p>
-        <a href="/pages/quiz" class="btn" style="width:fit-content;">Find Your Match →</a>
+        <a href="/pages/about-us" class="btn" style="width:fit-content;">Learn Our Science →</a>
       </div>
-      <div class="pdp-diff-image-wrapper">
-        <img src="https://images.unsplash.com/photo-1512290900673-00f7e1b52a12?w=800&q=80" alt="Model Glowing Skin">
-        <span class="pdp-diff-tag pdp-diff-tag--before">Day 1</span>
-        <span class="pdp-diff-tag pdp-diff-tag--after">Day 14</span>
+      <div class="pdp-difference-media">
+        <img src="https://images.unsplash.com/photo-1512290900673-00f7e1b52a12?w=800&q=80" alt="Before and After Results">
+        <span class="pdp-tag-pill pdp-tag-pill--day1">Day 1</span>
+        <span class="pdp-tag-pill pdp-tag-pill--day14">Day 14 Result</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 5: FIND YOUR PERFECT MATCH (COMPARISON MATRIX TABLE) ===== -->
-<section class="pdp-matrix-section">
+<!-- ===== SECTION 5: FIND YOUR PERFECT MATCH (COMPARISON MATRIX) ===== -->
+<section class="pdp-comparison-section">
   <div class="container">
-    <h2 class="pdp-matrix-section__title">Find Your Perfect Skincare Match</h2>
+    <h2 class="pdp-comparison-title">Find Your Perfect Skincare Match</h2>
 
-    <div class="pdp-matrix-table-wrapper">
-      <div class="pdp-matrix-grid">
+    <div class="pdp-matrix-overflow">
+      <div class="pdp-matrix-layout">
 
-        <!-- Column 0: Criteria Labels -->
-        <div class="pdp-matrix-col" style="background:transparent;border:none;justify-content:flex-end;">
-          <div class="pdp-matrix-cell" style="font-weight:700;text-align:left;">Lightweight Texture</div>
-          <div class="pdp-matrix-cell" style="font-weight:700;text-align:left;">Non-Greasy</div>
-          <div class="pdp-matrix-cell" style="font-weight:700;text-align:left;">100% Vegan</div>
-          <div class="pdp-matrix-cell" style="font-weight:700;text-align:left;">Dermatologist Tested</div>
-          <div class="pdp-matrix-cell" style="font-weight:700;text-align:left;">14-Day Barrier Repair</div>
+        <!-- Column 0: Concern Criteria Labels -->
+        <div class="pdp-matrix-column" style="background:transparent;border:none;justify-content:flex-end;">
+          <div class="pdp-matrix-row-cell" style="font-weight:700;text-align:left;">Uneven Textures</div>
+          <div class="pdp-matrix-row-cell" style="font-weight:700;text-align:left;">Dark Spot</div>
+          <div class="pdp-matrix-row-cell" style="font-weight:700;text-align:left;">Dullness</div>
+          <div class="pdp-matrix-row-cell" style="font-weight:700;text-align:left;">Dryness</div>
+          <div class="pdp-matrix-row-cell" style="font-weight:700;text-align:left;">Loss of Firmness</div>
         </div>
 
-        <!-- Column 1: Seravolve (HIGHLIGHTED) -->
-        <div class="pdp-matrix-col pdp-matrix-col--highlight">
+        <!-- Column 1: Seravolve Hero Product (HIGHLIGHTED) -->
+        <div class="pdp-matrix-column pdp-matrix-column--hero">
           <div>
-            <img class="pdp-matrix-col__img" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Seravolve Glow Serum">
-            <div class="pdp-matrix-col__name">Seravolve Serum</div>
-            <div class="pdp-matrix-col__price">₹749.00</div>
+            {%- if product.featured_image -%}
+              <img class="pdp-matrix-prod-img" src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}">
+            {%- else -%}
+              <img class="pdp-matrix-prod-img" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Seravolve Glow Serum">
+            {%- endif -%}
+            <div class="pdp-matrix-prod-name">{{ product.title | default: "Glow Drip Vitamin C Serum" }}</div>
+            <div class="pdp-matrix-prod-price">{{ product.price | default: 74900 | money }}</div>
           </div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
         </div>
 
-        <!-- Column 2: Competitor A -->
-        <div class="pdp-matrix-col">
+        <!-- Column 2: Alternative 1 -->
+        <div class="pdp-matrix-column">
           <div>
-            <img class="pdp-matrix-col__img" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=200&q=80" alt="Generic Serum">
-            <div class="pdp-matrix-col__name">Competitor A</div>
-            <div class="pdp-matrix-col__price">₹1,249.00</div>
+            <img class="pdp-matrix-prod-img" src="{{ 'all-5-products-serum-back.jpeg' | asset_url }}" alt="Deep Trace Serum">
+            <div class="pdp-matrix-prod-name">Deep Trace Targeted Serum</div>
+            <div class="pdp-matrix-prod-price">₹1,249.00</div>
           </div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
-          <div class="pdp-matrix-cell">✕ No</div>
-          <div class="pdp-matrix-cell">✕ No</div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
-          <div class="pdp-matrix-cell">✕ No</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✕ No</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✕ No</div>
         </div>
 
-        <!-- Column 3: Competitor B -->
-        <div class="pdp-matrix-col">
+        <!-- Column 3: Alternative 2 -->
+        <div class="pdp-matrix-column">
           <div>
-            <img class="pdp-matrix-col__img" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=200&q=80" alt="Basic Serum">
-            <div class="pdp-matrix-col__name">Competitor B</div>
-            <div class="pdp-matrix-col__price">₹1,899.00</div>
+            <img class="pdp-matrix-prod-img" src="{{ 'all-5-products-moisturiser-front.jpeg' | asset_url }}" alt="Moisturizing Cream">
+            <div class="pdp-matrix-prod-name">Lightweight Moisturizing Cream</div>
+            <div class="pdp-matrix-prod-price">₹1,899.00</div>
           </div>
-          <div class="pdp-matrix-cell">✕ No</div>
-          <div class="pdp-matrix-cell">✓ Yes</div>
-          <div class="pdp-matrix-cell">✕ No</div>
-          <div class="pdp-matrix-cell">✕ No</div>
-          <div class="pdp-matrix-cell">✕ No</div>
+          <div class="pdp-matrix-row-cell">✕ No</div>
+          <div class="pdp-matrix-row-cell">✕ No</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✓ Yes</div>
+          <div class="pdp-matrix-row-cell">✕ No</div>
         </div>
 
       </div>
@@ -1122,23 +1224,39 @@
 </section>
 
 <!-- ===== SECTION 6: LIFESTYLE HERO BANNER ===== -->
-<section class="pdp-lifestyle-banner">
+<section class="pdp-hero-banner">
   <div class="container">
-    <h2 class="pdp-lifestyle-banner__title">We Redefine Skincare on an Intimate Journey</h2>
-    <a href="/pages/about-us" class="btn">Explore Story →</a>
+    <h2 class="pdp-hero-banner-title">We Redefine Skincare as an Intimate Journey</h2>
+    <a href="/pages/about-us" class="btn">Learn More →</a>
   </div>
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Accordion Toggle
-  document.querySelectorAll('.pdp-accordion__btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.parentElement;
-      item.classList.toggle('is-open');
+  // Image Thumbnail Swapper
+  function changePDPImage(src, el) {
+    const mainImg = document.getElementById('PDPMainImage');
+    if (mainImg) mainImg.src = src;
+    document.querySelectorAll('.pdp-thumbnail').forEach(t => t.classList.remove('is-active'));
+    if (el) el.classList.add('is-active');
+  }
+
+  // Variant Option Pill Selector
+  function selectPDPVariantOption(value, el) {
+    document.querySelectorAll('.pdp-option-pill').forEach(p => p.classList.remove('is-selected'));
+    if (el) el.classList.add('is-selected');
+    const label = document.getElementById('PDPOptionVal');
+    if (label) label.textContent = value;
+  }
+
+  // Accordion Expand / Collapse
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.pdp-accordion-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.pdp-accordion-item');
+        item.classList.toggle('is-open');
+      });
     });
   });
-});
 </script>
 
 {% schema %}
