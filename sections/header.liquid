@@ -128,13 +128,32 @@
   }
 
   @media (max-width: 899px) {
+    .announcement-bar {
+      padding: 10px 16px;
+    }
     .announcement-bar__socials,
     .announcement-bar__selectors {
       display: none;
     }
     .announcement-bar__sale {
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      gap: 6px;
       width: 100%;
+      text-align: center;
+    }
+    .announcement-bar__sale-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .announcement-bar__timer {
+      gap: 4px;
+    }
+    .timer-pill {
+      padding: 3px 8px;
+      font-size: 0.85rem;
     }
   }
 
