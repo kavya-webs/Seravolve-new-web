@@ -1,301 +1,408 @@
 <style>
   /* ============================================
-     QUIZ PAGE — Build Your Routine
+     QUIZ PAGE — Mobile-First Routine Builder
      ============================================ */
 
   .quiz-page {
+    position: relative;
     min-height: 100vh;
-    background: var(--color-bg-secondary);
-    padding: var(--spacing-xl) 0 var(--spacing-xxl);
+    padding: var(--spacing-md) 0 var(--spacing-xxl);
+    background: linear-gradient(180deg, rgba(18, 59, 90, 0.82) 0%, rgba(10, 30, 48, 0.92) 100%),
+                url('https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1600&q=80') center center / cover no-repeat fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
   .quiz-container {
-    max-width: 720px;
+    width: 100%;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 16px;
   }
 
   /* Progress Bar */
   .quiz-progress {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
   }
   .quiz-progress__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .quiz-progress__step {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-cta);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #66C8FF;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
   }
   .quiz-progress__count {
-    font-size: 0.8rem;
-    color: var(--color-text-body);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
   }
   .quiz-progress__bar {
     width: 100%;
-    height: 6px;
-    background: rgba(0,0,0,0.06);
+    height: 8px;
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 100px;
     overflow: hidden;
+    backdrop-filter: blur(4px);
   }
   .quiz-progress__fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-cta), var(--color-accent));
+    background: linear-gradient(90deg, #0095FF, #66C8FF);
     border-radius: 100px;
-    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 0 12px rgba(0, 149, 255, 0.6);
   }
 
-  /* Quiz Card */
+  /* Mobile-First Elevated Quiz Card */
   .quiz-card {
-    background: var(--color-bg-primary);
-    border-radius: 20px;
-    padding: var(--spacing-lg);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.05);
-    border: 1px solid rgba(0,0,0,0.04);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 24px 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
   }
-  @media (min-width: 768px) {
+  @media (min-width: 600px) {
     .quiz-card {
-      padding: var(--spacing-xl);
+      padding: 36px 32px;
     }
   }
 
   /* Slide container */
   .quiz-slides {
     position: relative;
-    overflow: hidden;
   }
   .quiz-slide {
     display: none;
-    animation: quizFadeIn 0.4s ease forwards;
+    animation: quizSlideIn 0.35s ease forwards;
   }
   .quiz-slide.is-active {
     display: block;
   }
-  @keyframes quizFadeIn {
-    from { opacity: 0; transform: translateX(24px); }
-    to { opacity: 1; transform: translateX(0); }
+  @keyframes quizSlideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Question */
+  /* Question Header */
   .quiz-question {
     text-align: center;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 24px;
+  }
+  .quiz-question__badge {
+    display: inline-block;
+    background: #EEF8FF;
+    color: #0095FF;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
   }
   .quiz-question__title {
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-size: clamp(1.4rem, 5vw, 2rem);
     font-family: var(--font-heading);
     color: var(--color-text-heading);
-    margin-bottom: 8px;
-    line-height: 1.3;
+    margin-bottom: 6px;
+    line-height: 1.25;
   }
   .quiz-question__subtitle {
     color: var(--color-text-body);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
-  /* Options Grid */
+  /* ===== BIG VISIBLE OPTION SELECTORS ===== */
   .quiz-options {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-bottom: var(--spacing-md);
-  }
-  @media (min-width: 480px) {
-    .quiz-options--2col {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
   }
   .quiz-option {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 16px 20px;
-    border: 2px solid rgba(0,0,0,0.08);
-    border-radius: 14px;
+    gap: 16px;
+    padding: 18px 20px;
+    min-height: 72px;
+    border: 2.5px solid #E5E7EB;
+    border-radius: 18px;
     cursor: pointer;
-    transition: all 0.25s ease;
-    background: var(--color-bg-primary);
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: #FFFFFF;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   .quiz-option:hover {
-    border-color: var(--color-cta);
-    background: var(--color-bg-alternate);
+    border-color: #0095FF;
+    background: #F4FAFF;
+    transform: translateY(-2px);
   }
   .quiz-option.is-selected {
-    border-color: var(--color-cta);
-    background: var(--color-bg-alternate);
-    box-shadow: 0 0 0 3px rgba(0,149,255,0.12);
+    border-color: #0095FF;
+    background: #EEF8FF;
+    box-shadow: 0 8px 24px rgba(0, 149, 255, 0.18);
   }
   .quiz-option__icon {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    border-radius: 12px;
-    background: var(--color-bg-alternate);
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
+    background: #EEF8FF;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
+    transition: transform 0.25s ease;
   }
   .quiz-option.is-selected .quiz-option__icon {
-    background: var(--color-cta);
-    color: #fff;
+    background: #0095FF;
+    color: #FFF;
+    transform: scale(1.08);
+  }
+  .quiz-option__content {
+    flex: 1;
   }
   .quiz-option__text {
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: var(--color-text-heading);
+    line-height: 1.3;
   }
   .quiz-option__desc {
-    font-size: 0.8rem;
+    font-size: 0.825rem;
     color: var(--color-text-body);
-    margin-top: 2px;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+  /* Radio Indicator Circle */
+  .quiz-option__radio {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    border: 2px solid #CBD5E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+  }
+  .quiz-option.is-selected .quiz-option__radio {
+    border-color: #0095FF;
+    background: #0095FF;
+  }
+  .quiz-option__radio::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FFF;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.25s ease;
+  }
+  .quiz-option.is-selected .quiz-option__radio::after {
+    opacity: 1;
+    transform: scale(1);
   }
 
   /* Navigation Buttons */
   .quiz-nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    margin-top: var(--spacing-sm);
+    margin-top: 16px;
   }
   .quiz-nav__back {
     background: none;
     border: none;
     color: var(--color-text-body);
     font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 12px 0;
-    transition: color 0.3s;
+    padding: 14px 16px;
+    border-radius: 50px;
+    transition: background 0.25s;
   }
   .quiz-nav__back:hover {
-    color: var(--color-text-heading);
+    background: rgba(0, 0, 0, 0.04);
   }
   .quiz-nav__next {
     margin-left: auto;
-    padding: 14px 36px;
-    background: var(--color-cta);
-    color: #fff;
+    width: 100%;
+    max-width: 200px;
+    padding: 16px 28px;
+    background: #0095FF;
+    color: #FFFFFF;
     border: none;
     border-radius: 50px;
     font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     cursor: pointer;
-    transition: background 0.3s;
-    opacity: 0.4;
+    transition: all 0.3s ease;
+    opacity: 0.35;
     pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 149, 255, 0.3);
   }
   .quiz-nav__next.is-enabled {
     opacity: 1;
     pointer-events: auto;
   }
   .quiz-nav__next:hover {
-    background: var(--color-cta-hover);
+    background: #007AD6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 149, 255, 0.4);
   }
 
-  /* ===== Results Page ===== */
+  /* ===== INTRO SLIDE ===== */
+  .quiz-intro {
+    text-align: center;
+    padding: 12px 0;
+  }
+  .quiz-intro__icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #EEF8FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0095FF;
+    box-shadow: 0 8px 24px rgba(0, 149, 255, 0.15);
+  }
+  .quiz-intro__title {
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    margin-bottom: 12px;
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+  }
+  .quiz-intro__subtitle {
+    color: var(--color-text-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0 auto 28px;
+  }
+  .quiz-intro__start {
+    width: 100%;
+    max-width: 320px;
+    padding: 18px 36px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0, 149, 255, 0.35);
+  }
+
+  /* ===== RESULTS SCREEN ===== */
   .quiz-results {
     display: none;
-    animation: quizFadeIn 0.5s ease forwards;
+    animation: quizSlideIn 0.4s ease forwards;
   }
   .quiz-results.is-active {
     display: block;
   }
   .quiz-results__header {
     text-align: center;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 24px;
   }
   .quiz-results__badge {
     display: inline-block;
     background: #E8F9EE;
-    color: var(--color-success);
+    color: #38B26C;
     padding: 6px 18px;
     border-radius: 50px;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+    margin-bottom: 10px;
   }
   .quiz-results__title {
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    margin-bottom: 8px;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    margin-bottom: 6px;
+    font-family: var(--font-heading);
   }
   .quiz-results__subtitle {
     color: var(--color-text-body);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
-  /* Routine Time Headers */
+  /* Product Recommendation Cards with Shop Products */
+  .quiz-routine-section {
+    margin-bottom: 24px;
+  }
   .quiz-routine-header {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: var(--spacing-sm);
-    margin-top: var(--spacing-md);
+    margin-bottom: 14px;
   }
   .quiz-routine-header__icon {
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: var(--color-bg-alternate);
+    background: #EEF8FF;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-cta);
+    color: #0095FF;
   }
   .quiz-routine-header__text {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--color-text-heading);
   }
 
-  /* Product recommendation cards */
   .quiz-product {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 16px;
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 14px;
-    margin-bottom: 12px;
-    background: var(--color-bg-primary);
-    transition: box-shadow 0.3s;
+    padding: 14px 16px;
+    border: 1.5px solid #EEF2F6;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   }
-  .quiz-product:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-  }
-  .quiz-product__step {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    border-radius: 50%;
-    background: var(--color-cta);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
+  .quiz-product__img {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #EEF8FF;
   }
   .quiz-product__info {
     flex: 1;
   }
+  .quiz-product__step {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #0095FF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
   .quiz-product__name {
-    font-weight: 600;
-    font-size: 0.95rem;
+    font-weight: 700;
+    font-size: 1rem;
     color: var(--color-text-heading);
     margin-bottom: 2px;
   }
@@ -307,52 +414,21 @@
   /* Add to Cart CTA */
   .quiz-results__cta {
     text-align: center;
-    margin-top: var(--spacing-lg);
-    padding-top: var(--spacing-md);
-    border-top: 1px solid rgba(0,0,0,0.06);
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
   .quiz-results__cta .btn {
     width: 100%;
-    max-width: 380px;
-    padding: 16px 32px;
-    font-size: 0.9rem;
+    padding: 18px 32px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0, 149, 255, 0.35);
   }
   .quiz-results__cta-note {
     margin-top: 10px;
     font-size: 0.8rem;
     color: var(--color-text-body);
-  }
-
-  /* Intro Slide */
-  .quiz-intro {
-    text-align: center;
-    padding: var(--spacing-md) 0;
-  }
-  .quiz-intro__icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto var(--spacing-md);
-    border-radius: 50%;
-    background: var(--color-bg-alternate);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-cta);
-  }
-  .quiz-intro__title {
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    margin-bottom: var(--spacing-xs);
-  }
-  .quiz-intro__subtitle {
-    color: var(--color-text-body);
-    font-size: 1rem;
-    line-height: 1.7;
-    max-width: 480px;
-    margin: 0 auto var(--spacing-md);
-  }
-  .quiz-intro__start {
-    padding: 16px 48px;
-    font-size: 0.9rem;
   }
 </style>
 
@@ -361,8 +437,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Seravolve Skin Quiz — Build Your Routine",
-  "description": "Take a 60-second skin quiz to discover a personalized skincare routine curated by dermatologists for your skin type and concerns.",
+  "name": "Seravolve Skin Quiz — Mobile Routine Builder",
+  "description": "Take a 60-second skin quiz to discover a personalized skincare routine built with Seravolve products.",
   "url": "{{ canonical_url }}",
   "applicationCategory": "HealthApplication",
   "operatingSystem": "Web"
@@ -383,7 +459,7 @@
       </div>
     </div>
 
-    <!-- Quiz Card -->
+    <!-- Mobile-First Quiz Card -->
     <div class="quiz-card">
       <div class="quiz-slides" id="QuizSlides">
 
@@ -391,147 +467,199 @@
         <div class="quiz-slide is-active" data-slide="intro">
           <div class="quiz-intro">
             <div class="quiz-intro__icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             </div>
-            <h1 class="quiz-intro__title">Find Your Perfect Routine</h1>
-            <p class="quiz-intro__subtitle">Answer 4 quick questions and we'll build a personalized skincare routine — curated by dermatologists — just for you.</p>
-            <button class="btn quiz-intro__start" id="QuizStartBtn">Start Quiz</button>
+            <h1 class="quiz-intro__title">Build Your Routine</h1>
+            <p class="quiz-intro__subtitle">Answer 4 quick questions and we'll match your skin type with the exact Seravolve products for glowing results.</p>
+            <button class="btn quiz-intro__start" id="QuizStartBtn">Start Quiz →</button>
           </div>
         </div>
 
-        <!-- ===== STEP 1: Gender ===== -->
+        <!-- ===== STEP 1: Audience ===== -->
         <div class="quiz-slide" data-slide="1">
           <div class="quiz-question">
+            <span class="quiz-question__badge">Step 1</span>
             <h2 class="quiz-question__title">Who is this routine for?</h2>
-            <p class="quiz-question__subtitle">Select the option that best describes you.</p>
+            <p class="quiz-question__subtitle">Choose your preference for tailored formula selection.</p>
           </div>
-          <div class="quiz-options quiz-options--2col">
+          <div class="quiz-options">
             <div class="quiz-option" data-question="gender" data-value="female">
               <div class="quiz-option__icon">👩</div>
-              <div><div class="quiz-option__text">Female</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Female</div>
+                <div class="quiz-option__desc">Tailored women's skincare formula</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="gender" data-value="male">
               <div class="quiz-option__icon">👨</div>
-              <div><div class="quiz-option__text">Male</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Male</div>
+                <div class="quiz-option__desc">Formulated for thicker, oil-prone skin</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="gender" data-value="nonbinary">
               <div class="quiz-option__icon">🧑</div>
-              <div><div class="quiz-option__text">Non-binary</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Universal / Non-binary</div>
+                <div class="quiz-option__desc">Balanced unisex formulation</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="gender" data-value="gift">
               <div class="quiz-option__icon">🎁</div>
-              <div><div class="quiz-option__text">It's a Gift</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">It's a Gift</div>
+                <div class="quiz-option__desc">All-skin-type starter bundle</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
           </div>
           <div class="quiz-nav">
-            <button class="quiz-nav__back" id="QuizBack1">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 12 5 12"></polyline><polyline points="12 19 5 12 12 5"></polyline></svg>
-              Back
-            </button>
-            <button class="quiz-nav__next" id="QuizNext1">Next</button>
+            <button class="quiz-nav__back" id="QuizBack1">← Back</button>
+            <button class="quiz-nav__next" id="QuizNext1">Next →</button>
           </div>
         </div>
 
         <!-- ===== STEP 2: Age ===== -->
         <div class="quiz-slide" data-slide="2">
           <div class="quiz-question">
+            <span class="quiz-question__badge">Step 2</span>
             <h2 class="quiz-question__title">What's your age group?</h2>
-            <p class="quiz-question__subtitle">This helps us choose the right concentration of actives.</p>
+            <p class="quiz-question__subtitle">Helps us select the right active ingredient strength.</p>
           </div>
           <div class="quiz-options">
             <div class="quiz-option" data-question="age" data-value="12-18">
               <div class="quiz-option__icon">🌱</div>
-              <div><div class="quiz-option__text">12 – 18 years</div><div class="quiz-option__desc">Teen skin: oil control & basics</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">12 – 18 years</div>
+                <div class="quiz-option__desc">Teen skin: Gentle cleanse & oil control</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="age" data-value="19-25">
               <div class="quiz-option__icon">✨</div>
-              <div><div class="quiz-option__text">19 – 25 years</div><div class="quiz-option__desc">Prevention & hydration focus</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">19 – 25 years</div>
+                <div class="quiz-option__desc">Glow & environmental protection</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="age" data-value="26-36">
               <div class="quiz-option__icon">💎</div>
-              <div><div class="quiz-option__text">26 – 36 years</div><div class="quiz-option__desc">Early anti-aging & repair</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">26 – 36 years</div>
+                <div class="quiz-option__desc">Early anti-aging & collagen support</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="age" data-value="37-45">
               <div class="quiz-option__icon">🌟</div>
-              <div><div class="quiz-option__text">37 – 45 years</div><div class="quiz-option__desc">Firming & wrinkle reduction</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">37 – 45 years</div>
+                <div class="quiz-option__desc">Firming, hydration & elasticity</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="age" data-value="46+">
               <div class="quiz-option__icon">👑</div>
-              <div><div class="quiz-option__text">46+ years</div><div class="quiz-option__desc">Intensive rejuvenation</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">46+ years</div>
+                <div class="quiz-option__desc">Intensive barrier repair & rejuvenation</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
           </div>
           <div class="quiz-nav">
-            <button class="quiz-nav__back" data-back="1">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 12 5 12"></polyline><polyline points="12 19 5 12 12 5"></polyline></svg>
-              Back
-            </button>
-            <button class="quiz-nav__next" data-next="3">Next</button>
+            <button class="quiz-nav__back" data-back="1">← Back</button>
+            <button class="quiz-nav__next" data-next="3">Next →</button>
           </div>
         </div>
 
-        <!-- ===== STEP 3: Skin Concern ===== -->
+        <!-- ===== STEP 3: Concern ===== -->
         <div class="quiz-slide" data-slide="3">
           <div class="quiz-question">
-            <h2 class="quiz-question__title">What's your primary skin concern?</h2>
-            <p class="quiz-question__subtitle">Pick the one that matters most right now.</p>
+            <span class="quiz-question__badge">Step 3</span>
+            <h2 class="quiz-question__title">Primary Skin Concern</h2>
+            <p class="quiz-question__subtitle">Select your main goal right now.</p>
           </div>
           <div class="quiz-options">
             <div class="quiz-option" data-question="concern" data-value="dry">
               <div class="quiz-option__icon">💧</div>
-              <div><div class="quiz-option__text">Dry / Dehydrated</div><div class="quiz-option__desc">Flaky, tight, lacks moisture</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Dry / Dehydrated</div>
+                <div class="quiz-option__desc">Feels tight, dull, or flaky</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="concern" data-value="oily">
               <div class="quiz-option__icon">🫧</div>
-              <div><div class="quiz-option__text">Oily / Acne-Prone</div><div class="quiz-option__desc">Excess oil, breakouts, enlarged pores</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Oily / Acne-Prone</div>
+                <div class="quiz-option__desc">Excess shine, clogged pores, breakouts</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="concern" data-value="combination">
               <div class="quiz-option__icon">⚖️</div>
-              <div><div class="quiz-option__text">Combination</div><div class="quiz-option__desc">Oily T-zone, dry cheeks</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Combination Skin</div>
+                <div class="quiz-option__desc">Oily T-zone, dry or normal cheeks</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="concern" data-value="sensitive">
               <div class="quiz-option__icon">🌸</div>
-              <div><div class="quiz-option__text">Sensitive / Redness</div><div class="quiz-option__desc">Easily irritated, reactive</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Sensitive / Redness</div>
+                <div class="quiz-option__desc">Easily irritated or reactive skin</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="concern" data-value="aging">
               <div class="quiz-option__icon">⏳</div>
-              <div><div class="quiz-option__text">Aging / Fine Lines</div><div class="quiz-option__desc">Wrinkles, loss of firmness</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Aging / Fine Lines</div>
+                <div class="quiz-option__desc">Loss of firmness & uneven tone</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
           </div>
           <div class="quiz-nav">
-            <button class="quiz-nav__back" data-back="2">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 12 5 12"></polyline><polyline points="12 19 5 12 12 5"></polyline></svg>
-              Back
-            </button>
-            <button class="quiz-nav__next" data-next="4">Next</button>
+            <button class="quiz-nav__back" data-back="2">← Back</button>
+            <button class="quiz-nav__next" data-next="4">Next →</button>
           </div>
         </div>
 
-        <!-- ===== STEP 4: Routine Complexity ===== -->
+        <!-- ===== STEP 4: Complexity ===== -->
         <div class="quiz-slide" data-slide="4">
           <div class="quiz-question">
-            <h2 class="quiz-question__title">How many steps do you prefer?</h2>
-            <p class="quiz-question__subtitle">We'll tailor the routine complexity to your lifestyle.</p>
+            <span class="quiz-question__badge">Step 4</span>
+            <h2 class="quiz-question__title">Routine Steps Preference</h2>
+            <p class="quiz-question__subtitle">Choose how detailed you want your routine.</p>
           </div>
           <div class="quiz-options">
-            <div class="quiz-option" data-question="complexity" data-value="minimal">
+            <div class="quiz-option" data-question="complexity" data-value="essential">
               <div class="quiz-option__icon">⚡</div>
-              <div><div class="quiz-option__text">Minimalist (2 Steps)</div><div class="quiz-option__desc">Quick & effective — cleanse + protect</div></div>
-            </div>
-            <div class="quiz-option" data-question="complexity" data-value="balanced">
-              <div class="quiz-option__icon">🎯</div>
-              <div><div class="quiz-option__text">Balanced (3 Steps)</div><div class="quiz-option__desc">Cleanse, treat, protect — the sweet spot</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Essential 3-Step Routine</div>
+                <div class="quiz-option__desc">Cleanse + Serum + Moisturiser / SPF</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
             <div class="quiz-option" data-question="complexity" data-value="complete">
               <div class="quiz-option__icon">🏆</div>
-              <div><div class="quiz-option__text">Complete (4-5 Steps)</div><div class="quiz-option__desc">Full regimen for maximum results</div></div>
+              <div class="quiz-option__content">
+                <div class="quiz-option__text">Full 5-Step Regimen</div>
+                <div class="quiz-option__desc">Facewash + Toner + Serum + Moisturiser + Sunscreen</div>
+              </div>
+              <div class="quiz-option__radio"></div>
             </div>
           </div>
           <div class="quiz-nav">
-            <button class="quiz-nav__back" data-back="3">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 12 5 12"></polyline><polyline points="12 19 5 12 12 5"></polyline></svg>
-              Back
-            </button>
-            <button class="quiz-nav__next" id="QuizSubmit" data-next="results">See My Routine</button>
+            <button class="quiz-nav__back" data-back="3">← Back</button>
+            <button class="quiz-nav__next" id="QuizSubmit" data-next="results">Get Routine →</button>
           </div>
         </div>
 
@@ -540,32 +668,36 @@
       <!-- ===== RESULTS ===== -->
       <div class="quiz-results" id="QuizResults">
         <div class="quiz-results__header">
-          <span class="quiz-results__badge">✓ Routine Ready</span>
-          <h2 class="quiz-results__title">Your Personalized Routine</h2>
-          <p class="quiz-results__subtitle" id="QuizResultsSummary">Based on your answers, here's your dermatologist-curated routine.</p>
+          <span class="quiz-results__badge">✓ Your Routine Is Ready</span>
+          <h2 class="quiz-results__title">Your Seravolve Routine</h2>
+          <p class="quiz-results__subtitle" id="QuizResultsSummary">Curated using Seravolve shop products for maximum clinical efficacy.</p>
         </div>
 
         <!-- Morning Routine -->
-        <div class="quiz-routine-header">
-          <div class="quiz-routine-header__icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <div class="quiz-routine-section">
+          <div class="quiz-routine-header">
+            <div class="quiz-routine-header__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line></svg>
+            </div>
+            <span class="quiz-routine-header__text">Morning Routine</span>
           </div>
-          <span class="quiz-routine-header__text">Morning Routine</span>
+          <div id="QuizMorningProducts"></div>
         </div>
-        <div id="QuizMorningProducts"></div>
 
-        <!-- Night Routine -->
-        <div class="quiz-routine-header">
-          <div class="quiz-routine-header__icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <!-- Evening Routine -->
+        <div class="quiz-routine-section">
+          <div class="quiz-routine-header">
+            <div class="quiz-routine-header__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </div>
+            <span class="quiz-routine-header__text">Night Routine</span>
           </div>
-          <span class="quiz-routine-header__text">Night Routine</span>
+          <div id="QuizNightProducts"></div>
         </div>
-        <div id="QuizNightProducts"></div>
 
         <div class="quiz-results__cta">
           <a href="{{ routes.all_products_collection_url }}" class="btn">Shop Recommended Products</a>
-          <p class="quiz-results__cta-note">Free shipping on orders above ₹999</p>
+          <p class="quiz-results__cta-note">Free shipping on orders above ₹999 across India</p>
         </div>
       </div>
 
@@ -586,6 +718,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 'intro';
   const answers = {};
   const totalSteps = 4;
+
+  const shopProducts = {
+    facewash: { name: 'Seravolve Facewash', desc: 'Gentle pore cleansing & hydration', img: "{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" },
+    toner: { name: 'Seravolve Toner', desc: 'Prep, balance pH & refine pores', img: "{{ 'all-5-products-toner-front.jpeg' | asset_url }}" },
+    serum: { name: 'Seravolve Serum', desc: 'Vitamin C antioxidant treat & boost', img: "{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" },
+    moisturiser: { name: 'Seravolve Moisturiser', desc: 'Barrier repair & 24h moisture', img: "{{ 'all-5-products-moisturiser-front.jpeg' | asset_url }}" },
+    sunscreen: { name: 'Seravolve Sunscreen', desc: 'SPF 50 broad spectrum protection', img: "{{ 'all-5-products-sunscreen-front.jpeg' | asset_url }}" }
+  };
 
   function goToSlide(slideId) {
     currentSlide = slideId;
@@ -624,7 +764,6 @@ document.addEventListener('DOMContentLoaded', () => {
     slides.forEach(slide => {
       const nextBtn = slide.querySelector('.quiz-nav__next');
       if (!nextBtn) return;
-      const slideId = slide.dataset.slide;
       const question = slide.querySelector('.quiz-option')?.dataset.question;
       if (question && answers[question]) {
         nextBtn.classList.add('is-enabled');
@@ -634,7 +773,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Option selection
   document.querySelectorAll('.quiz-option').forEach(opt => {
     opt.addEventListener('click', () => {
       const question = opt.dataset.question;
@@ -647,134 +785,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Start Quiz
   document.getElementById('QuizStartBtn')?.addEventListener('click', () => goToSlide('1'));
-
-  // Back on step 1 goes to intro
   document.getElementById('QuizBack1')?.addEventListener('click', () => goToSlide('intro'));
 
-  // Next/Back buttons
   document.querySelectorAll('.quiz-nav__next[data-next]').forEach(btn => {
     btn.addEventListener('click', () => {
       if (!btn.classList.contains('is-enabled')) return;
       goToSlide(btn.dataset.next);
     });
   });
+
   document.querySelectorAll('.quiz-nav__back[data-back]').forEach(btn => {
     btn.addEventListener('click', () => goToSlide(btn.dataset.back));
   });
 
-  // Step 1 Next
   document.getElementById('QuizNext1')?.addEventListener('click', () => {
     if (answers.gender) goToSlide('2');
   });
 
-  // Results generation
   function generateResults() {
-    const routines = {
-      dry: {
-        morning: [
-          { name: 'Hydrating Cream Cleanser', desc: 'Gentle cleanse without stripping moisture' },
-          { name: 'Hyaluronic Acid Serum', desc: 'Deep hydration with HA + B5' },
-          { name: 'Rich Moisturizer + SPF 50', desc: 'Lock in moisture with UV protection' }
-        ],
-        night: [
-          { name: 'Oil-Based Cleansing Balm', desc: 'Dissolve makeup & impurities' },
-          { name: 'Ceramide Repair Serum', desc: 'Strengthen skin barrier overnight' },
-          { name: 'Overnight Hydrating Mask', desc: 'Intensive moisture recovery' }
-        ]
-      },
-      oily: {
-        morning: [
-          { name: 'Salicylic Acid Gel Cleanser', desc: 'Deep pore cleansing & oil control' },
-          { name: 'Niacinamide 10% Serum', desc: 'Minimize pores & control sebum' },
-          { name: 'Oil-Free Gel Moisturizer + SPF', desc: 'Lightweight protection' }
-        ],
-        night: [
-          { name: 'Foaming Gel Cleanser', desc: 'Remove excess oil & debris' },
-          { name: 'BHA Exfoliating Toner', desc: 'Unclog pores & prevent breakouts' },
-          { name: 'Lightweight Gel Cream', desc: 'Hydrate without clogging pores' }
-        ]
-      },
-      combination: {
-        morning: [
-          { name: 'Gentle Foaming Cleanser', desc: 'Balanced cleanse for mixed skin' },
-          { name: 'Vitamin C Brightening Serum', desc: 'Even skin tone & protect' },
-          { name: 'Lightweight Moisturizer + SPF 50', desc: 'All-day balanced hydration' }
-        ],
-        night: [
-          { name: 'Micellar Water Cleanser', desc: 'Gentle yet effective removal' },
-          { name: 'Niacinamide + Zinc Serum', desc: 'Balance oil & reduce pores' },
-          { name: 'Balancing Night Cream', desc: 'Zone-targeted overnight care' }
-        ]
-      },
-      sensitive: {
-        morning: [
-          { name: 'Fragrance-Free Cream Cleanser', desc: 'Ultra-gentle, no irritation' },
-          { name: 'Centella Calming Essence', desc: 'Reduce redness & soothe' },
-          { name: 'Mineral SPF 50 Moisturizer', desc: 'Physical sun protection' }
-        ],
-        night: [
-          { name: 'Micellar Cleansing Water', desc: 'No-rinse gentle cleanse' },
-          { name: 'Ceramide Barrier Serum', desc: 'Rebuild & strengthen skin barrier' },
-          { name: 'Soothing Recovery Balm', desc: 'Calm & repair overnight' }
-        ]
-      },
-      aging: {
-        morning: [
-          { name: 'Peptide Cleansing Cream', desc: 'Anti-aging cleanse with peptides' },
-          { name: 'Vitamin C + Ferulic Acid Serum', desc: 'Antioxidant protection & brightening' },
-          { name: 'Firming SPF 50 Day Cream', desc: 'UV shield + collagen support' }
-        ],
-        night: [
-          { name: 'Double Cleanse Balm + Foam', desc: 'Thorough evening cleanse' },
-          { name: 'Retinol 0.5% Renewal Serum', desc: 'Stimulate cell turnover' },
-          { name: 'Collagen Peptide Night Cream', desc: 'Intensive firming & repair' }
-        ]
-      }
-    };
+    const isComplete = answers.complexity === 'complete';
 
-    const concern = answers.concern || 'combination';
-    const routine = routines[concern] || routines.combination;
-    const complexity = answers.complexity || 'balanced';
+    const morningList = isComplete
+      ? [shopProducts.facewash, shopProducts.toner, shopProducts.serum, shopProducts.moisturiser, shopProducts.sunscreen]
+      : [shopProducts.facewash, shopProducts.serum, shopProducts.sunscreen];
 
-    let morningSteps = routine.morning;
-    let nightSteps = routine.night;
-
-    if (complexity === 'minimal') {
-      morningSteps = morningSteps.slice(0, 2);
-      nightSteps = nightSteps.slice(0, 2);
-    } else if (complexity === 'complete') {
-      morningSteps = [...morningSteps, { name: 'Hydrating Toner Mist', desc: 'Prep & balance pH' }];
-      nightSteps = [...nightSteps, { name: 'Eye Cream', desc: 'Target dark circles & fine lines' }];
-    }
+    const nightList = isComplete
+      ? [shopProducts.facewash, shopProducts.toner, shopProducts.serum, shopProducts.moisturiser]
+      : [shopProducts.facewash, shopProducts.serum, shopProducts.moisturiser];
 
     const morningEl = document.getElementById('QuizMorningProducts');
     const nightEl = document.getElementById('QuizNightProducts');
 
-    morningEl.innerHTML = morningSteps.map((p, i) => `
+    morningEl.innerHTML = morningList.map((p, i) => `
       <div class="quiz-product">
-        <div class="quiz-product__step">${i + 1}</div>
+        <img class="quiz-product__img" src="${p.img}" alt="${p.name}">
         <div class="quiz-product__info">
+          <div class="quiz-product__step">Step ${i + 1}</div>
           <div class="quiz-product__name">${p.name}</div>
           <div class="quiz-product__desc">${p.desc}</div>
         </div>
       </div>
     `).join('');
 
-    nightEl.innerHTML = nightSteps.map((p, i) => `
+    nightEl.innerHTML = nightList.map((p, i) => `
       <div class="quiz-product">
-        <div class="quiz-product__step">${i + 1}</div>
+        <img class="quiz-product__img" src="${p.img}" alt="${p.name}">
         <div class="quiz-product__info">
+          <div class="quiz-product__step">Step ${i + 1}</div>
           <div class="quiz-product__name">${p.name}</div>
           <div class="quiz-product__desc">${p.desc}</div>
         </div>
       </div>
     `).join('');
-
-    const concernLabels = { dry: 'Dry / Dehydrated', oily: 'Oily / Acne-Prone', combination: 'Combination', sensitive: 'Sensitive', aging: 'Anti-Aging' };
-    document.getElementById('QuizResultsSummary').textContent =
-      `Customized for ${concernLabels[concern] || concern} skin with a ${complexity} routine approach.`;
   }
 });
 </script>
