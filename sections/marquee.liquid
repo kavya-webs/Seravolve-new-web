@@ -31,6 +31,21 @@
     flex-shrink: 0;
   }
 
+  @media (max-width: 768px) {
+    .marquee-section {
+      padding: 8px 0;
+    }
+    .marquee-content__item {
+      font-size: 0.8rem;
+      padding: 0 12px;
+      gap: 8px;
+    }
+    .marquee-content__dot {
+      width: 4px;
+      height: 4px;
+    }
+  }
+
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
