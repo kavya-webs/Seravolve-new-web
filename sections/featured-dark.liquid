@@ -210,37 +210,73 @@
 
         <div class="featured-dark__products-wrapper">
           <div class="featured-dark__products">
-            
-            <!-- Step 1 Card -->
-            <a href="#" class="dark-product-card" aria-label="Facewash Cleanse Step">
-              <div class="dark-product-card__image-wrapper">
-                <span class="dark-product-card__badge">Step 1</span>
-                <img class="dark-product-card__image" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="Facewash" loading="lazy">
-              </div>
-              <div class="dark-product-card__title">Facewash</div>
-              <div class="dark-product-card__price">Cleanse</div>
-            </a>
-            
-            <!-- Step 3 Card -->
-            <a href="#" class="dark-product-card" aria-label="Serum Treat Step">
-              <div class="dark-product-card__image-wrapper">
-                <span class="dark-product-card__badge">Step 3</span>
-                <img class="dark-product-card__image" src="{{ 'all-5-products-serum-front.jpeg' | asset_url }}" alt="Serum" loading="lazy">
-              </div>
-              <div class="dark-product-card__title">Serum</div>
-              <div class="dark-product-card__price">Treat & Target</div>
-            </a>
-            
-            <!-- Step 5 Card -->
-            <a href="#" class="dark-product-card" aria-label="Sunscreen Protect Step">
-              <div class="dark-product-card__image-wrapper">
-                <span class="dark-product-card__badge">Step 5</span>
-                <img class="dark-product-card__image" src="{{ 'all-5-products-sunscreen-front.jpeg' | asset_url }}" alt="Sunscreen" loading="lazy">
-              </div>
-              <div class="dark-product-card__title">Sunscreen</div>
-              <div class="dark-product-card__price">Protect & Shield</div>
-            </a>
+            {%- assign dark_products = collections['all'].products -%}
+            {%- if dark_products and dark_products.size > 0 -%}
+              {%- for product in dark_products limit: 5 -%}
+                <a href="{{ product.url }}" class="dark-product-card" aria-label="{{ product.title | escape }}">
+                  <div class="dark-product-card__image-wrapper">
+                    <span class="dark-product-card__badge">Step {{ forloop.index }}</span>
+                    {%- if product.featured_image -%}
+                      <img class="dark-product-card__image" src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy">
+                    {%- else -%}
+                      <img class="dark-product-card__image" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+                    {%- endif -%}
+                  </div>
+                  <div class="dark-product-card__title">{{ product.title }}</div>
+                  <div class="dark-product-card__price">{{ product.price | money }}</div>
+                </a>
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Step 1 Card -->
+              <a href="{{ routes.all_products_collection_url }}" class="dark-product-card" aria-label="Facewash Cleanse Step">
+                <div class="dark-product-card__image-wrapper">
+                  <span class="dark-product-card__badge">Step 1</span>
+                  <img class="dark-product-card__image" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="Facewash" loading="lazy">
+                </div>
+                <div class="dark-product-card__title">Facewash</div>
+                <div class="dark-product-card__price">Cleanse</div>
+              </a>
 
+              <!-- Step 2 Card -->
+              <a href="{{ routes.all_products_collection_url }}" class="dark-product-card" aria-label="Toner Prep Step">
+                <div class="dark-product-card__image-wrapper">
+                  <span class="dark-product-card__badge">Step 2</span>
+                  <img class="dark-product-card__image" src="{{ 'all-5-products-toner-front.jpeg' | asset_url }}" alt="Toner" loading="lazy">
+                </div>
+                <div class="dark-product-card__title">Toner</div>
+                <div class="dark-product-card__price">Prep & Balance</div>
+              </a>
+
+              <!-- Step 3 Card -->
+              <a href="{{ routes.all_products_collection_url }}" class="dark-product-card" aria-label="Serum Treat Step">
+                <div class="dark-product-card__image-wrapper">
+                  <span class="dark-product-card__badge">Step 3</span>
+                  <img class="dark-product-card__image" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Serum" loading="lazy">
+                </div>
+                <div class="dark-product-card__title">Serum</div>
+                <div class="dark-product-card__price">Treat & Target</div>
+              </a>
+
+              <!-- Step 4 Card -->
+              <a href="{{ routes.all_products_collection_url }}" class="dark-product-card" aria-label="Moisturiser Hydrate Step">
+                <div class="dark-product-card__image-wrapper">
+                  <span class="dark-product-card__badge">Step 4</span>
+                  <img class="dark-product-card__image" src="{{ 'all-5-products-moisturiser-front.jpeg' | asset_url }}" alt="Moisturiser" loading="lazy">
+                </div>
+                <div class="dark-product-card__title">Moisturiser</div>
+                <div class="dark-product-card__price">Hydrate & Nourish</div>
+              </a>
+
+              <!-- Step 5 Card -->
+              <a href="{{ routes.all_products_collection_url }}" class="dark-product-card" aria-label="Sunscreen Protect Step">
+                <div class="dark-product-card__image-wrapper">
+                  <span class="dark-product-card__badge">Step 5</span>
+                  <img class="dark-product-card__image" src="{{ 'all-5-products-sunscreen-front.jpeg' | asset_url }}" alt="Sunscreen" loading="lazy">
+                </div>
+                <div class="dark-product-card__title">Sunscreen</div>
+                <div class="dark-product-card__price">Protect & Shield</div>
+              </a>
+            {%- endif -%}
           </div>
         </div>
       </div>

@@ -59,18 +59,37 @@
   <div class="container">
     <h2 class="collection-categories__heading">Shop By Category</h2>
     <div class="collection-categories__grid">
-      <a href="{{ routes.all_products_collection_url }}" class="category-card">
-        <img class="category-card__image" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80" alt="Individual Products" loading="lazy">
+      
+      {%- assign col_products = collections['products'] | default: collections['all'] -%}
+      <a href="{{ col_products.url | default: routes.all_products_collection_url }}" class="category-card">
+        {%- if col_products and col_products.image -%}
+          <img class="category-card__image" src="{{ col_products.image | image_url: width: 600 }}" alt="Products" loading="lazy">
+        {%- else -%}
+          <img class="category-card__image" src="{{ 'full-seravolve-routine-hero.png' | asset_url }}" alt="Products" loading="lazy">
+        {%- endif -%}
         <span class="category-card__label">Products</span>
       </a>
-      <a href="{{ routes.all_products_collection_url }}" class="category-card">
-        <img class="category-card__image" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="Curated Routines" loading="lazy">
+
+      {%- assign col_routines = collections['routines'] | default: collections['all'] -%}
+      <a href="{{ col_routines.url | default: routes.all_products_collection_url }}" class="category-card">
+        {%- if col_routines and col_routines.image -%}
+          <img class="category-card__image" src="{{ col_routines.image | image_url: width: 600 }}" alt="Routines" loading="lazy">
+        {%- else -%}
+          <img class="category-card__image" src="{{ 'barrier-repair-and-hydration-routine-hero.png' | asset_url }}" alt="Routines" loading="lazy">
+        {%- endif -%}
         <span class="category-card__label">Routines</span>
       </a>
-      <a href="{{ routes.all_products_collection_url }}" class="category-card">
-        <img class="category-card__image" src="https://images.unsplash.com/photo-1532947974-2e3966a8b9e6?w=600&q=80" alt="Bestsellers" loading="lazy">
+
+      {%- assign col_bestsellers = collections['bestsellers'] | default: collections['all'] -%}
+      <a href="{{ col_bestsellers.url | default: routes.all_products_collection_url }}" class="category-card">
+        {%- if col_bestsellers and col_bestsellers.image -%}
+          <img class="category-card__image" src="{{ col_bestsellers.image | image_url: width: 600 }}" alt="Bestsellers" loading="lazy">
+        {%- else -%}
+          <img class="category-card__image" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Bestsellers" loading="lazy">
+        {%- endif -%}
         <span class="category-card__label">Bestsellers</span>
       </a>
+
     </div>
   </div>
 </section>
