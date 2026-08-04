@@ -129,7 +129,7 @@
 
   @media (max-width: 899px) {
     .announcement-bar {
-      padding: 6px 12px;
+      padding: max(4px, env(safe-area-inset-top)) 10px 4px 10px;
     }
     .announcement-bar__socials,
     .announcement-bar__selectors {
@@ -139,44 +139,44 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
       width: 100%;
       text-align: center;
     }
     .announcement-bar__sale-text {
-      font-size: 0.82rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.3px;
     }
     .announcement-bar__timer {
-      gap: 4px;
+      gap: 3px;
     }
     .timer-pill {
-      padding: 2px 6px;
-      font-size: 0.78rem;
-      border-radius: 5px;
+      padding: 1px 5px;
+      font-size: 0.72rem;
+      border-radius: 4px;
     }
     .timer-pill__unit {
-      font-size: 0.5rem;
+      font-size: 0.48rem;
     }
 
     .site-header {
-      padding: 8px 12px;
+      padding: 6px 12px;
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
     }
     .header-logo {
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       letter-spacing: 1px;
       justify-content: center;
     }
     .header-icons {
-      gap: 10px;
+      gap: 8px;
     }
     .header-icon svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
   }
 
