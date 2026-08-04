@@ -6,45 +6,7 @@
   }
   .collection-banner__title {
     font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: var(--spacing-lg);
-    font-weight: 500;
-  }
-  
-  /* Category Carousel */
-  .category-carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-sm) 0 var(--spacing-md) 0;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* Firefox */
-  }
-  .category-carousel::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-  }
-  .category-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: var(--color-text-heading);
-    scroll-snap-align: start;
-    min-width: 80px;
-  }
-  .category-item__image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 8px;
-    border: 2px solid transparent;
-    transition: border-color 0.3s;
-  }
-  .category-item:hover .category-item__image {
-    border-color: var(--color-bg-dark);
-  }
-  .category-item__label {
-    font-size: 0.875rem;
+    margin-bottom: var(--spacing-md);
     font-weight: 500;
   }
 </style>
@@ -55,30 +17,6 @@
       <span class="visually-hidden">Collection: </span>
       {{ collection.title }}
     </h1>
-    
-    <div class="category-carousel">
-      <!-- Dummy Category Tabs matching the reference structure -->
-      <a href="{{ routes.all_products_collection_url }}" class="category-item">
-        <img class="category-item__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80" alt="All">
-        <span class="category-item__label">All</span>
-      </a>
-      <a href="#" class="category-item">
-        <img class="category-item__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=200&q=80" alt="Serums">
-        <span class="category-item__label">Serums</span>
-      </a>
-      <a href="#" class="category-item">
-        <img class="category-item__image" src="https://images.unsplash.com/photo-1556228720-1c27befd6ce1?w=200&q=80" alt="Cleansers">
-        <span class="category-item__label">Cleansers</span>
-      </a>
-      <a href="#" class="category-item">
-        <img class="category-item__image" src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ceb0?w=200&q=80" alt="Moisturizers">
-        <span class="category-item__label">Moisturizers</span>
-      </a>
-      <a href="#" class="category-item">
-        <img class="category-item__image" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=200&q=80" alt="Sets">
-        <span class="category-item__label">Sets</span>
-      </a>
-    </div>
   </div>
 </div>
 

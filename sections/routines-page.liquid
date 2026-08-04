@@ -1,0 +1,469 @@
+<style>
+  /* ============================================
+     ROUTINES PAGE — Curated Skincare Routines
+     ============================================ */
+
+  /* Hero */
+  .routines-hero {
+    padding: var(--spacing-xxl) 0 var(--spacing-xl);
+    text-align: center;
+    background: var(--color-bg-primary);
+  }
+  .routines-hero__badge {
+    display: inline-block;
+    background: var(--color-bg-alternate);
+    color: var(--color-cta);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+  .routines-hero__title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    margin-bottom: var(--spacing-sm);
+  }
+  .routines-hero__subtitle {
+    color: var(--color-text-body);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Concern Filter Tabs */
+  .routines-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px var(--spacing-xl);
+    background: var(--color-bg-primary);
+  }
+  .routines-filter-btn {
+    padding: 10px 22px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    background: transparent;
+    color: var(--color-text-body);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .routines-filter-btn:hover,
+  .routines-filter-btn.is-active {
+    background: var(--color-cta);
+    color: #fff;
+    border-color: var(--color-cta);
+  }
+
+  /* Routine Cards Grid */
+  .routines-grid {
+    padding: 0 0 var(--spacing-xxl);
+    background: var(--color-bg-primary);
+  }
+  .routines-grid__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  @media (min-width: 768px) {
+    .routines-grid__inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .routines-grid__inner {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Individual Routine Card */
+  .routine-card {
+    background: var(--color-bg-primary);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .routine-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+  }
+  .routine-card__image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .routine-card__body {
+    padding: var(--spacing-md);
+  }
+  .routine-card__concern {
+    display: inline-block;
+    background: var(--color-bg-alternate);
+    color: var(--color-cta);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .routine-card__title {
+    font-size: 1.35rem;
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .routine-card__desc {
+    color: var(--color-text-body);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* Step Indicators */
+  .routine-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: var(--spacing-md);
+  }
+  .routine-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .routine-step__number {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: var(--color-bg-alternate);
+    color: var(--color-cta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .routine-step__text {
+    font-size: 0.85rem;
+    color: var(--color-text-heading);
+    font-weight: 500;
+  }
+
+  /* Card Footer */
+  .routine-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .routine-card__discount {
+    background: #E8F9EE;
+    color: var(--color-success);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .routine-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-cta);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.3s ease;
+  }
+  .routine-card__cta:hover {
+    gap: 10px;
+    opacity: 1;
+  }
+
+  /* Bottom CTA Banner */
+  .routines-cta {
+    padding: var(--spacing-xl) 0;
+    background: var(--color-bg-alternate);
+    text-align: center;
+  }
+  .routines-cta__title {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    margin-bottom: var(--spacing-xs);
+  }
+  .routines-cta__text {
+    color: var(--color-text-body);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-md);
+  }
+</style>
+
+<!-- SEO Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Skincare Routines | Seravolve",
+  "description": "Explore dermatologist-designed skincare routines curated for every skin concern — from morning glow to evening repair and anti-aging.",
+  "url": "{{ canonical_url }}"
+}
+</script>
+
+<!-- ===== HERO ===== -->
+<section class="routines-hero" aria-label="Routines hero">
+  <div class="container">
+    <span class="routines-hero__badge">Expert Curated</span>
+    <h1 class="routines-hero__title">Curated Skincare Routines</h1>
+    <p class="routines-hero__subtitle">Dermatologist-designed, step-by-step routines tailored for every skin goal. Find the regimen that works for you.</p>
+  </div>
+</section>
+
+<!-- ===== FILTER TABS ===== -->
+<div class="routines-filters" aria-label="Filter routines by concern">
+  <button class="routines-filter-btn is-active" data-filter="all">All Routines</button>
+  <button class="routines-filter-btn" data-filter="morning">Morning Glow</button>
+  <button class="routines-filter-btn" data-filter="evening">Evening Repair</button>
+  <button class="routines-filter-btn" data-filter="anti-aging">Anti-Aging</button>
+  <button class="routines-filter-btn" data-filter="acne">Acne Defense</button>
+  <button class="routines-filter-btn" data-filter="sensitive">Calming Sensitive</button>
+</div>
+
+<!-- ===== ROUTINE CARDS GRID ===== -->
+<section class="routines-grid" aria-label="Skincare routine cards">
+  <div class="container">
+    <div class="routines-grid__inner">
+
+      <!-- Routine 1: Morning Glow -->
+      <article class="routine-card" data-category="morning">
+        <img class="routine-card__image" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="Morning glow skincare routine products" loading="lazy">
+        <div class="routine-card__body">
+          <span class="routine-card__concern">Morning Glow</span>
+          <h2 class="routine-card__title">The Morning Radiance Routine</h2>
+          <p class="routine-card__desc">Start your day with a brightening cleanse, a Vitamin C serum boost, and SPF protection for an all-day glow.</p>
+          <div class="routine-steps">
+            <div class="routine-step">
+              <span class="routine-step__number">1</span>
+              <span class="routine-step__text">Gentle Foaming Cleanser</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">2</span>
+              <span class="routine-step__text">Vitamin C Brightening Serum</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">3</span>
+              <span class="routine-step__text">Lightweight SPF 50 Moisturizer</span>
+            </div>
+          </div>
+          <div class="routine-card__footer">
+            <span class="routine-card__discount">Save 15%</span>
+            <a href="{{ routes.all_products_collection_url }}" class="routine-card__cta">
+              View Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Routine 2: Evening Repair -->
+      <article class="routine-card" data-category="evening">
+        <img class="routine-card__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80" alt="Evening repair skincare routine" loading="lazy">
+        <div class="routine-card__body">
+          <span class="routine-card__concern">Evening Repair</span>
+          <h2 class="routine-card__title">The Overnight Recovery Routine</h2>
+          <p class="routine-card__desc">Repair and rejuvenate while you sleep with a deep cleanse, retinol treatment, and rich overnight moisture barrier.</p>
+          <div class="routine-steps">
+            <div class="routine-step">
+              <span class="routine-step__number">1</span>
+              <span class="routine-step__text">Oil-Based Double Cleanser</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">2</span>
+              <span class="routine-step__text">Retinol Renewal Serum</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">3</span>
+              <span class="routine-step__text">Ceramide Night Cream</span>
+            </div>
+          </div>
+          <div class="routine-card__footer">
+            <span class="routine-card__discount">Save 15%</span>
+            <a href="{{ routes.all_products_collection_url }}" class="routine-card__cta">
+              View Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Routine 3: Anti-Aging -->
+      <article class="routine-card" data-category="anti-aging">
+        <img class="routine-card__image" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80" alt="Anti-aging skincare routine" loading="lazy">
+        <div class="routine-card__body">
+          <span class="routine-card__concern">Anti-Aging</span>
+          <h2 class="routine-card__title">The Age-Defying Routine</h2>
+          <p class="routine-card__desc">Target fine lines, wrinkles, and loss of elasticity with peptides, retinol, and hydrating hyaluronic acid.</p>
+          <div class="routine-steps">
+            <div class="routine-step">
+              <span class="routine-step__number">1</span>
+              <span class="routine-step__text">Peptide Cleansing Balm</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">2</span>
+              <span class="routine-step__text">Hyaluronic Acid + Peptide Serum</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">3</span>
+              <span class="routine-step__text">Firming Collagen Moisturizer</span>
+            </div>
+          </div>
+          <div class="routine-card__footer">
+            <span class="routine-card__discount">Save 15%</span>
+            <a href="{{ routes.all_products_collection_url }}" class="routine-card__cta">
+              View Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Routine 4: Acne Defense -->
+      <article class="routine-card" data-category="acne">
+        <img class="routine-card__image" src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80" alt="Acne defense skincare routine" loading="lazy">
+        <div class="routine-card__body">
+          <span class="routine-card__concern">Acne Defense</span>
+          <h2 class="routine-card__title">The Clear Skin Routine</h2>
+          <p class="routine-card__desc">Fight breakouts with salicylic acid, niacinamide, and lightweight oil-free hydration that won't clog pores.</p>
+          <div class="routine-steps">
+            <div class="routine-step">
+              <span class="routine-step__number">1</span>
+              <span class="routine-step__text">Salicylic Acid Gel Cleanser</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">2</span>
+              <span class="routine-step__text">Niacinamide 10% Pore Serum</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">3</span>
+              <span class="routine-step__text">Oil-Free Gel Moisturizer</span>
+            </div>
+          </div>
+          <div class="routine-card__footer">
+            <span class="routine-card__discount">Save 15%</span>
+            <a href="{{ routes.all_products_collection_url }}" class="routine-card__cta">
+              View Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Routine 5: Calming Sensitive -->
+      <article class="routine-card" data-category="sensitive">
+        <img class="routine-card__image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80" alt="Sensitive skin calming skincare routine" loading="lazy">
+        <div class="routine-card__body">
+          <span class="routine-card__concern">Calming Sensitive</span>
+          <h2 class="routine-card__title">The Gentle Soothe Routine</h2>
+          <p class="routine-card__desc">Calm redness, irritation, and reactive skin with fragrance-free, barrier-strengthening formulations.</p>
+          <div class="routine-steps">
+            <div class="routine-step">
+              <span class="routine-step__number">1</span>
+              <span class="routine-step__text">Cream Micellar Cleanser</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">2</span>
+              <span class="routine-step__text">Centella Soothing Essence</span>
+            </div>
+            <div class="routine-step">
+              <span class="routine-step__number">3</span>
+              <span class="routine-step__text">Ceramide Barrier Cream</span>
+            </div>
+          </div>
+          <div class="routine-card__footer">
+            <span class="routine-card__discount">Save 15%</span>
+            <a href="{{ routes.all_products_collection_url }}" class="routine-card__cta">
+              View Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Routine 6: Complete 5-Step -->
+      <article class="routine-card" data-category="morning evening">
+        <img class="routine-card__image" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=80" alt="Complete 5-step skincare routine" loading="lazy">
+        <div class="routine-card__body">
+          <span class="routine-card__concern">Complete Routine</span>
+          <h2 class="routine-card__title">The Full 5-Step Regimen</h2>
+          <p class="routine-card__desc">The ultimate AM to PM routine covering cleanse, tone, treat, moisturize, and protect for transformative results.</p>
+          <div class="routine-steps">
+            <div class="routine-step"><span class="routine-step__number">1</span><span class="routine-step__text">Cleanser</span></div>
+            <div class="routine-step"><span class="routine-step__number">2</span><span class="routine-step__text">Toner</span></div>
+            <div class="routine-step"><span class="routine-step__number">3</span><span class="routine-step__text">Serum</span></div>
+            <div class="routine-step"><span class="routine-step__number">4</span><span class="routine-step__text">Moisturizer</span></div>
+            <div class="routine-step"><span class="routine-step__number">5</span><span class="routine-step__text">SPF Sunscreen</span></div>
+          </div>
+          <div class="routine-card__footer">
+            <span class="routine-card__discount">Save 20%</span>
+            <a href="{{ routes.all_products_collection_url }}" class="routine-card__cta">
+              View Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOTTOM CTA ===== -->
+<section class="routines-cta" aria-label="Build your own routine">
+  <div class="container">
+    <h2 class="routines-cta__title">Not Sure Which Routine Is Right?</h2>
+    <p class="routines-cta__text">Take our 60-second skin quiz to discover a personalized routine built just for you.</p>
+    <a href="/pages/quiz" class="btn">Build Your Routine</a>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const filterBtns = document.querySelectorAll('.routines-filter-btn');
+  const cards = document.querySelectorAll('.routine-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.category.includes(filter)) {
+          card.style.display = '';
+          card.style.animation = 'fadeInUp 0.4s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Routines Page",
+  "settings": []
+}
+{% endschema %}

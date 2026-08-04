@@ -444,8 +444,9 @@
     <nav class="header-nav">
       <a href="{{ routes.root_url }}" class="header-nav__link">Home</a>
       <a href="{{ routes.all_products_collection_url }}" class="header-nav__link">Shop</a>
-      <a href="#" class="header-nav__link">Routines</a>
-      <a href="#" class="header-nav__link">About</a>
+      <a href="/pages/routines" class="header-nav__link">Routines</a>
+      <a href="/pages/about-us" class="header-nav__link">About</a>
+      <a href="/blogs/news" class="header-nav__link">Blog</a>
     </nav>
 
     <!-- Right: Icons & CTA -->
@@ -456,7 +457,7 @@
       <a href="{{ routes.cart_url }}" class="header-icon" aria-label="Cart" id="HeaderCartIcon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
       </a>
-      <a href="#" class="btn header-quiz-btn">Build Routine</a>
+      <a href="/pages/quiz" class="btn header-quiz-btn">Build Routine</a>
     </div>
   </header>
 </div>
@@ -473,14 +474,15 @@
 
   <nav class="mobile-menu-drawer__nav">
     <a href="{{ routes.root_url }}" class="mobile-menu-drawer__link">Home</a>
-    <a href="{{ routes.all_products_collection_url }}" class="mobile-menu-drawer__link">Shop All Products</a>
-    <a href="#routines" class="mobile-menu-drawer__link">5-Step Routines</a>
-    <a href="#every-skin-type" class="mobile-menu-drawer__link">For Every Skin Type</a>
-    <a href="#lookbook" class="mobile-menu-drawer__link">Launch Event Gallery</a>
+    <a href="{{ routes.all_products_collection_url }}" class="mobile-menu-drawer__link">Shop</a>
+    <a href="/pages/routines" class="mobile-menu-drawer__link">Routines</a>
+    <a href="/pages/about-us" class="mobile-menu-drawer__link">About Us</a>
+    <a href="/blogs/news" class="mobile-menu-drawer__link">Blog</a>
+    <a href="/pages/faq" class="mobile-menu-drawer__link">FAQ</a>
   </nav>
 
   <div class="mobile-menu-drawer__footer">
-    <a href="{{ routes.all_products_collection_url }}" class="btn" style="width: 100%; text-align: center;">Explore Store</a>
+    <a href="/pages/quiz" class="btn" style="width: 100%; text-align: center;">Build Your Routine</a>
     <div class="mobile-menu-drawer__contact">
       <p><strong>Email:</strong> info@seravolve</p>
       <p><strong>Instagram:</strong> @seravolve</p>

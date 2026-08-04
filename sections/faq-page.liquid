@@ -1,0 +1,533 @@
+<style>
+  /* ============================================
+     FAQ PAGE — Frequently Asked Questions
+     ============================================ */
+
+  /* Hero */
+  .faq-hero {
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #123B5A 0%, #0A5C8F 50%, #0095FF 100%);
+    overflow: hidden;
+    padding: var(--spacing-xxl) 20px;
+  }
+  .faq-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(102,200,255,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .faq-hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+  }
+  .faq-hero__title {
+    color: #ffffff;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: var(--spacing-xs);
+  }
+  .faq-hero__subtitle {
+    color: rgba(255,255,255,0.7);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* Main FAQ Layout */
+  .faq-layout {
+    padding: var(--spacing-xl) 0 var(--spacing-xxl);
+    background: var(--color-bg-primary);
+  }
+  .faq-layout__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  @media (min-width: 768px) {
+    .faq-layout__grid {
+      grid-template-columns: 240px 1fr;
+    }
+  }
+
+  /* Sidebar Navigation */
+  .faq-sidebar {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .faq-sidebar {
+      display: block;
+      position: sticky;
+      top: 100px;
+      align-self: start;
+    }
+  }
+  .faq-sidebar__title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-text-body);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+  .faq-sidebar__list {
+    list-style: none;
+  }
+  .faq-sidebar__item {
+    margin-bottom: 4px;
+  }
+  .faq-sidebar__link {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: var(--color-text-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .faq-sidebar__link:hover,
+  .faq-sidebar__link.is-active {
+    background: var(--color-bg-alternate);
+    color: var(--color-cta);
+    opacity: 1;
+  }
+
+  /* Mobile Category Filter */
+  .faq-mobile-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--spacing-md);
+  }
+  @media (min-width: 768px) {
+    .faq-mobile-filters { display: none; }
+  }
+  .faq-mobile-filter {
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    background: transparent;
+    color: var(--color-text-body);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .faq-mobile-filter.is-active {
+    background: var(--color-cta);
+    color: #fff;
+    border-color: var(--color-cta);
+  }
+
+  /* FAQ Category Sections */
+  .faq-category {
+    margin-bottom: var(--spacing-lg);
+  }
+  .faq-category__title {
+    font-size: 1.3rem;
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--color-bg-alternate);
+  }
+
+  /* Accordion Items */
+  .faq-item {
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .faq-item__question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-heading);
+    transition: color 0.25s;
+    gap: 16px;
+  }
+  .faq-item__question:hover {
+    color: var(--color-cta);
+  }
+  .faq-item__toggle {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: var(--color-bg-alternate);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--color-cta);
+    transition: transform 0.3s, background 0.3s;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .faq-item.is-open .faq-item__toggle {
+    background: var(--color-cta);
+    color: #fff;
+    transform: rotate(45deg);
+  }
+  .faq-item__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.3s;
+    padding: 0;
+  }
+  .faq-item.is-open .faq-item__answer {
+    max-height: 500px;
+    padding-bottom: 18px;
+  }
+  .faq-item__answer p {
+    color: var(--color-text-body);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  /* Contact Support Banner */
+  .faq-support {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--color-bg-alternate);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .faq-support__title {
+    font-size: 1.4rem;
+    margin-bottom: var(--spacing-xs);
+  }
+  .faq-support__text {
+    color: var(--color-text-body);
+    margin-bottom: var(--spacing-md);
+  }
+</style>
+
+<!-- SEO: FAQPage Schema for Rich Snippets -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What makes Seravolve different from other skincare brands?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every Seravolve product is co-developed with board-certified dermatologists and uses clinically validated actives at effective concentrations. We are 100% vegan, cruelty-free, and free from parabens, sulfates, and artificial fragrances."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I choose the right routine for my skin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Take our 60-second skin quiz to receive a personalized routine recommendation based on your skin type, concerns, and lifestyle preferences."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer free shipping?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We offer free shipping on all orders above ₹999 across India. Orders are typically dispatched within 24-48 hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is your return policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We offer a 30-day hassle-free return policy. If you're not satisfied with your purchase, contact us within 30 days of delivery for a full refund or exchange."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Seravolve products suitable for sensitive skin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. We have a dedicated Sensitive Skin line that is fragrance-free, hypoallergenic, and dermatologist-tested. All products undergo patch testing before launch."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===== HERO ===== -->
+<section class="faq-hero" aria-label="FAQ Hero">
+  <div class="faq-hero__content">
+    <h1 class="faq-hero__title">Frequently Asked Questions</h1>
+    <p class="faq-hero__subtitle">Find answers to common questions about our products, shipping, returns, and more.</p>
+  </div>
+</section>
+
+<!-- ===== FAQ LAYOUT ===== -->
+<section class="faq-layout" aria-label="FAQ content">
+  <div class="container">
+
+    <!-- Mobile Category Filters -->
+    <div class="faq-mobile-filters">
+      <button class="faq-mobile-filter is-active" data-faq-cat="all">All</button>
+      <button class="faq-mobile-filter" data-faq-cat="general">General</button>
+      <button class="faq-mobile-filter" data-faq-cat="shipping">Shipping</button>
+      <button class="faq-mobile-filter" data-faq-cat="returns">Returns</button>
+      <button class="faq-mobile-filter" data-faq-cat="products">Products</button>
+      <button class="faq-mobile-filter" data-faq-cat="account">Account</button>
+    </div>
+
+    <div class="faq-layout__grid">
+
+      <!-- ===== SIDEBAR ===== -->
+      <aside class="faq-sidebar" aria-label="FAQ categories">
+        <div class="faq-sidebar__title">Categories</div>
+        <ul class="faq-sidebar__list">
+          <li class="faq-sidebar__item"><a href="#faq-general" class="faq-sidebar__link is-active" data-faq-nav="general">General Questions</a></li>
+          <li class="faq-sidebar__item"><a href="#faq-shipping" class="faq-sidebar__link" data-faq-nav="shipping">Shipping & Delivery</a></li>
+          <li class="faq-sidebar__item"><a href="#faq-returns" class="faq-sidebar__link" data-faq-nav="returns">Returns & Refunds</a></li>
+          <li class="faq-sidebar__item"><a href="#faq-products" class="faq-sidebar__link" data-faq-nav="products">Product Information</a></li>
+          <li class="faq-sidebar__item"><a href="#faq-account" class="faq-sidebar__link" data-faq-nav="account">Account & Subscriptions</a></li>
+        </ul>
+      </aside>
+
+      <!-- ===== ACCORDION CONTENT ===== -->
+      <div class="faq-content">
+
+        <!-- General -->
+        <div class="faq-category" id="faq-general" data-faq-section="general">
+          <h2 class="faq-category__title">General Questions</h2>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>What makes Seravolve different from other skincare brands?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Every Seravolve product is co-developed with board-certified dermatologists and uses clinically validated actives at effective concentrations. We are 100% vegan, cruelty-free, and free from parabens, sulfates, and artificial fragrances.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>How do I choose the right routine for my skin?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Take our <a href="/pages/quiz" style="color:var(--color-cta);text-decoration:underline;">60-second skin quiz</a> to receive a personalized routine recommendation based on your skin type, concerns, and lifestyle preferences. Our algorithm matches you with the optimal combination of products.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Are your products tested on animals?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Never. Seravolve is proudly cruelty-free and certified vegan. We do not test on animals at any stage of product development or manufacturing.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping -->
+        <div class="faq-category" id="faq-shipping" data-faq-section="shipping">
+          <h2 class="faq-category__title">Shipping & Delivery</h2>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Do you offer free shipping?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Yes! We offer free shipping on all orders above ₹999 across India. Orders are typically dispatched within 24-48 hours and delivered within 5-7 business days.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Can I track my order?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Absolutely. Once your order is dispatched, you'll receive a tracking link via email and SMS. You can also track your order from the "My Orders" section in your account dashboard.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Do you ship internationally?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Currently, we ship exclusively within India. International shipping is coming soon — follow us on Instagram for updates!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Returns -->
+        <div class="faq-category" id="faq-returns" data-faq-section="returns">
+          <h2 class="faq-category__title">Returns & Refunds</h2>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>What is your return policy?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>We offer a 30-day hassle-free return policy. If you're not satisfied with your purchase, contact us within 30 days of delivery for a full refund or exchange. Products must be in their original packaging.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>How long does a refund take?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Once we receive your returned product, refunds are processed within 5-7 business days. The amount will be credited back to your original payment method.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div class="faq-category" id="faq-products" data-faq-section="products">
+          <h2 class="faq-category__title">Product Information</h2>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Are Seravolve products suitable for sensitive skin?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Absolutely. We have a dedicated Sensitive Skin line that is fragrance-free, hypoallergenic, and dermatologist-tested. All products undergo patch testing before launch. We recommend starting with our Centella Calming Essence if you have reactive skin.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>What active ingredients do you use?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Our core actives include Vitamin C (L-Ascorbic Acid), Hyaluronic Acid, Niacinamide, Salicylic Acid, Retinol, Ceramides, and Peptides — all at clinically effective concentrations. Each product clearly lists its active ingredients and concentrations on the packaging.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Can I use multiple Seravolve products together?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>Yes! Our products are formulated to work synergistically. Check our <a href="/pages/routines" style="color:var(--color-cta);text-decoration:underline;">Routines page</a> for pre-built regimens, or take the <a href="/pages/quiz" style="color:var(--color-cta);text-decoration:underline;">Skin Quiz</a> for a personalized combination.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="faq-category" id="faq-account" data-faq-section="account">
+          <h2 class="faq-category__title">Account & Subscriptions</h2>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Do I need an account to place an order?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>No, you can checkout as a guest. However, creating an account lets you track orders, save your quiz results, and access exclusive member-only offers.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Do you offer subscriptions or auto-replenishment?</span>
+              <span class="faq-item__toggle">+</span>
+            </button>
+            <div class="faq-item__answer" role="region">
+              <p>We're working on a Subscribe & Save program that will offer up to 20% off recurring orders. Sign up for our newsletter to be the first to know when it launches!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Support CTA -->
+        <div class="faq-support">
+          <h2 class="faq-support__title">Didn't Find What You're Looking For?</h2>
+          <p class="faq-support__text">Our support team is here to help. Reach out to us and we'll get back to you within 24 hours.</p>
+          <a href="mailto:info@seravolve" class="btn">Contact Support</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Accordion toggle
+  document.querySelectorAll('.faq-item__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('is-open');
+
+      // Close all siblings in same category
+      item.closest('.faq-category').querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('is-open');
+        i.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Sidebar navigation highlight on scroll
+  const sidebarLinks = document.querySelectorAll('.faq-sidebar__link');
+  const categories = document.querySelectorAll('.faq-category');
+
+  if (sidebarLinks.length && categories.length) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.dataset.faqSection;
+          sidebarLinks.forEach(l => l.classList.remove('is-active'));
+          document.querySelector(`[data-faq-nav="${id}"]`)?.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-100px 0px -60% 0px' });
+
+    categories.forEach(cat => observer.observe(cat));
+  }
+
+  // Mobile filters
+  document.querySelectorAll('.faq-mobile-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.faq-mobile-filter').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const cat = btn.dataset.faqCat;
+      categories.forEach(c => {
+        c.style.display = (cat === 'all' || c.dataset.faqSection === cat) ? '' : 'none';
+      });
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": []
+}
+{% endschema %}
