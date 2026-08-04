@@ -114,6 +114,100 @@
   @media (min-width: 900px) {
     .header-mobile-menu { display: none; }
   }
+
+  /* Mobile Menu Drawer & Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(18,59,90,0.5);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .mobile-menu-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu-drawer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    background: #fff;
+    z-index: 9999;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 25px rgba(0,0,0,0.15);
+    padding: 24px 20px;
+    overflow-y: auto;
+  }
+  .mobile-menu-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-drawer__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+  }
+
+  .mobile-menu-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--color-text-heading);
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+
+  .mobile-menu-drawer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+  }
+
+  .mobile-menu-drawer__link {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--color-text-heading);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.05);
+    transition: color 0.2s ease;
+  }
+  .mobile-menu-drawer__link:hover {
+    color: var(--color-cta);
+  }
+
+  .mobile-menu-drawer__footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-menu-drawer__contact {
+    font-size: 0.8rem;
+    color: var(--color-text-body);
+    line-height: 1.5;
+  }
 </style>
 
 <div class="site-header-wrapper">
@@ -126,7 +220,7 @@
   <header class="site-header">
     <!-- Left: Logo & Mobile Hamburger -->
     <div style="display: flex; align-items: center;">
-      <button class="header-icon header-mobile-menu" aria-label="Menu">
+      <button class="header-icon header-mobile-menu" id="MobileMenuTrigger" aria-label="Open navigation menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <a href="{{ routes.root_url }}" class="header-logo">
@@ -154,6 +248,75 @@
     </div>
   </header>
 </div>
+
+<!-- Mobile Drawer Overlay & Drawer Container -->
+<div class="mobile-menu-overlay" id="MobileMenuOverlay"></div>
+<aside class="mobile-menu-drawer" id="MobileMenuDrawer" aria-label="Mobile Navigation">
+  <div class="mobile-menu-drawer__header">
+    <a href="{{ routes.root_url }}" class="header-logo" style="font-size: 1.5rem;">
+      {{ shop.name }}
+    </a>
+    <button class="mobile-menu-close" id="MobileMenuClose" aria-label="Close navigation menu">&times;</button>
+  </div>
+
+  <nav class="mobile-menu-drawer__nav">
+    <a href="{{ routes.root_url }}" class="mobile-menu-drawer__link">Home</a>
+    <a href="{{ routes.all_products_collection_url }}" class="mobile-menu-drawer__link">Shop All Products</a>
+    <a href="#routines" class="mobile-menu-drawer__link">5-Step Routines</a>
+    <a href="#every-skin-type" class="mobile-menu-drawer__link">For Every Skin Type</a>
+    <a href="#lookbook" class="mobile-menu-drawer__link">Launch Event Gallery</a>
+  </nav>
+
+  <div class="mobile-menu-drawer__footer">
+    <a href="{{ routes.all_products_collection_url }}" class="btn" style="width: 100%; text-align: center;">Explore Store</a>
+    <div class="mobile-menu-drawer__contact">
+      <p><strong>Email:</strong> info@seravolve</p>
+      <p><strong>Instagram:</strong> @seravolve</p>
+    </div>
+  </div>
+</aside>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const trigger = document.getElementById('MobileMenuTrigger');
+  const drawer = document.getElementById('MobileMenuDrawer');
+  const overlay = document.getElementById('MobileMenuOverlay');
+  const closeBtn = document.getElementById('MobileMenuClose');
+  const drawerLinks = document.querySelectorAll('.mobile-menu-drawer__link');
+
+  if (!trigger || !drawer || !overlay) return;
+
+  const openDrawer = () => {
+    drawer.classList.add('is-open');
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeDrawer = () => {
+    drawer.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  };
+
+  trigger.addEventListener('click', openDrawer);
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeDrawer);
+  }
+
+  overlay.addEventListener('click', closeDrawer);
+
+  drawerLinks.forEach(link => {
+    link.addEventListener('click', closeDrawer);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+      closeDrawer();
+    }
+  });
+});
+</script>
 
 {% schema %}
 {
