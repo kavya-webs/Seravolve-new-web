@@ -1,107 +1,312 @@
 <style>
+  /* ============================================
+     SERAVOLVE PREDICTIVE SEARCH OVERLAY
+     ============================================ */
   .search-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 2000;
+    background: rgba(10, 30, 48, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 99998;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 15vh;
+    padding-top: 10vh;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.35s ease;
   }
   .search-overlay.is-active {
     opacity: 1;
     pointer-events: auto;
   }
+
   .search-overlay__close {
     position: absolute;
-    top: 30px;
-    right: 30px;
-    background: none;
+    top: 24px;
+    right: 24px;
+    background: #FFF;
     border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
     cursor: pointer;
-    color: var(--color-bg-dark);
+    color: #123B5A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: transform 0.2s, background 0.2s;
   }
-  .search-overlay__form {
+  .search-overlay__close:hover {
+    transform: scale(1.05);
+    background: #EEF8FF;
+  }
+
+  .search-overlay__container {
     width: 90%;
-    max-width: 600px;
-    position: relative;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
+
+  .search-overlay__form {
+    position: relative;
+    width: 100%;
+  }
+
   .search-overlay__input {
     width: 100%;
-    background: none;
-    border: none;
-    border-bottom: 2px solid var(--color-bg-dark);
-    font-size: 2.5rem;
-    font-family: var(--font-heading);
-    color: var(--color-bg-dark);
-    padding: 10px 0;
+    background: #FFF;
+    border: 2px solid #0095FF;
+    border-radius: 50px;
+    font-size: 1.25rem;
+    font-family: var(--font-body, inherit);
+    color: #123B5A;
+    padding: 18px 60px 18px 24px;
     outline: none;
+    box-shadow: 0 8px 30px rgba(0, 149, 255, 0.25);
+    transition: box-shadow 0.3s;
   }
   .search-overlay__input::placeholder {
-    color: rgba(18, 59, 90, 0.3);
+    color: #94A3B8;
   }
+
   .search-overlay__btn {
     position: absolute;
-    right: 0;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+    background: #0095FF;
     border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
     cursor: pointer;
-    color: var(--color-bg-dark);
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .search-overlay__btn:hover {
+    background: #007AD6;
+  }
+
+  /* Predictive Results Dropdown Card */
+  .search-overlay__results {
+    background: #FFF;
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+    overflow: hidden;
+    max-height: 60vh;
+    overflow-y: auto;
+    display: none;
+  }
+  .search-overlay__results.is-active {
+    display: block;
+    animation: searchFadeIn 0.3s ease forwards;
+  }
+  @keyframes searchFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .search-results-header {
+    padding: 12px 20px;
+    background: #EEF8FF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #0095FF;
+  }
+
+  .search-results-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+  }
+  .search-result-item:hover {
+    background: #F8FAFC;
+  }
+
+  .search-result-item__img {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: #EEF8FF;
+  }
+
+  .search-result-item__info {
+    flex: 1;
+  }
+  .search-result-item__title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #123B5A;
+    margin-bottom: 2px;
+  }
+  .search-result-item__price {
+    font-size: 0.85rem;
+    color: #0095FF;
+    font-weight: 600;
+  }
+
+  .search-results-footer {
+    padding: 14px 20px;
+    text-align: center;
+    background: #F8FAFC;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .search-results-footer a {
+    color: #0095FF;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
   }
 </style>
 
 <div class="search-overlay" id="SearchOverlay">
-  <button class="search-overlay__close" id="SearchOverlayClose">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  <button class="search-overlay__close" id="SearchOverlayClose" aria-label="Close search">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
   </button>
   
-  <form action="{{ routes.search_url }}" method="get" class="search-overlay__form">
-    <input type="hidden" name="type" value="product">
-    <input type="search" name="q" class="search-overlay__input" placeholder="Search products..." id="SearchInput" autocomplete="off">
-    <button type="submit" class="search-overlay__btn">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-    </button>
-  </form>
+  <div class="search-overlay__container">
+    <form action="{{ routes.search_url }}" method="get" class="search-overlay__form" id="SearchOverlayForm">
+      <input type="hidden" name="type" value="product">
+      <input type="search" name="q" class="search-overlay__input" placeholder="Search products, ingredients, routines..." id="SearchInput" autocomplete="off">
+      <button type="submit" class="search-overlay__btn" aria-label="Submit search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+    </form>
+
+    <!-- Predictive Results Dropdown Card -->
+    <div class="search-overlay__results" id="SearchResultsCard">
+      <div class="search-results-header" id="SearchResultsHeader">Products</div>
+      <div class="search-results-list" id="SearchResultsList"></div>
+      <div class="search-results-footer" id="SearchResultsFooter">
+        <a href="#" id="SearchResultsViewAll">View all results →</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('SearchOverlay');
-    const closeBtn = document.getElementById('SearchOverlayClose');
-    const searchInput = document.getElementById('SearchInput');
-    
-    function openSearch() {
-      overlay.classList.add('is-active');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => searchInput.focus(), 300);
-    }
-    
-    function closeSearch() {
-      overlay.classList.remove('is-active');
-      document.body.style.overflow = '';
-      searchInput.value = '';
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  const overlay = document.getElementById('SearchOverlay');
+  const closeBtn = document.getElementById('SearchOverlayClose');
+  const searchInput = document.getElementById('SearchInput');
+  const resultsCard = document.getElementById('SearchResultsCard');
+  const resultsList = document.getElementById('SearchResultsList');
+  const viewAllBtn = document.getElementById('SearchResultsViewAll');
 
-    closeBtn.addEventListener('click', closeSearch);
-    
-    // Listen for search icon click in header
-    const searchIcons = document.querySelectorAll('a[href="{{ routes.search_url }}"]');
-    searchIcons.forEach(icon => {
-      icon.addEventListener('click', (e) => {
-        e.preventDefault();
-        openSearch();
-      });
+  let debounceTimer = null;
+
+  window.openSearch = function() {
+    overlay?.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => searchInput?.focus(), 250);
+  };
+
+  window.closeSearch = function() {
+    overlay?.classList.remove('is-active');
+    document.body.style.overflow = '';
+    if (searchInput) searchInput.value = '';
+    if (resultsCard) resultsCard.classList.remove('is-active');
+  };
+
+  closeBtn?.addEventListener('click', closeSearch);
+
+  // Close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay?.classList.contains('is-active')) {
+      closeSearch();
+    }
+  });
+
+  // Listen for search icon click in header
+  document.querySelectorAll('a[href*="/search"]').forEach(icon => {
+    icon.addEventListener('click', (e) => {
+      e.preventDefault();
+      openSearch();
     });
   });
+
+  // Predictive Live Search AJAX
+  searchInput?.addEventListener('input', (e) => {
+    const query = e.target.value.trim();
+    clearTimeout(debounceTimer);
+
+    if (query.length < 2) {
+      resultsCard?.classList.remove('is-active');
+      return;
+    }
+
+    debounceTimer = setTimeout(() => {
+      fetchPredictiveResults(query);
+    }, 250);
+  });
+
+  async function fetchPredictiveResults(query) {
+    try {
+      const url = `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const products = data.resources?.results?.products || [];
+      renderPredictiveResults(query, products);
+    } catch (err) {
+      console.error('Error fetching predictive search:', err);
+    }
+  }
+
+  function renderPredictiveResults(query, products) {
+    if (!products || products.length === 0) {
+      resultsList.innerHTML = `
+        <div style="padding: 20px; text-align: center; color: #64748B; font-size: 0.9rem;">
+          No matching products found for "<strong>${query}</strong>"
+        </div>
+      `;
+      if (viewAllBtn) viewAllBtn.style.display = 'none';
+      resultsCard?.classList.add('is-active');
+      return;
+    }
+
+    resultsList.innerHTML = products.map(p => `
+      <a href="${p.url}" class="search-result-item">
+        <img class="search-result-item__img" src="${p.image || 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=100'}" alt="${p.title}">
+        <div class="search-result-item__info">
+          <div class="search-result-item__title">${p.title}</div>
+          <div class="search-result-item__price">₹${(p.price).toFixed(2)}</div>
+        </div>
+      </a>
+    `).join('');
+
+    if (viewAllBtn) {
+      viewAllBtn.style.display = '';
+      viewAllBtn.href = `/search?q=${encodeURIComponent(query)}&type=product`;
+      viewAllBtn.textContent = `View all results for "${query}" →`;
+    }
+
+    resultsCard?.classList.add('is-active');
+  }
+});
 </script>
