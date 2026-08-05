@@ -233,6 +233,73 @@
     max-width: 520px;
     margin: 0 auto var(--spacing-md);
   }
+  /* Real MVPs Section */
+  .about-mvps {
+    padding: var(--spacing-xxl) 0;
+    background: #FFFFFF;
+  }
+  .about-mvps__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+  }
+  .about-mvps__title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: var(--font-heading);
+    color: var(--color-text-heading, #0A1E30);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .about-mvps__subtitle {
+    color: var(--color-text-body, #475569);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+  .about-mvps__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (min-width: 900px) {
+    .about-mvps__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+  }
+  .mvp-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .mvp-card__image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1.1;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #F8FAFC;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .mvp-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .mvp-card:hover .mvp-card__image {
+    transform: scale(1.04);
+  }
+  .mvp-card__title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--color-text-heading, #0A1E30);
+    margin-bottom: 8px;
+  }
+  .mvp-card__desc {
+    font-size: 0.875rem;
+    color: var(--color-text-body, #475569);
+    line-height: 1.6;
+  }
 </style>
 
 <!-- SEO: FAQPage + Organization Schema -->
@@ -287,6 +354,56 @@
         </p>
         <a href="/pages/quiz" class="btn">Build Your Routine</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REAL MVPS OF YOUR ROUTINE ===== -->
+<section class="about-mvps" aria-label="Real MVPs of Your Routine">
+  <div class="container">
+    <div class="about-mvps__header">
+      <h2 class="about-mvps__title">Real MVPs of Your Routine</h2>
+      <p class="about-mvps__subtitle">Powerful actives. Proven benefits. Every ingredient has a purpose and your skin will feel the difference.</p>
+    </div>
+
+    <div class="about-mvps__grid">
+      
+      <!-- Card 1: Vitamin C -->
+      <div class="mvp-card">
+        <div class="mvp-card__image-wrapper">
+          <img class="mvp-card__image" src="https://images.unsplash.com/photo-1608248597263-0057e43a4524?w=700&q=80" alt="Vitamin C active liquid bubble texture" loading="lazy">
+        </div>
+        <h3 class="mvp-card__title">Vitamin C</h3>
+        <p class="mvp-card__desc">It brightens skin, fades dark spots, and boosts collagen for a healthy, radiant glow.</p>
+      </div>
+
+      <!-- Card 2: Hyaluronic Acid -->
+      <div class="mvp-card">
+        <div class="mvp-card__image-wrapper">
+          <img class="mvp-card__image" src="https://images.unsplash.com/photo-1548839140-29a749e1cf4e?w=700&q=80" alt="Hyaluronic Acid hydration moisture spheres" loading="lazy">
+        </div>
+        <h3 class="mvp-card__title">Hyaluronic Acid</h3>
+        <p class="mvp-card__desc">It deeply hydrates the skin, plumps fine lines, and locks in moisture for a smooth, dewy finish.</p>
+      </div>
+
+      <!-- Card 3: Niacinamide -->
+      <div class="mvp-card">
+        <div class="mvp-card__image-wrapper">
+          <img class="mvp-card__image" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=700&q=80" alt="Niacinamide clear gel micro-bubbles" loading="lazy">
+        </div>
+        <h3 class="mvp-card__title">Niacinamide</h3>
+        <p class="mvp-card__desc">It helps minimize pores, even out skin tone, and strengthen the skin barrier for a clearer, smoother complexion.</p>
+      </div>
+
+      <!-- Card 4: Salicylic Acid -->
+      <div class="mvp-card">
+        <div class="mvp-card__image-wrapper">
+          <img class="mvp-card__image" src="https://images.unsplash.com/photo-1617897903246-719242758050?w=700&q=80" alt="Salicylic Acid BHA clear droplet" loading="lazy">
+        </div>
+        <h3 class="mvp-card__title">Salicylic Acid</h3>
+        <p class="mvp-card__desc">It is a beta hydroxy acid (BHA) that gently exfoliates, unclogs pores, and helps reduce acne for clearer, smoother skin.</p>
+      </div>
+
     </div>
   </div>
 </section>
