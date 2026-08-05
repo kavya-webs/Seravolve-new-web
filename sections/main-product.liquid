@@ -1,16 +1,38 @@
 <style>
-  .product-section {
-    padding: var(--spacing-xl) 0;
+  :root {
+    --pdp-blush: #FCEBEA;
+    --pdp-navy: #0A1E30;
+    --pdp-blue: #184B79;
+    --pdp-border: #E2E8F0;
+    --pdp-spacing-sm: 12px;
+    --pdp-spacing-md: 24px;
+    --pdp-spacing-lg: 32px;
+    --pdp-spacing-xl: 64px;
   }
+
+  .product-section {
+    padding: var(--pdp-spacing-md) 0 var(--pdp-spacing-xl);
+    background-color: #FAFAFA;
+  }
+  
   .product-grid-layout {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+    gap: var(--pdp-spacing-lg);
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: var(--pdp-spacing-md);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
   }
-  @media (min-width: 900px) {
+  
+  @media (min-width: 992px) {
+    .product-section {
+      padding: var(--pdp-spacing-xl) 0;
+    }
     .product-grid-layout {
-      grid-template-columns: 1fr 1fr;
-      align-items: start;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      padding: 48px;
     }
   }
   
@@ -18,151 +40,283 @@
   .product-gallery {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--pdp-spacing-sm);
   }
-  @media (min-width: 900px) {
+  @media (min-width: 992px) {
     .product-gallery {
       position: sticky;
-      top: 100px; /* offset for header */
+      top: 100px; /* Header offset */
     }
   }
   .product-gallery__main-image {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    border-radius: 12px;
-    background-color: var(--color-bg-secondary);
+    border-radius: 16px;
+    background-color: var(--pdp-blush);
+    transition: transform 0.3s ease;
+  }
+  .product-gallery__main-image:hover {
+    transform: scale(1.02);
   }
   
   /* Right Info */
   .product-info {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 16px;
   }
+  
+  /* Badges & Trust */
   .product-info__badge {
     align-self: flex-start;
-    background-color: var(--color-bg-alternate);
-    color: var(--color-cta);
-    padding: 4px 12px;
+    background-color: var(--pdp-blush);
+    color: var(--pdp-navy);
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 600;
-  }
-  .product-info__title {
-    font-size: clamp(2rem, 3vw, 2.5rem);
-    margin: 0;
-    line-height: 1.1;
-  }
-  .product-info__price {
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--color-text-body);
+    font-weight: 700;
   }
   
+  .judgeme-placeholder {
+    margin-bottom: -8px;
+  }
+
+  .product-info__title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    margin: 0;
+    line-height: 1.1;
+    color: var(--pdp-navy);
+    letter-spacing: -0.5px;
+  }
+  
+  .product-info__price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .product-info__price {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--pdp-navy);
+  }
+  
+  /* Urgency Banner */
+  .urgency-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #FFF4E5;
+    color: #B25E02;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .urgency-banner svg {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Value Props */
+  .value-props {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 0;
+  }
+  .value-prop-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4A5568;
+  }
+  .value-prop-item svg {
+    color: var(--pdp-blue);
+  }
+
   /* Variant Pills */
   .variant-picker {
-    margin-top: var(--spacing-md);
+    margin-top: 12px;
   }
   .variant-picker__title {
     font-size: 0.875rem;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: var(--pdp-navy);
   }
   .variant-picker__options {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-  }
-  .variant-pill {
-    display: inline-block;
+    gap: 10px;
   }
   .variant-pill input {
     display: none;
   }
   .variant-pill label {
     display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid #E2E8F0;
+    padding: 12px 24px;
+    border: 2px solid var(--pdp-border);
     border-radius: 30px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.2s ease;
+    color: var(--pdp-navy);
   }
   .variant-pill input:checked + label {
-    background-color: var(--color-bg-dark);
+    background-color: var(--pdp-navy);
     color: #fff;
-    border-color: var(--color-bg-dark);
+    border-color: var(--pdp-navy);
   }
-  .variant-pill input:disabled + label {
-    opacity: 0.5;
-    cursor: not-allowed;
-    text-decoration: line-through;
+  .variant-pill input:hover:not(:checked) + label {
+    border-color: var(--pdp-navy);
   }
 
   /* Form & Actions */
   .product-form {
-    margin-top: var(--spacing-lg);
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 12px;
   }
   .product-form__buttons {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: 12px;
   }
   .qty-input {
     width: 80px;
-    padding: 12px;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
+    padding: 14px;
+    border: 2px solid var(--pdp-border);
+    border-radius: 12px;
     text-align: center;
     font-family: inherit;
     font-size: 1rem;
+    font-weight: 600;
   }
   .btn-add-to-cart {
     flex: 1;
     font-size: 1.125rem;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: var(--pdp-navy);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(10, 30, 48, 0.2);
+  }
+  .btn-add-to-cart:hover {
+    background-color: var(--pdp-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(10, 30, 48, 0.3);
+  }
+  .btn-add-to-cart:active {
+    transform: translateY(0);
   }
 
-  /* Accordions */
+  /* Sticky Mobile ATC */
+  @media (max-width: 991px) {
+    .product-form__buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      padding: 16px;
+      z-index: 99;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      margin: 0;
+    }
+    .product-info {
+      padding-bottom: 80px; /* Make space for sticky bar */
+    }
+  }
+
+  /* Trust Badges */
+  .trust-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+    padding: 16px;
+    background: #F8FAFC;
+    border-radius: 12px;
+  }
+  .trust-badges img {
+    height: 24px;
+    opacity: 0.7;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+  }
+  .trust-badges img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  /* Premium Accordions */
   .accordion-group {
-    margin-top: var(--spacing-xl);
-    border-top: 1px solid #E2E8F0;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
   .accordion {
-    border-bottom: 1px solid #E2E8F0;
+    border: 1px solid var(--pdp-border);
+    border-radius: 12px;
+    overflow: hidden;
   }
   .accordion__btn {
     width: 100%;
-    background: none;
+    background: #FFF;
     border: none;
-    padding: var(--spacing-md) 0;
+    padding: 18px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: var(--font-heading);
-    font-size: 1.125rem;
+    font-family: inherit;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: var(--color-text-heading);
+    color: var(--pdp-navy);
     cursor: pointer;
     text-align: left;
+    transition: background 0.3s;
+  }
+  .accordion__btn:hover {
+    background: #F8FAFC;
   }
   .accordion__content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.4s ease;
+    background: #F8FAFC;
+  }
+  .accordion__content-inner {
+    padding: 0 20px 20px 20px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4A5568;
   }
   .accordion.is-open .accordion__content {
-    max-height: 500px;
-    padding-bottom: var(--spacing-md);
+    max-height: 800px;
   }
   .accordion__icon {
     transition: transform 0.3s ease;
+    color: var(--pdp-navy);
   }
   .accordion.is-open .accordion__icon {
     transform: rotate(45deg);
@@ -177,22 +331,63 @@
       <div class="product-gallery">
         {%- if product.media.size > 0 -%}
           {%- for media in product.media -%}
-            <img class="product-gallery__main-image" src="{{ media | image_url: width: 1000 }}" alt="{{ media.alt | escape }}">
+            <img class="product-gallery__main-image" src="{{ media | image_url: width: 1200 }}" alt="{{ media.alt | escape }}">
           {%- endfor -%}
         {%- else -%}
-          <img class="product-gallery__main-image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=1000&q=80" alt="Dummy Product">
+          <!-- Placeholder if no image -->
+          <img class="product-gallery__main-image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=1000&q=80" alt="Seravolve Product Placeholder">
         {%- endif -%}
       </div>
 
       <!-- Info -->
       <div class="product-info">
-        {%- if product.tags contains 'Trending' -%}
-          <span class="product-info__badge">Trending</span>
-        {%- endif -%}
         
-        <h1 class="product-info__title">{{ product.title | default: 'Seravolve Glow Serum' }}</h1>
-        <div class="product-info__price">{{ product.price | default: 4500 | money }}</div>
+        <!-- Tags / Badges -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          {%- if product.tags contains 'Trending' or product.tags contains 'Bestseller' -%}
+            <span class="product-info__badge">Bestseller</span>
+          {%- else -%}
+             <span class="product-info__badge" style="background: #EBF8FF; color: #2B6CB0;">Dermatologist Tested</span>
+          {%- endif -%}
+        </div>
 
+        <!-- Judge.me Review Badge Placeholder -->
+        <div class="judgeme-placeholder">
+          <!-- Start Judge.me widget -->
+          {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+          <!-- End Judge.me widget -->
+        </div>
+        
+        <!-- Title & Price -->
+        <h1 class="product-info__title">{{ product.title | default: 'Seravolve Advanced Formula' }}</h1>
+        
+        <div class="product-info__price-wrapper">
+          <div class="product-info__price">{{ product.price | default: 4500 | money }}</div>
+        </div>
+
+        <!-- Urgency Banner -->
+        <div class="urgency-banner">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 10c0 4.14-3.36 7.5-7.5 7.5S2.5 14.14 2.5 10 5.86 2.5 10 2.5V0c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10h-2.5zM12.5 10c0-1.38-1.12-2.5-2.5-2.5V5c2.76 0 5 2.24 5 5h-2.5z"/><path d="M12 0l-3 7h6l-3 7z" fill="#FF8A00"/></svg>
+          High demand: Ships within 24 hours.
+        </div>
+
+        <!-- Conversion Value Props -->
+        <div class="value-props">
+          <div class="value-prop-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Clinical-Grade Actives
+          </div>
+          <div class="value-prop-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            100% Vegan & Cruelty-Free
+          </div>
+          <div class="value-prop-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            30-Day Results Guarantee
+          </div>
+        </div>
+
+        <!-- Variants -->
         {%- unless product.has_only_default_variant -%}
           <div class="variant-picker">
             {%- for option in product.options_with_values -%}
@@ -209,11 +404,13 @@
           </div>
         {%- endunless -%}
 
+        <!-- Add To Cart Form -->
         {%- form 'product', product, class: 'product-form' -%}
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
           <div class="product-form__buttons">
-            <input type="number" name="quantity" class="qty-input" value="1" min="1">
-            <button type="submit" name="add" class="btn btn-add-to-cart" {% if product.available == false %}disabled{% endif %}>
+            <input type="number" name="quantity" class="qty-input" value="1" min="1" aria-label="Quantity">
+            <button type="submit" name="add" class="btn-add-to-cart" {% if product.available == false %}disabled{% endif %}>
               {%- if product.available -%}
                 Add to Cart
               {%- else -%}
@@ -223,28 +420,50 @@
           </div>
         {%- endform -%}
 
-        <div class="product-description" style="margin-top: 16px;">
-          {{ product.description | default: '<p>A powerful antioxidant serum designed to brighten and smooth the complexion. Formulated with clinical-grade ingredients for visible results.</p>' }}
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span style="font-size: 0.85rem; font-weight: 600; color: #4A5568;">Secure SSL Checkout</span>
         </div>
 
-        <!-- Accordions -->
+        <!-- Description -->
+        <div class="product-description" style="margin-top: 8px; font-size: 1.05rem; line-height: 1.6; color: #4A5568;">
+          {{ product.description | default: '<p>A powerful antioxidant formula designed to brighten and smooth the complexion. Engineered with clinical-grade ingredients to repair the skin barrier for visible, lasting results.</p>' }}
+        </div>
+
+        <!-- Premium Accordions -->
         <div class="accordion-group">
           <div class="accordion">
-            <button class="accordion__btn">
-              Ingredients
-              <svg class="accordion__icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="currentColor" stroke-width="2"/></svg>
+            <button class="accordion__btn" type="button">
+              Key Ingredients
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </button>
             <div class="accordion__content">
-              <p>Water, Niacinamide, Glycerin, Sodium Hyaluronate, Ascorbic Acid.</p>
+              <div class="accordion__content-inner">
+                <p>Formulated without parabens, sulfates, or artificial fragrances. Key actives include Niacinamide, Hyaluronic Acid, and Vitamin C to protect and nourish your skin.</p>
+              </div>
             </div>
           </div>
           <div class="accordion">
-            <button class="accordion__btn">
+            <button class="accordion__btn" type="button">
               How to Use
-              <svg class="accordion__icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0V14M0 7H14" stroke="currentColor" stroke-width="2"/></svg>
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </button>
             <div class="accordion__content">
-              <p>Apply 2-3 drops to clean skin morning and night. Follow with moisturizer.</p>
+              <div class="accordion__content-inner">
+                <p>Apply 2-3 drops to clean skin morning and night. Gently press into the face and neck until fully absorbed. Follow with moisturizer to lock in hydration.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion">
+            <button class="accordion__btn" type="button">
+              Shipping & Returns
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__content-inner">
+                <p><strong>Free Delivery:</strong> Enjoy free shipping on all orders with no minimum purchase required.<br><br><strong>Returns:</strong> We accept returns strictly for broken or damaged items within 5 days of delivery.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -255,11 +474,22 @@
 </section>
 
 <script>
-  // Simple Accordion Logic
+  // Premium Accordion Logic
   document.querySelectorAll('.accordion__btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       const parent = btn.closest('.accordion');
+      const icon = btn.querySelector('.accordion__icon');
+      
       parent.classList.toggle('is-open');
+      
+      if(parent.classList.contains('is-open')) {
+        // Change to minus icon
+        icon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"></line>';
+      } else {
+        // Change to plus icon
+        icon.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>';
+      }
     });
   });
 </script>
