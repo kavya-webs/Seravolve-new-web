@@ -1,0 +1,346 @@
+<style>
+  :root {
+    --wli-navy: #0A1E30;
+    --wli-blue: #184B79;
+    --wli-light: #F8FAFC;
+    --wli-border: #E2E8F0;
+    --wli-accent: #EBF8FF;
+  }
+
+  .wli-section {
+    padding: 60px 20px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+  }
+
+  .wli-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .wli-title {
+    font-size: 2.5rem;
+    color: var(--wli-navy);
+    margin: 0 0 10px 0;
+    font-weight: 700;
+  }
+
+  .wli-subtitle {
+    font-size: 1.1rem;
+    color: #4A5568;
+    margin: 0;
+  }
+
+  /* Desktop Layout (Circular) */
+  @media (min-width: 992px) {
+    .wli-section {
+      padding: 100px 20px;
+    }
+    .wli-header {
+      margin-bottom: 80px;
+    }
+    .wli-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wli-hub {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      z-index: 10;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .wli-animate .wli-hub {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .wli-hub img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .wli-ring-svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .wli-ring-circle {
+      fill: none;
+      stroke: var(--wli-border);
+      stroke-width: 2;
+      stroke-dasharray: 1570; /* 2 * PI * r (r=250) */
+      stroke-dashoffset: 1570;
+      transition: stroke-dashoffset 1.5s ease-out 0.3s;
+    }
+    .wli-animate .wli-ring-circle {
+      stroke-dashoffset: 0;
+    }
+
+    .wli-feature {
+      position: absolute;
+      width: 280px;
+      z-index: 5;
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+    /* Feature positioning around a circle */
+    /* Left side */
+    .wli-feature--1 { top: 5%; left: 0; transform: translateX(-50px); }
+    .wli-feature--2 { top: 40%; left: -5%; transform: translateX(-50px); }
+    .wli-feature--3 { bottom: 5%; left: 0; transform: translateX(-50px); }
+    /* Right side */
+    .wli-feature--4 { top: 5%; right: 0; transform: translateX(50px); text-align: right; }
+    .wli-feature--5 { top: 40%; right: -5%; transform: translateX(50px); text-align: right; }
+    .wli-feature--6 { bottom: 5%; right: 0; transform: translateX(50px); text-align: right; }
+
+    .wli-animate .wli-feature {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Staggered animation */
+    .wli-animate .wli-feature--1 { transition-delay: 0.6s; }
+    .wli-animate .wli-feature--4 { transition-delay: 0.8s; }
+    .wli-animate .wli-feature--2 { transition-delay: 1.0s; }
+    .wli-animate .wli-feature--5 { transition-delay: 1.2s; }
+    .wli-animate .wli-feature--3 { transition-delay: 1.4s; }
+    .wli-animate .wli-feature--6 { transition-delay: 1.6s; }
+  }
+
+  /* Mobile Layout (List) */
+  @media (max-width: 991px) {
+    .wli-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .wli-hub {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .wli-animate .wli-hub {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .wli-hub img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .wli-ring-svg {
+      display: none; /* Hide circle on mobile */
+    }
+    .wli-features-mobile-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .wli-feature {
+      background: var(--wli-light);
+      padding: 20px;
+      border-radius: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+    .wli-animate .wli-feature {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .wli-animate .wli-feature:nth-child(1) { transition-delay: 0.3s; }
+    .wli-animate .wli-feature:nth-child(2) { transition-delay: 0.4s; }
+    .wli-animate .wli-feature:nth-child(3) { transition-delay: 0.5s; }
+    .wli-animate .wli-feature:nth-child(4) { transition-delay: 0.6s; }
+    .wli-animate .wli-feature:nth-child(5) { transition-delay: 0.7s; }
+    .wli-animate .wli-feature:nth-child(6) { transition-delay: 0.8s; }
+  }
+
+  /* Feature Box Styling (Shared) */
+  .wli-feature-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  @media (min-width: 992px) {
+    .wli-feature--4 .wli-feature-inner,
+    .wli-feature--5 .wli-feature-inner,
+    .wli-feature--6 .wli-feature-inner {
+      flex-direction: row-reverse;
+    }
+    .wli-feature {
+      background: transparent;
+      padding: 0;
+    }
+  }
+
+  .wli-feature-number {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid var(--wli-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--wli-navy);
+    background: #fff;
+    font-size: 1.1rem;
+  }
+  
+  .wli-feature-content {
+    flex: 1;
+  }
+  .wli-feature-title {
+    font-weight: 700;
+    color: var(--wli-navy);
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+  }
+  .wli-feature-text {
+    color: #4A5568;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+</style>
+
+<section class="wli-section" id="wli-section-{{ section.id }}">
+  <div class="wli-header">
+    <h2 class="wli-title">{{ section.settings.heading }}</h2>
+    <p class="wli-subtitle">{{ section.settings.subheading }}</p>
+  </div>
+
+  <div class="wli-container">
+    
+    <!-- Central Hub -->
+    <div class="wli-hub">
+      {%- if section.settings.product_image -%}
+        {{ section.settings.product_image | image_url: width: 600 | image_tag: alt: section.settings.heading, loading: 'lazy' }}
+      {%- else -%}
+        <!-- Placeholder -->
+        <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80" alt="Placeholder">
+      {%- endif -%}
+    </div>
+
+    <!-- Desktop SVG Ring -->
+    <svg class="wli-ring-svg" viewBox="0 0 500 500">
+      <circle class="wli-ring-circle" cx="250" cy="250" r="240" />
+    </svg>
+
+    <!-- Features -->
+    <div class="wli-features-mobile-wrap">
+      {%- for block in section.blocks -%}
+        <div class="wli-feature wli-feature--{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <div class="wli-feature-inner">
+            <div class="wli-feature-number">{{ forloop.index }}</div>
+            <div class="wli-feature-content">
+              <h3 class="wli-feature-title">{{ block.settings.title }}</h3>
+              <p class="wli-feature-text">{{ block.settings.text }}</p>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const section = document.getElementById('wli-section-{{ section.id }}');
+    if (!section) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          section.classList.add('wli-animate');
+          observer.unobserve(section);
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    observer.observe(section);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Why You'll Love It",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why You'll Love It"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Science-backed formulas crafted for healthy, radiant skin."
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Central Product Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Feature Text",
+          "default": "Description of the feature."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why You'll Love It",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Hydrates Skin", "text": "Helps replenish moisture for a soft, smooth feel." } },
+        { "type": "feature", "settings": { "title": "Lightweight Formula", "text": "Fast-absorbing and suitable for all skin types." } },
+        { "type": "feature", "settings": { "title": "3 Step Brightening Complex", "text": "It's a blend of gigawhite, actiwhite extract that helps illuminates dull skin" } },
+        { "type": "feature", "settings": { "title": "Evens Skin Tone", "text": "Provides a more even and radiant complexion." } },
+        { "type": "feature", "settings": { "title": "Antioxidant Protection", "text": "Protects against environmental damage." } },
+        { "type": "feature", "settings": { "title": "Suitable for Most Skin Types", "text": "Gentle for daily use, including sensitive skin." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
