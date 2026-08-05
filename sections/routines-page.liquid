@@ -1,36 +1,38 @@
 <style>
   /* ============================================
-     ROUTINES PAGE — Curated Skincare Routines
+     SERAVOLVE ROUTINES PAGE — CREATIVE 3:4 CARDS
      ============================================ */
 
-  /* Hero */
+  /* Hero Section */
   .routines-hero {
-    padding: var(--spacing-xxl) 0 var(--spacing-xl);
+    padding: var(--spacing-xxl) 0 var(--spacing-lg);
     text-align: center;
     background: var(--color-bg-primary);
   }
   .routines-hero__badge {
     display: inline-block;
-    background: var(--color-bg-alternate);
-    color: var(--color-cta);
+    background: #EEF8FF;
+    color: #0095FF;
     padding: 6px 18px;
     border-radius: 50px;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+    margin-bottom: 12px;
   }
   .routines-hero__title {
     font-size: clamp(2.2rem, 5vw, 3.8rem);
-    margin-bottom: var(--spacing-sm);
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+    margin-bottom: 12px;
   }
   .routines-hero__subtitle {
     color: var(--color-text-body);
     font-size: 1.1rem;
-    max-width: 600px;
+    max-width: 620px;
     margin: 0 auto;
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
   /* Concern Filter Tabs */
@@ -43,22 +45,23 @@
     background: var(--color-bg-primary);
   }
   .routines-filter-btn {
-    padding: 10px 22px;
+    padding: 10px 24px;
     border-radius: 50px;
-    border: 1.5px solid rgba(0,0,0,0.1);
-    background: transparent;
-    color: var(--color-text-body);
+    border: 1.5px solid rgba(0, 149, 255, 0.15);
+    background: #FFF;
+    color: #123B5A;
     font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.875rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
   }
   .routines-filter-btn:hover,
   .routines-filter-btn.is-active {
-    background: var(--color-cta);
-    color: #fff;
-    border-color: var(--color-cta);
+    background: #0095FF;
+    color: #FFF;
+    border-color: #0095FF;
+    box-shadow: 0 4px 16px rgba(0, 149, 255, 0.3);
   }
 
   /* Routine Cards Grid */
@@ -69,7 +72,7 @@
   .routines-grid__inner {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    gap: 28px;
   }
   @media (min-width: 768px) {
     .routines-grid__inner {
@@ -82,172 +85,201 @@
     }
   }
 
-  /* Individual Routine Card */
+  /* ============================================
+     CREATIVE ROUTINE CARD (3:4 ASPECT RATIO)
+     ============================================ */
   .routine-card {
-    background: var(--color-bg-primary);
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 16px;
+    position: relative;
+    background: #FFFFFF;
+    border: 1.5px solid rgba(0, 149, 255, 0.12);
+    border-radius: 20px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 6px 24px rgba(18, 59, 90, 0.05);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease, border-color 0.35s ease;
   }
   .routine-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(0, 149, 255, 0.18);
+    border-color: #0095FF;
   }
-  .routine-card__link {
+
+  /* 3:4 Aspect Ratio Image Wrapper */
+  .routine-card__media-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #F0F8FF;
     display: block;
     text-decoration: none;
   }
-  .routine-card__image-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: #EEF8FF;
-  }
-  .routine-card__image {
+  .routine-card__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  .routine-card:hover .routine-card__image {
-    transform: scale(1.04);
+  .routine-card:hover .routine-card__img {
+    transform: scale(1.05);
   }
-  .routine-card__badge {
+
+  /* Badges Overlay */
+  .routine-card__top-badges {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .routine-card__badge-tag {
     background: #123B5A;
-    color: #FFF;
-    font-size: 0.65rem;
+    color: #FFFFFF;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 4px 10px;
+    letter-spacing: 1.5px;
+    padding: 5px 12px;
     border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
+  .routine-card__save-tag {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #38B26C;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Body Content */
   .routine-card__body {
-    padding: var(--spacing-md);
+    padding: 20px;
     display: flex;
     flex-direction: column;
     flex: 1;
+    justify-content: space-between;
+    background: #FFF;
   }
-  .routine-card__title a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .routine-card__title a:hover {
-    color: var(--color-cta);
-  }
-  .routine-card__concern {
+  .routine-card__category {
     display: inline-block;
-    background: var(--color-bg-alternate);
-    color: var(--color-cta);
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 0.7rem;
+    background: #EEF8FF;
+    color: #0095FF;
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    font-weight: 600;
-    margin-bottom: 12px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    align-self: flex-start;
   }
   .routine-card__title {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-family: var(--font-heading);
-    color: var(--color-text-heading);
-    margin-bottom: 12px;
+    color: #123B5A;
+    margin-bottom: 8px;
     line-height: 1.3;
+    text-decoration: none;
+    display: block;
+    transition: color 0.25s;
+  }
+  .routine-card__title:hover {
+    color: #0095FF;
   }
   .routine-card__desc {
-    color: var(--color-text-body);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: var(--spacing-md);
+    color: #64748B;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    margin-bottom: 16px;
   }
 
-  /* Step Indicators */
-  .routine-steps {
+  /* Step Pills */
+  .routine-card__steps-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: var(--spacing-md);
+    gap: 8px;
+    margin-bottom: 20px;
+    background: #F8FAFC;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #F1F5F9;
   }
-  .routine-step {
+  .routine-card__step-item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
-  .routine-step__number {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
+  .routine-card__step-num {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
     border-radius: 50%;
-    background: var(--color-bg-alternate);
-    color: var(--color-cta);
+    background: #0095FF;
+    color: #FFF;
+    font-size: 0.65rem;
+    font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
   }
-  .routine-step__text {
-    font-size: 0.85rem;
-    color: var(--color-text-heading);
-    font-weight: 500;
+  .routine-card__step-name {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #334155;
   }
 
-  /* Card Footer */
-  .routine-card__footer {
+  /* Card Action Button */
+  .routine-card__btn {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-top: var(--spacing-sm);
-    border-top: 1px solid rgba(0,0,0,0.06);
-  }
-  .routine-card__discount {
-    background: #E8F9EE;
-    color: var(--color-success);
-    padding: 4px 12px;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: #0095FF;
+    color: #FFFFFF;
     border-radius: 50px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .routine-card__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--color-cta);
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
     text-decoration: none;
-    transition: gap 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0, 149, 255, 0.3);
   }
-  .routine-card__cta:hover {
-    gap: 10px;
-    opacity: 1;
+  .routine-card__btn:hover {
+    background: #007AD6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 149, 255, 0.45);
+    color: #FFF;
   }
 
   /* Bottom CTA Banner */
   .routines-cta {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-alternate);
+    background: #EEF8FF;
     text-align: center;
   }
   .routines-cta__title {
     font-size: clamp(1.5rem, 3vw, 2.4rem);
-    margin-bottom: var(--spacing-xs);
+    color: #123B5A;
+    margin-bottom: 8px;
   }
   .routines-cta__text {
-    color: var(--color-text-body);
+    color: #64748B;
     font-size: 1rem;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 20px;
   }
 </style>
 
@@ -257,7 +289,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Skincare Routines | Seravolve",
-  "description": "Explore dermatologist-designed skincare routines curated for every skin concern — from morning glow to evening repair and anti-aging.",
+  "description": "Explore dermatologist-designed skincare routines curated for every skin concern — from morning glow to evening repair, barrier care, and daily UV defense.",
   "url": "{{ canonical_url }}"
 }
 </script>
@@ -265,9 +297,9 @@
 <!-- ===== HERO ===== -->
 <section class="routines-hero" aria-label="Routines hero">
   <div class="container">
-    <span class="routines-hero__badge">Expert Curated</span>
+    <span class="routines-hero__badge">Clinical Regimens</span>
     <h1 class="routines-hero__title">Curated Skincare Routines</h1>
-    <p class="routines-hero__subtitle">Dermatologist-designed, step-by-step routines tailored for every skin goal. Find the regimen that works for you.</p>
+    <p class="routines-hero__subtitle">Dermatologist-designed, step-by-step routines tailored for every skin goal. Find your perfect regimen.</p>
   </div>
 </section>
 
@@ -288,169 +320,161 @@
 
       <!-- Routine 1: Skin Brightening Routine -->
       <article class="routine-card" data-category="morning anti-aging">
-        <a href="{{ all_products['skin-brightening-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__link" aria-label="Skin Brightening Routine">
-          <div class="routine-card__image-wrapper">
-            <img class="routine-card__image" src="{{ 'skin-brightining-routine-hero.png' | asset_url }}" alt="Skin Brightening Routine" loading="lazy">
-            <span class="routine-card__badge">Bestseller</span>
+        <a href="/products/skin-brightening-routine" class="routine-card__media-wrapper" aria-label="Skin Brightening Routine">
+          <div class="routine-card__top-badges">
+            <span class="routine-card__badge-tag">BESTSELLER</span>
+            <span class="routine-card__save-tag">SAVE 15%</span>
           </div>
+          <img class="routine-card__img" src="{{ 'skin-brightining-routine-hero.png' | asset_url }}" alt="Skin Brightening Routine" loading="lazy">
         </a>
         <div class="routine-card__body">
-          <span class="routine-card__concern">Morning Glow & Radiance</span>
-          <h2 class="routine-card__title">
-            <a href="{{ all_products['skin-brightening-routine'].url | default: routes.all_products_collection_url }}">Skin Brightening Routine</a>
-          </h2>
-          <p class="routine-card__desc">Fade dark spots, boost radiance, and protect skin with Vitamin C & antioxidant hydration.</p>
-          <div class="routine-steps">
-            <div class="routine-step"><span class="routine-step__number">1</span><span class="routine-step__text">Seravolve Facewash (Cleanse)</span></div>
-            <div class="routine-step"><span class="routine-step__number">2</span><span class="routine-step__text">Seravolve Toner (Prep & Balance)</span></div>
-            <div class="routine-step"><span class="routine-step__number">3</span><span class="routine-step__text">Seravolve Vitamin C Serum (Brighten)</span></div>
-            <div class="routine-step"><span class="routine-step__number">4</span><span class="routine-step__text">Seravolve Sunscreen (Protect)</span></div>
+          <div>
+            <span class="routine-card__category">Morning Glow & Radiance</span>
+            <a href="/products/skin-brightening-routine" class="routine-card__title">Skin Brightening Routine</a>
+            <p class="routine-card__desc">Fade dark spots, boost radiance, and protect skin with Vitamin C & antioxidant hydration.</p>
+            <div class="routine-card__steps-list">
+              <div class="routine-card__step-item"><span class="routine-card__step-num">1</span><span class="routine-card__step-name">Facewash (Cleanse)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">2</span><span class="routine-card__step-name">Toner (Prep & Balance)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">3</span><span class="routine-card__step-name">Vitamin C Serum (Brighten)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">4</span><span class="routine-card__step-name">Sunscreen (Protect)</span></div>
+            </div>
           </div>
-          <div class="routine-card__footer">
-            <span class="routine-card__discount">Save 15%</span>
-            <a href="{{ all_products['skin-brightening-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__cta">
-              Shop Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+          <a href="/products/skin-brightening-routine" class="routine-card__btn">
+            EXPLORE ROUTINE <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
         </div>
       </article>
 
       <!-- Routine 2: Barrier Repair & Hydration Routine -->
       <article class="routine-card" data-category="evening sensitive">
-        <a href="{{ all_products['barrier-repair-hydration-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__link" aria-label="Barrier Repair & Hydration Routine">
-          <div class="routine-card__image-wrapper">
-            <img class="routine-card__image" src="{{ 'barrier-repair-and-hydration-routine-hero.png' | asset_url }}" alt="Barrier Repair & Hydration Routine" loading="lazy">
+        <a href="/products/barrier-repair-and-hydration-routine" class="routine-card__media-wrapper" aria-label="Barrier Repair & Hydration Routine">
+          <div class="routine-card__top-badges">
+            <span class="routine-card__badge-tag">BARRIER CARE</span>
+            <span class="routine-card__save-tag">SAVE 15%</span>
           </div>
+          <img class="routine-card__img" src="{{ 'barrier-repair-and-hydration-routine-hero.png' | asset_url }}" alt="Barrier Repair & Hydration Routine" loading="lazy">
         </a>
         <div class="routine-card__body">
-          <span class="routine-card__concern">Calming & Sensitive Barrier</span>
-          <h2 class="routine-card__title">
-            <a href="{{ all_products['barrier-repair-hydration-routine'].url | default: routes.all_products_collection_url }}">Barrier Repair & Hydration Routine</a>
-          </h2>
-          <p class="routine-card__desc">Soothe redness, rebuild tight skin, and lock in 24h moisture with gentle barrier nutrition.</p>
-          <div class="routine-steps">
-            <div class="routine-step"><span class="routine-step__number">1</span><span class="routine-step__text">Seravolve Facewash (Gentle Cleanse)</span></div>
-            <div class="routine-step"><span class="routine-step__number">2</span><span class="routine-step__text">Seravolve Toner (Soothing Hydration)</span></div>
-            <div class="routine-step"><span class="routine-step__number">3</span><span class="routine-step__text">Seravolve Moisturiser (Barrier Lock)</span></div>
+          <div>
+            <span class="routine-card__category">Calming & Sensitive Barrier</span>
+            <a href="/products/barrier-repair-and-hydration-routine" class="routine-card__title">Barrier Repair & Hydration Routine</a>
+            <p class="routine-card__desc">Soothe redness, rebuild tight skin, and lock in 24h moisture with gentle barrier nutrition.</p>
+            <div class="routine-card__steps-list">
+              <div class="routine-card__step-item"><span class="routine-card__step-num">1</span><span class="routine-card__step-name">Facewash (Gentle Cleanse)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">2</span><span class="routine-card__step-name">Toner (Soothing Hydration)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">3</span><span class="routine-card__step-name">Moisturiser (Barrier Lock)</span></div>
+            </div>
           </div>
-          <div class="routine-card__footer">
-            <span class="routine-card__discount">Save 15%</span>
-            <a href="{{ all_products['barrier-repair-hydration-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__cta">
-              Shop Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+          <a href="/products/barrier-repair-and-hydration-routine" class="routine-card__btn">
+            EXPLORE ROUTINE <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
         </div>
       </article>
 
       <!-- Routine 3: Smooth Skin Routine -->
       <article class="routine-card" data-category="evening anti-aging">
-        <a href="{{ all_products['smooth-skin-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__link" aria-label="Smooth Skin Routine">
-          <div class="routine-card__image-wrapper">
-            <img class="routine-card__image" src="{{ 'smooth-skin-routine-hero.png' | asset_url }}" alt="Smooth Skin Routine" loading="lazy">
+        <a href="/products/smooth-skin-routine" class="routine-card__media-wrapper" aria-label="Smooth Skin Routine">
+          <div class="routine-card__top-badges">
+            <span class="routine-card__badge-tag">TEXTURE CARE</span>
+            <span class="routine-card__save-tag">SAVE 15%</span>
           </div>
+          <img class="routine-card__img" src="{{ 'smooth-skin-routine-hero.png' | asset_url }}" alt="Smooth Skin Routine" loading="lazy">
         </a>
         <div class="routine-card__body">
-          <span class="routine-card__concern">Texture & Fine Lines</span>
-          <h2 class="routine-card__title">
-            <a href="{{ all_products['smooth-skin-routine'].url | default: routes.all_products_collection_url }}">Smooth Skin Routine</a>
-          </h2>
-          <p class="routine-card__desc">Refine uneven texture, minimize enlarged pores, and restore supple youthful elasticity.</p>
-          <div class="routine-steps">
-            <div class="routine-step"><span class="routine-step__number">1</span><span class="routine-step__text">Seravolve Facewash (Purify)</span></div>
-            <div class="routine-step"><span class="routine-step__number">2</span><span class="routine-step__text">Seravolve Toner (Refine Pores)</span></div>
-            <div class="routine-step"><span class="routine-step__number">3</span><span class="routine-step__text">Seravolve Serum (Target Texture)</span></div>
-            <div class="routine-step"><span class="routine-step__number">4</span><span class="routine-step__text">Seravolve Moisturiser (Nourish)</span></div>
+          <div>
+            <span class="routine-card__category">Texture & Fine Lines</span>
+            <a href="/products/smooth-skin-routine" class="routine-card__title">Smooth Skin Routine</a>
+            <p class="routine-card__desc">Refine uneven texture, minimize enlarged pores, and restore supple youthful elasticity.</p>
+            <div class="routine-card__steps-list">
+              <div class="routine-card__step-item"><span class="routine-card__step-num">1</span><span class="routine-card__step-name">Facewash (Purify)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">2</span><span class="routine-card__step-name">Toner (Refine Pores)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">3</span><span class="routine-card__step-name">Serum (Target Texture)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">4</span><span class="routine-card__step-name">Moisturiser (Nourish)</span></div>
+            </div>
           </div>
-          <div class="routine-card__footer">
-            <span class="routine-card__discount">Save 15%</span>
-            <a href="{{ all_products['smooth-skin-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__cta">
-              Shop Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+          <a href="/products/smooth-skin-routine" class="routine-card__btn">
+            EXPLORE ROUTINE <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
         </div>
       </article>
 
       <!-- Routine 4: Acne Control Routine -->
       <article class="routine-card" data-category="acne">
-        <a href="{{ all_products['acne-control-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__link" aria-label="Acne Control Routine">
-          <div class="routine-card__image-wrapper">
-            <img class="routine-card__image" src="{{ 'acne-control-routine-0.png' | asset_url }}" alt="Acne Control Routine" loading="lazy">
+        <a href="/products/acne-control-routine" class="routine-card__media-wrapper" aria-label="Acne Control Routine">
+          <div class="routine-card__top-badges">
+            <span class="routine-card__badge-tag">CLARIFYING</span>
+            <span class="routine-card__save-tag">SAVE 15%</span>
           </div>
+          <img class="routine-card__img" src="{{ 'acne-control-routine-0.png' | asset_url }}" alt="Acne Control Routine" loading="lazy">
         </a>
         <div class="routine-card__body">
-          <span class="routine-card__concern">Acne & Pore Control</span>
-          <h2 class="routine-card__title">
-            <a href="{{ all_products['acne-control-routine'].url | default: routes.all_products_collection_url }}">Acne Control Routine</a>
-          </h2>
-          <p class="routine-card__desc">Clear breakouts, regulate excess sebum, and soothe active irritation without drying skin.</p>
-          <div class="routine-steps">
-            <div class="routine-step"><span class="routine-step__number">1</span><span class="routine-step__text">Seravolve Facewash (Purify Pores)</span></div>
-            <div class="routine-step"><span class="routine-step__number">2</span><span class="routine-step__text">Seravolve Toner (Clarify & Balance)</span></div>
-            <div class="routine-step"><span class="routine-step__number">3</span><span class="routine-step__text">Seravolve Moisturiser (Light Hydration)</span></div>
+          <div>
+            <span class="routine-card__category">Acne & Pore Control</span>
+            <a href="/products/acne-control-routine" class="routine-card__title">Acne Control Routine</a>
+            <p class="routine-card__desc">Clear breakouts, regulate excess sebum, and soothe active irritation without drying skin.</p>
+            <div class="routine-card__steps-list">
+              <div class="routine-card__step-item"><span class="routine-card__step-num">1</span><span class="routine-card__step-name">Facewash (Purify Pores)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">2</span><span class="routine-card__step-name">Toner (Clarify & Balance)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">3</span><span class="routine-card__step-name">Moisturiser (Light Hydration)</span></div>
+            </div>
           </div>
-          <div class="routine-card__footer">
-            <span class="routine-card__discount">Save 15%</span>
-            <a href="{{ all_products['acne-control-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__cta">
-              Shop Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+          <a href="/products/acne-control-routine" class="routine-card__btn">
+            EXPLORE ROUTINE <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
         </div>
       </article>
 
-      <!-- Routine 5: UV Defence Routine -->
+      <!-- Routine 5: Daily UV Defence Routine -->
       <article class="routine-card" data-category="morning">
-        <a href="{{ all_products['uv-defence-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__link" aria-label="UV Defence Routine">
-          <div class="routine-card__image-wrapper">
-            <img class="routine-card__image" src="{{ 'uv-defence-routine-hero.png' | asset_url }}" alt="UV Defence Routine" loading="lazy">
+        <a href="/products/daily-uv-defence-routine" class="routine-card__media-wrapper" aria-label="Daily UV Defence Routine">
+          <div class="routine-card__top-badges">
+            <span class="routine-card__badge-tag">SUN DEFENCE</span>
+            <span class="routine-card__save-tag">SAVE 15%</span>
           </div>
+          <img class="routine-card__img" src="{{ 'uv-defence-routine-hero.png' | asset_url }}" alt="Daily UV Defence Routine" loading="lazy">
         </a>
         <div class="routine-card__body">
-          <span class="routine-card__concern">Sun & Environmental Shield</span>
-          <h2 class="routine-card__title">
-            <a href="{{ all_products['uv-defence-routine'].url | default: routes.all_products_collection_url }}">UV Defence Routine</a>
-          </h2>
-          <p class="routine-card__desc">Shield skin against broad-spectrum UVA/UVB rays and free radical pollution throughout the day.</p>
-          <div class="routine-steps">
-            <div class="routine-step"><span class="routine-step__number">1</span><span class="routine-step__text">Seravolve Facewash (Cleanse)</span></div>
-            <div class="routine-step"><span class="routine-step__number">2</span><span class="routine-step__text">Seravolve Serum (Antioxidant Treat)</span></div>
-            <div class="routine-step"><span class="routine-step__number">3</span><span class="routine-step__text">Seravolve Sunscreen (SPF 50 Shield)</span></div>
+          <div>
+            <span class="routine-card__category">Sun & Environmental Shield</span>
+            <a href="/products/daily-uv-defence-routine" class="routine-card__title">Daily UV Defence Routine</a>
+            <p class="routine-card__desc">Shield skin against broad-spectrum UVA/UVB rays and free radical pollution throughout the day.</p>
+            <div class="routine-card__steps-list">
+              <div class="routine-card__step-item"><span class="routine-card__step-num">1</span><span class="routine-card__step-name">Facewash (Cleanse)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">2</span><span class="routine-card__step-name">Serum (Antioxidant Shield)</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">3</span><span class="routine-card__step-name">Sunscreen (SPF 50 Shield)</span></div>
+            </div>
           </div>
-          <div class="routine-card__footer">
-            <span class="routine-card__discount">Save 15%</span>
-            <a href="{{ all_products['uv-defence-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__cta">
-              Shop Routine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+          <a href="/products/daily-uv-defence-routine" class="routine-card__btn">
+            EXPLORE ROUTINE <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
         </div>
       </article>
 
       <!-- Routine 6: Full Seravolve 5-Step Routine -->
       <article class="routine-card" data-category="morning evening">
-        <a href="{{ all_products['full-seravolve-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__link" aria-label="Full Seravolve 5-Step Routine">
-          <div class="routine-card__image-wrapper">
-            <img class="routine-card__image" src="{{ 'full-seravolve-routine-hero.png' | asset_url }}" alt="Full Seravolve 5-Step Routine" loading="lazy">
-            <span class="routine-card__badge" style="background:#0095FF;">Complete Bundle</span>
+        <a href="/products/full-seravolve-routine" class="routine-card__media-wrapper" aria-label="Full Seravolve 5-Step Routine">
+          <div class="routine-card__top-badges">
+            <span class="routine-card__badge-tag" style="background:#0095FF;">COMPLETE SET</span>
+            <span class="routine-card__save-tag">SAVE 20%</span>
           </div>
+          <img class="routine-card__img" src="{{ 'full-seravolve-routine-hero.png' | asset_url }}" alt="Full Seravolve 5-Step Routine" loading="lazy">
         </a>
         <div class="routine-card__body">
-          <span class="routine-card__concern">Complete AM & PM Regimen</span>
-          <h2 class="routine-card__title">
-            <a href="{{ all_products['full-seravolve-routine'].url | default: routes.all_products_collection_url }}">Full Seravolve 5-Step Routine</a>
-          </h2>
-          <p class="routine-card__desc">The ultimate clinical daily routine featuring all 5 Seravolve products for maximum transformation.</p>
-          <div class="routine-steps">
-            <div class="routine-step"><span class="routine-step__number">1</span><span class="routine-step__text">Seravolve Facewash</span></div>
-            <div class="routine-step"><span class="routine-step__number">2</span><span class="routine-step__text">Seravolve Toner</span></div>
-            <div class="routine-step"><span class="routine-step__number">3</span><span class="routine-step__text">Seravolve Serum</span></div>
-            <div class="routine-step"><span class="routine-step__number">4</span><span class="routine-step__text">Seravolve Moisturiser</span></div>
-            <div class="routine-step"><span class="routine-step__number">5</span><span class="routine-step__text">Seravolve Sunscreen</span></div>
+          <div>
+            <span class="routine-card__category">Complete AM & PM Regimen</span>
+            <a href="/products/full-seravolve-routine" class="routine-card__title">Full Seravolve 5-Step Routine</a>
+            <p class="routine-card__desc">The ultimate clinical daily routine featuring all 5 Seravolve products for maximum transformation.</p>
+            <div class="routine-card__steps-list">
+              <div class="routine-card__step-item"><span class="routine-card__step-num">1</span><span class="routine-card__step-name">Seravolve Facewash</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">2</span><span class="routine-card__step-name">Seravolve Toner</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">3</span><span class="routine-card__step-name">Seravolve Serum</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">4</span><span class="routine-card__step-name">Seravolve Moisturiser</span></div>
+              <div class="routine-card__step-item"><span class="routine-card__step-num">5</span><span class="routine-card__step-name">Seravolve Sunscreen</span></div>
+            </div>
           </div>
-          <div class="routine-card__footer">
-            <span class="routine-card__discount">Save 20%</span>
-            <a href="{{ all_products['full-seravolve-routine'].url | default: routes.all_products_collection_url }}" class="routine-card__cta">
-              Shop Complete Set <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+          <a href="/products/full-seravolve-routine" class="routine-card__btn">
+            EXPLORE SET <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
         </div>
       </article>
 
