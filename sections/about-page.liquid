@@ -233,6 +233,83 @@
     max-width: 520px;
     margin: 0 auto var(--spacing-md);
   }
+  /* Our Values Section */
+  .about-values {
+    padding: var(--spacing-xxl) 0;
+    background: #FFFFFF;
+    text-align: center;
+  }
+  .about-values__header {
+    max-width: 650px;
+    margin: 0 auto 50px;
+  }
+  .about-values__eyebrow {
+    font-size: 0.95rem;
+    font-family: var(--font-heading);
+    color: var(--color-text-body, #64748B);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .about-values__title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: var(--font-heading);
+    color: #000000;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .about-values__subtitle {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .about-values__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 20px;
+    justify-items: center;
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+  @media (min-width: 768px) {
+    .about-values__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+  }
+  .value-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .value-item__icon-wrapper {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 1.5px solid #1E293B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: #1E293B;
+    background: #FFFFFF;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .value-item:hover .value-item__icon-wrapper {
+    transform: translateY(-4px);
+    border-color: #0095FF;
+    color: #0095FF;
+  }
+  .value-item__label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1E293B;
+    line-height: 1.4;
+  }
+
   /* Real MVPs Section */
   .about-mvps {
     padding: var(--spacing-xxl) 0;
@@ -354,6 +431,66 @@
         </p>
         <a href="/pages/quiz" class="btn">Build Your Routine</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUR VALUES ===== -->
+<section class="about-values" aria-label="Our Values">
+  <div class="container">
+    <div class="about-values__header">
+      <span class="about-values__eyebrow">Our Values</span>
+      <h2 class="about-values__title">Make Us A Part Of Your<br>Skincare Journey</h2>
+      <p class="about-values__subtitle">Elevating the skincare experience is our value, Trust in authenticity of your skincare choices</p>
+    </div>
+
+    <div class="about-values__grid">
+      
+      <!-- Value 1: For all skin types -->
+      <div class="value-item">
+        <div class="value-item__icon-wrapper">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+            <path d="M12 4v4M12 16v4M4 12h4M16 12h4M6.34 6.34l2.83 2.83M14.83 14.83l2.83 2.83M6.34 17.66l2.83-2.83M14.83 9.17l2.83-2.83"/>
+          </svg>
+        </div>
+        <span class="value-item__label">For all skin types</span>
+      </div>
+
+      <!-- Value 2: Not tested on animals -->
+      <div class="value-item">
+        <div class="value-item__icon-wrapper">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <span class="value-item__label">Not tested on animals</span>
+      </div>
+
+      <!-- Value 3: Hypoallergenic -->
+      <div class="value-item">
+        <div class="value-item__icon-wrapper">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
+            <path d="M16 8L2 22"/>
+            <path d="M17.5 15H9"/>
+            <path d="M19 18h-7"/>
+          </svg>
+        </div>
+        <span class="value-item__label">Hypoallergenic</span>
+      </div>
+
+      <!-- Value 4: Free from parabens -->
+      <div class="value-item">
+        <div class="value-item__icon-wrapper">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v6m-4-3h8M10 8l-5.5 9A3 3 0 0 0 7 21h10a3 3 0 0 0 2.5-4L14 8h-4z"/>
+            <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="value-item__label">Free from parabens</span>
+      </div>
+
     </div>
   </div>
 </section>
