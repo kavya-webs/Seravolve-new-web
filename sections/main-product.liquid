@@ -43,21 +43,60 @@
     gap: var(--pdp-spacing-sm);
   }
   @media (min-width: 992px) {
-    .product-gallery {
+    .product-info {
       position: sticky;
-      top: 100px; /* Header offset */
+      top: 100px;
+      align-self: start;
     }
+  }
+  .gallery-main-wrapper {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: var(--pdp-blush);
   }
   .product-gallery__main-image {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    border-radius: 16px;
-    background-color: var(--pdp-blush);
-    transition: transform 0.3s ease;
+    display: block;
+    transition: opacity 0.3s ease;
   }
-  .product-gallery__main-image:hover {
-    transform: scale(1.02);
+  
+  /* Thumbnails */
+  .gallery-thumbnail-strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  .gallery-thumbnail-strip::-webkit-scrollbar {
+    display: none;
+  }
+  .thumbnail-btn {
+    flex: 0 0 80px;
+    height: 80px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--pdp-blush);
+    transition: all 0.2s;
+    opacity: 0.7;
+  }
+  .thumbnail-btn:hover {
+    opacity: 1;
+  }
+  .thumbnail-btn.is-active {
+    border-color: var(--pdp-navy);
+    opacity: 1;
+  }
+  .thumbnail-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
   /* Right Info */
@@ -327,15 +366,29 @@
   <div class="container">
     <div class="product-grid-layout">
       
-      <!-- Gallery -->
+      <!-- Interactive Gallery -->
       <div class="product-gallery">
         {%- if product.media.size > 0 -%}
-          {%- for media in product.media -%}
-            <img class="product-gallery__main-image" src="{{ media | image_url: width: 1200 }}" alt="{{ media.alt | escape }}">
-          {%- endfor -%}
+          <!-- Main Image -->
+          <div class="gallery-main-wrapper">
+            <img id="MainProductImage" class="product-gallery__main-image" src="{{ product.media.first | image_url: width: 1200 }}" alt="{{ product.media.first.alt | escape }}">
+          </div>
+          
+          <!-- Thumbnail Strip -->
+          {%- if product.media.size > 1 -%}
+            <div class="gallery-thumbnail-strip">
+              {%- for media in product.media -%}
+                <button type="button" class="thumbnail-btn {% if forloop.first %}is-active{% endif %}" data-image-url="{{ media | image_url: width: 1200 }}">
+                  <img src="{{ media | image_url: width: 300 }}" alt="{{ media.alt | escape }}" width="80" height="80" loading="lazy">
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
         {%- else -%}
           <!-- Placeholder if no image -->
-          <img class="product-gallery__main-image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=1000&q=80" alt="Seravolve Product Placeholder">
+          <div class="gallery-main-wrapper">
+            <img class="product-gallery__main-image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=1000&q=80" alt="Seravolve Product Placeholder">
+          </div>
         {%- endif -%}
       </div>
 
@@ -474,6 +527,31 @@
 </section>
 
 <script>
+  // Interactive Gallery Logic
+  const mainImage = document.getElementById('MainProductImage');
+  const thumbnails = document.querySelectorAll('.thumbnail-btn');
+
+  if (mainImage && thumbnails.length > 0) {
+    thumbnails.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all
+        thumbnails.forEach(t => t.classList.remove('is-active'));
+        // Add active to clicked
+        btn.classList.add('is-active');
+        
+        // Swap image
+        const newUrl = btn.getAttribute('data-image-url');
+        
+        // Fade effect
+        mainImage.style.opacity = '0';
+        setTimeout(() => {
+          mainImage.src = newUrl;
+          mainImage.style.opacity = '1';
+        }, 150);
+      });
+    });
+  }
+
   // Premium Accordion Logic
   document.querySelectorAll('.accordion__btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
