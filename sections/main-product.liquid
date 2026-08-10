@@ -671,7 +671,7 @@
                 <span class="quantity-label">Quantity</span>
                 <div class="quantity-controls">
                   <button type="button" class="qty-btn" id="qty-minus">−</button>
-                  <input type="number" class="qty-input" name="quantity" id="qty-input" value="1" min="1">
+                  <input type="number" class="qty-input" name="quantity" id="qty-input" value="1" min="1" form="product-form">
                   <button type="button" class="qty-btn" id="qty-plus">+</button>
                 </div>
               </div>
@@ -732,8 +732,12 @@
 
             {%- when 'buy_buttons' -%}
               <div class="product-actions" {{ block.shopify_attributes }}>
-                <button type="button" class="btn btn-secondary">Add To Bag</button>
-                <button type="button" class="btn btn-primary">Buy It Now</button>
+                {% form 'product', product, id: 'product-form' %}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="product-variant-id">
+                  <input type="hidden" name="return_to" value="/checkout" id="buy-now-input" disabled>
+                  <button type="submit" name="add" class="btn btn-secondary">Add To Bag</button>
+                  <button type="button" class="btn btn-primary" onclick="document.getElementById('buy-now-input').disabled = false; document.getElementById('product-form').submit();">Buy It Now</button>
+                {% endform %}
               </div>
 
             {%- when 'trust_share' -%}
@@ -799,10 +803,12 @@
     // Variant Logic
     const variantRadios = document.querySelectorAll('.variant-pill input');
     const variantLabel = document.getElementById('selected-variant-label');
+    const hiddenVariantInput = document.getElementById('product-variant-id');
     variantRadios.forEach(radio => {
       radio.addEventListener('change', (e) => {
-        if(e.target.checked && variantLabel) {
-          variantLabel.textContent = e.target.nextElementSibling.textContent;
+        if(e.target.checked) {
+          if (variantLabel) variantLabel.textContent = e.target.nextElementSibling.textContent;
+          if (hiddenVariantInput) hiddenVariantInput.value = e.target.value;
         }
       });
     });
