@@ -225,18 +225,35 @@
   }
 </style>
 
+{%- comment -%}
+  DYNAMIC PER PRODUCT via metafields:
+  1. Go to Shopify Admin → Settings → Custom data → Products
+  2. Add metafield: "Why Love It Image" (namespace: custom, key: why_love_it_image, type: File / Image)
+  3. Add metafield: "Why Love It Heading" (namespace: custom, key: why_love_it_heading, type: Single line text)
+  4. Add metafield: "Why Love It Subheading" (namespace: custom, key: why_love_it_subheading, type: Single line text)
+  Section settings act as fallback if no metafield is set.
+{%- endcomment -%}
+
+{%- assign wli_product_image = product.metafields.custom.why_love_it_image.value | default: section.settings.product_image -%}
+{%- assign wli_heading = product.metafields.custom.why_love_it_heading.value | default: section.settings.heading -%}
+{%- assign wli_subheading = product.metafields.custom.why_love_it_subheading.value | default: section.settings.subheading -%}
+
 <section class="wli-section" id="wli-section-{{ section.id }}">
   <div class="wli-header">
-    <h2 class="wli-title">{{ section.settings.heading }}</h2>
-    <p class="wli-subtitle">{{ section.settings.subheading }}</p>
+    {%- if wli_heading != blank -%}
+      <h2 class="wli-title">{{ wli_heading }}</h2>
+    {%- endif -%}
+    {%- if wli_subheading != blank -%}
+      <p class="wli-subtitle">{{ wli_subheading }}</p>
+    {%- endif -%}
   </div>
 
   <div class="wli-container">
     
     <!-- Central Hub -->
     <div class="wli-hub">
-      {%- if section.settings.product_image -%}
-        {{ section.settings.product_image | image_url: width: 600 | image_tag: alt: section.settings.heading, loading: 'lazy' }}
+      {%- if wli_product_image -%}
+        {{ wli_product_image | image_url: width: 600 | image_tag: alt: wli_heading, loading: 'lazy' }}
       {%- else -%}
         <!-- Placeholder -->
         <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80" alt="Placeholder">
