@@ -502,7 +502,8 @@
     gap: 6px;
     justify-content: center;
   }
-  .payment-icons img {
+  .payment-icons img,
+  .payment-icons svg {
     height: 24px;
     width: auto;
   }
@@ -738,12 +739,12 @@
             {%- when 'trust_share' -%}
               <div class="trust-section" {{ block.shopify_attributes }}>
                 <div class="payment-icons">
-                  <img src="https://cdn.shopify.com/s/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg" alt="Visa">
-                  <img src="https://cdn.shopify.com/s/assets/payment_icons/master-173035bc8124581983d4efa50cf8626e8553c2b311353fbf67485f9c1a2b88d1.svg" alt="Mastercard">
-                  <img src="https://cdn.shopify.com/s/assets/payment_icons/american_express-2264c9b8b57b23b0b0831827e90cd7bcda2836adc42a912ebedf545dead35b20.svg" alt="Amex">
-                  <img src="https://cdn.shopify.com/s/assets/payment_icons/paypal-49e4c1e03244b6d2de0d270ca0d22dd15da6e92cc7266e93eb43762df5aa355d.svg" alt="PayPal">
-                  <img src="https://cdn.shopify.com/s/assets/payment_icons/diners_club-16436b9fb6dd9060edb51f1c7c44e23941e544ad798282d6aef160431ce56b41.svg" alt="Diners">
-                  <img src="https://cdn.shopify.com/s/assets/payment_icons/discover-cc9808e50193c7496e7a5245eb86d5e06f02e2476c0ea7abb48015ad9ea89d33.svg" alt="Discover">
+                  {{ 'visa' | payment_type_svg_tag }}
+                  {{ 'master' | payment_type_svg_tag }}
+                  {{ 'american_express' | payment_type_svg_tag }}
+                  {{ 'paypal' | payment_type_svg_tag }}
+                  {{ 'diners_club' | payment_type_svg_tag }}
+                  {{ 'discover' | payment_type_svg_tag }}
                 </div>
                 <div class="secure-checkout">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
