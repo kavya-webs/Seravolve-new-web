@@ -38,11 +38,11 @@
         "key_ingredients_emrQx8": {
           "type": "key_ingredients",
           "settings": {
-            "ing_1_name": "Salicylic acid",
-            "ing_1_pct": 2,
+            "ing_1_name": "Vitamin C",
+            "ing_1_pct": 10,
             "ing_2_name": "Green Tea Extract",
             "ing_2_pct": 2,
-            "ing_3_name": "Special Acne Buster Formula",
+            "ing_3_name": "Ferulic Acid",
             "ing_3_pct": 1
           }
         },
