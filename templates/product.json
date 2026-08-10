@@ -11,6 +11,65 @@
   "sections": {
     "main": {
       "type": "main-product",
+      "blocks": {
+        "brand_title_pJecxy": {
+          "type": "brand_title",
+          "settings": {}
+        },
+        "price_W3gbg3": {
+          "type": "price",
+          "settings": {}
+        },
+        "badges_6qx8ci": {
+          "type": "badges",
+          "settings": {
+            "badge_1_text": "11% OFF",
+            "badge_2_text": "Hot Sale 🔥"
+          }
+        },
+        "quantity_8LAxUT": {
+          "type": "quantity",
+          "settings": {}
+        },
+        "feature_icons_hRFFPJ": {
+          "type": "feature_icons",
+          "settings": {}
+        },
+        "key_ingredients_emrQx8": {
+          "type": "key_ingredients",
+          "settings": {
+            "ing_1_name": "Salicylic acid",
+            "ing_1_pct": 2,
+            "ing_2_name": "Green Tea Extract",
+            "ing_2_pct": 2,
+            "ing_3_name": "Special Acne Buster Formula",
+            "ing_3_pct": 1
+          }
+        },
+        "description_NYBK4a": {
+          "type": "description",
+          "settings": {}
+        },
+        "buy_buttons_FAtNB9": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "trust_share_VVT6nA": {
+          "type": "trust_share",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "brand_title_pJecxy",
+        "price_W3gbg3",
+        "badges_6qx8ci",
+        "quantity_8LAxUT",
+        "feature_icons_hRFFPJ",
+        "key_ingredients_emrQx8",
+        "description_NYBK4a",
+        "buy_buttons_FAtNB9",
+        "trust_share_VVT6nA"
+      ],
       "settings": {}
     },
     "why_love_it_b47WL8": {
