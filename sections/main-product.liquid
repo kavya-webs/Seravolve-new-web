@@ -757,7 +757,7 @@
                   Secured checkout
                 </div>
               </div>
-              <a href="#" class="share-link" {{ block.shopify_attributes }}>
+              <a href="#" class="share-link" id="pdp-share-link" data-url="{{ shop.url }}{{ product.url }}" {{ block.shopify_attributes }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
                 SHARE
               </a>
@@ -842,6 +842,32 @@
           if(secEl) secEl.textContent = seconds.toString().padStart(2, '0');
         }, 1000);
       }
+    }
+
+    // Share Logic
+    const shareLink = document.getElementById('pdp-share-link');
+    if(shareLink) {
+      shareLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const url = window.location.origin + shareLink.dataset.url;
+        const title = document.title;
+        
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: title,
+              url: url
+            });
+          } catch (err) {
+            console.error('Error sharing:', err);
+          }
+        } else {
+          // Fallback to clipboard
+          navigator.clipboard.writeText(url).then(() => {
+            alert('Link copied to clipboard!');
+          });
+        }
+      });
     }
   });
 </script>
