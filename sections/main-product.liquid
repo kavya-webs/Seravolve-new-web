@@ -1,525 +1,762 @@
 <style>
   :root {
-    --pdp-blush: #FCEBEA;
     --pdp-navy: #0A1E30;
     --pdp-blue: #184B79;
+    --pdp-blush: #FCEBEA;
+    --pdp-blush-light: #FFF5F4;
     --pdp-border: #E2E8F0;
-    --pdp-spacing-sm: 12px;
-    --pdp-spacing-md: 24px;
-    --pdp-spacing-lg: 32px;
-    --pdp-spacing-xl: 64px;
+    --pdp-green: #2F855A;
+    --pdp-green-light: #C6F6D5;
+    --pdp-text: #2D3748;
+    --pdp-text-light: #718096;
+    --pdp-spacing-xs: 4px;
+    --pdp-spacing-sm: 8px;
+    --pdp-spacing-md: 16px;
+    --pdp-spacing-lg: 24px;
+    --pdp-spacing-xl: 32px;
   }
 
   .product-section {
-    padding: var(--pdp-spacing-md) 0 var(--pdp-spacing-xl);
-    background-color: #FAFAFA;
+    padding: var(--pdp-spacing-lg) 0;
+    background-color: #FFFFFF;
+    color: var(--pdp-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-  
-  .product-grid-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--pdp-spacing-lg);
-    background: #FFFFFF;
-    border-radius: 24px;
-    padding: var(--pdp-spacing-md);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+
+  .product-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--pdp-spacing-md);
   }
-  
+
+  /* Grid Layout for Desktop */
   @media (min-width: 992px) {
-    .product-section {
-      padding: var(--pdp-spacing-xl) 0;
-    }
-    .product-grid-layout {
-      grid-template-columns: 1.1fr 0.9fr;
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 48px;
-      padding: 48px;
     }
-  }
-  
-  /* Left Gallery */
-  .product-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: var(--pdp-spacing-sm);
-  }
-  @media (min-width: 992px) {
     .product-info {
       position: sticky;
-      top: 100px;
+      top: 40px;
       align-self: start;
     }
   }
-  .gallery-main-wrapper {
-    width: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: var(--pdp-blush);
+
+  /* Breadcrumbs */
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--pdp-text-light);
+    margin-bottom: var(--pdp-spacing-md);
   }
-  .product-gallery__main-image {
+  .breadcrumbs a {
+    color: var(--pdp-text-light);
+    text-decoration: none;
+  }
+  .breadcrumbs span {
+    font-weight: 600;
+    color: var(--pdp-navy);
+  }
+
+  /* Gallery */
+  .product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pdp-spacing-md);
+    margin-bottom: var(--pdp-spacing-xl);
+  }
+  .gallery-main-image {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
+    border-radius: 12px;
+    background-color: var(--pdp-blush-light);
     display: block;
-    transition: opacity 0.3s ease;
   }
-  
-  /* Thumbnails */
+  .gallery-main-wrapper {
+    position: relative;
+  }
+  .gallery-expand-icon {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    color: var(--pdp-navy);
+    cursor: pointer;
+  }
   .gallery-thumbnail-strip {
     display: flex;
-    gap: 12px;
+    gap: var(--pdp-spacing-sm);
     overflow-x: auto;
-    padding-bottom: 8px;
     scrollbar-width: none;
   }
   .gallery-thumbnail-strip::-webkit-scrollbar {
     display: none;
   }
   .thumbnail-btn {
-    flex: 0 0 80px;
-    height: 80px;
-    border: 2px solid transparent;
-    border-radius: 12px;
+    flex: 0 0 70px;
+    height: 70px;
+    border: 1px solid var(--pdp-border);
+    border-radius: 8px;
     padding: 0;
     cursor: pointer;
     overflow: hidden;
-    background: var(--pdp-blush);
+    background: white;
     transition: all 0.2s;
-    opacity: 0.7;
-  }
-  .thumbnail-btn:hover {
-    opacity: 1;
   }
   .thumbnail-btn.is-active {
     border-color: var(--pdp-navy);
-    opacity: 1;
+    border-width: 2px;
   }
   .thumbnail-btn img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
-  /* Right Info */
+
+  /* Product Info */
   .product-info {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--pdp-spacing-md);
   }
   
-  /* Badges & Trust */
-  .product-info__badge {
-    align-self: flex-start;
-    background-color: var(--pdp-blush);
-    color: var(--pdp-navy);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-  }
-  
-  .judgeme-placeholder {
-    margin-bottom: -8px;
-  }
-
-  .product-info__title {
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
+  .product-vendor {
+    font-size: 0.9rem;
+    color: var(--pdp-text-light);
     margin: 0;
-    line-height: 1.1;
-    color: var(--pdp-navy);
-    letter-spacing: -0.5px;
   }
   
-  .product-info__price-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .product-info__price {
+  .product-title {
     font-size: 1.75rem;
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--pdp-navy);
+    margin: 0;
+    line-height: 1.2;
+  }
+  @media (min-width: 992px) {
+    .product-title {
+      font-size: 2.25rem;
+    }
+  }
+
+  .product-reviews {
+    color: #ECC94B;
+    font-size: 1.2rem;
+    margin-top: -8px;
+  }
+
+  /* Pricing */
+  .product-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--pdp-spacing-sm);
+  }
+  .price-regular {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--pdp-navy);
   }
-  
-  /* Urgency Banner */
-  .urgency-banner {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #FFF4E5;
-    color: #B25E02;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .urgency-banner svg {
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
+  .price-compare {
+    font-size: 1.1rem;
+    color: var(--pdp-text-light);
+    text-decoration: line-through;
   }
 
-  /* Value Props */
-  .value-props {
+  /* Badges */
+  .product-badges {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: 8px 0;
+    gap: var(--pdp-spacing-sm);
+    flex-wrap: wrap;
+    margin-top: -4px;
   }
-  .value-prop-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #4A5568;
-  }
-  .value-prop-item svg {
-    color: var(--pdp-blue);
-  }
-
-  /* Variant Pills */
-  .variant-picker {
-    margin-top: 12px;
-  }
-  .variant-picker__title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 12px;
+  .badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+  }
+  .badge--discount {
+    background-color: var(--pdp-blush);
     color: var(--pdp-navy);
   }
-  .variant-picker__options {
+  .badge--trending {
+    background-color: var(--pdp-blue);
+    color: white;
+  }
+
+  /* Description */
+  .product-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--pdp-text);
+  }
+
+  /* Feature Icons */
+  .feature-icons {
     display: flex;
+    gap: var(--pdp-spacing-lg);
+    margin: var(--pdp-spacing-sm) 0;
+  }
+  .feature-icon-item {
+    display: flex;
+    align-items: center;
+    gap: var(--pdp-spacing-xs);
+    font-size: 0.85rem;
+    color: var(--pdp-text);
+  }
+  .feature-icon-item svg {
+    width: 20px;
+    height: 20px;
+    color: var(--pdp-text-light);
+  }
+
+  /* Countdown Promo Block */
+  .promo-block {
+    background-color: var(--pdp-blush-light);
+    border-radius: 12px;
+    padding: var(--pdp-spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--pdp-spacing-sm);
+  }
+  .promo-tag {
+    align-self: flex-start;
+    background-color: var(--pdp-blue);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .promo-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--pdp-navy);
+    margin: 0;
+  }
+  .countdown-timer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .countdown-box {
+    background: var(--pdp-blush);
+    color: var(--pdp-navy);
+    padding: 6px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 45px;
+  }
+  .countdown-num {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .countdown-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .countdown-sep {
+    font-weight: 700;
+    color: var(--pdp-navy);
+  }
+
+  /* Stock Status */
+  .stock-status {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pdp-spacing-sm);
+    margin: var(--pdp-spacing-xs) 0;
+  }
+  .stock-text-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--pdp-text);
+  }
+  .stock-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--pdp-green);
+    border-radius: 50%;
+  }
+  .stock-progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--pdp-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .stock-progress-fill {
+    height: 100%;
+    background-color: var(--pdp-green);
+    border-radius: 2px;
+  }
+
+  /* Variants */
+  .variant-selector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pdp-spacing-sm);
+  }
+  .variant-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--pdp-navy);
+  }
+  .variant-options {
+    display: flex;
+    gap: var(--pdp-spacing-sm);
     flex-wrap: wrap;
-    gap: 10px;
   }
   .variant-pill input {
     display: none;
   }
   .variant-pill label {
-    display: inline-block;
-    padding: 12px 24px;
-    border: 2px solid var(--pdp-border);
-    border-radius: 30px;
+    padding: 8px 16px;
+    border: 1px solid var(--pdp-text-light);
+    border-radius: 6px;
+    font-size: 0.9rem;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    color: var(--pdp-navy);
+    transition: all 0.2s;
+    display: block;
   }
   .variant-pill input:checked + label {
-    background-color: var(--pdp-navy);
-    color: #fff;
     border-color: var(--pdp-navy);
-  }
-  .variant-pill input:hover:not(:checked) + label {
-    border-color: var(--pdp-navy);
+    border-width: 2px;
+    padding: 7px 15px; /* adjust for border width */
+    font-weight: 600;
+    color: var(--pdp-navy);
   }
 
-  /* Form & Actions */
-  .product-form {
-    margin-top: 16px;
+  /* Quantity */
+  .quantity-selector {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--pdp-spacing-sm);
   }
-  .product-form__buttons {
-    display: flex;
-    gap: 12px;
+  .quantity-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--pdp-navy);
+  }
+  .quantity-controls {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--pdp-border);
+    border-radius: 6px;
+    overflow: hidden;
+    width: fit-content;
+  }
+  .qty-btn {
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--pdp-text);
   }
   .qty-input {
-    width: 80px;
-    padding: 14px;
-    border: 2px solid var(--pdp-border);
-    border-radius: 12px;
+    width: 40px;
     text-align: center;
-    font-family: inherit;
+    border: none;
+    border-left: 1px solid var(--pdp-border);
+    border-right: 1px solid var(--pdp-border);
+    padding: 10px 0;
     font-size: 1rem;
     font-weight: 600;
+    color: var(--pdp-navy);
+    appearance: textfield;
   }
-  .btn-add-to-cart {
-    flex: 1;
-    font-size: 1.125rem;
-    padding: 16px;
-    border-radius: 12px;
-    background-color: var(--pdp-navy);
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(10, 30, 48, 0.2);
-  }
-  .btn-add-to-cart:hover {
-    background-color: var(--pdp-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(10, 30, 48, 0.3);
-  }
-  .btn-add-to-cart:active {
-    transform: translateY(0);
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
-  /* Sticky Mobile ATC */
-  @media (max-width: 991px) {
-    .product-form__buttons {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fff;
-      padding: 16px;
-      z-index: 99;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-      margin: 0;
-    }
-    .product-info {
-      padding-bottom: 80px; /* Make space for sticky bar */
-    }
-  }
-
-  /* Trust Badges */
-  .trust-badges {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 8px;
-    padding: 16px;
-    background: #F8FAFC;
-    border-radius: 12px;
-  }
-  .trust-badges img {
-    height: 24px;
-    opacity: 0.7;
-    filter: grayscale(100%);
-    transition: all 0.3s ease;
-  }
-  .trust-badges img:hover {
-    opacity: 1;
-    filter: grayscale(0%);
-  }
-
-  /* Premium Accordions */
-  .accordion-group {
-    margin-top: 24px;
+  /* Key Ingredients */
+  .key-ingredients {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--pdp-spacing-sm);
+    margin: var(--pdp-spacing-sm) 0;
   }
-  .accordion {
-    border: 1px solid var(--pdp-border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .accordion__btn {
-    width: 100%;
-    background: #FFF;
-    border: none;
-    padding: 18px 20px;
+  .ingredients-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-family: inherit;
-    font-size: 1.05rem;
+    gap: 6px;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--pdp-navy);
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.3s;
   }
-  .accordion__btn:hover {
-    background: #F8FAFC;
+  .ingredients-header svg {
+    width: 14px;
+    height: 14px;
+    color: var(--pdp-text-light);
   }
-  .accordion__content {
-    max-height: 0;
+  .ingredient-bars {
+    background-color: var(--pdp-blush-light);
+    border-radius: 12px;
+    padding: var(--pdp-spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--pdp-spacing-sm);
+  }
+  .ingredient-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ingredient-bar-bg {
+    width: 100%;
+    height: 8px;
+    background-color: white;
+    border-radius: 4px;
     overflow: hidden;
-    transition: max-height 0.4s ease;
-    background: #F8FAFC;
   }
-  .accordion__content-inner {
-    padding: 0 20px 20px 20px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #4A5568;
+  .ingredient-bar-fill {
+    height: 100%;
+    background-color: var(--pdp-navy); /* Adapted to theme */
+    border-radius: 4px;
   }
-  .accordion.is-open .accordion__content {
-    max-height: 800px;
+  .ingredient-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--pdp-text);
   }
-  .accordion__icon {
-    transition: transform 0.3s ease;
-    color: var(--pdp-navy);
+  .ingredient-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
-  .accordion.is-open .accordion__icon {
-    transform: rotate(45deg);
+  .ingredient-check {
+    color: var(--pdp-blue);
   }
+
+  /* Buttons */
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pdp-spacing-sm);
+    margin-top: var(--pdp-spacing-sm);
+  }
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .btn-secondary {
+    background-color: white;
+    border: 1px solid var(--pdp-blue);
+    color: var(--pdp-blue);
+  }
+  .btn-primary {
+    background-color: var(--pdp-blue);
+    border: 1px solid var(--pdp-blue);
+    color: white;
+  }
+  .btn-secondary:hover {
+    background-color: var(--pdp-blush);
+  }
+  .btn-primary:hover {
+    background-color: var(--pdp-navy);
+    border-color: var(--pdp-navy);
+  }
+
+  /* Trust & Share */
+  .trust-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pdp-spacing-sm);
+    margin-top: var(--pdp-spacing-md);
+  }
+  .payment-icons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
+  .payment-icons img {
+    height: 24px;
+    width: auto;
+  }
+  .secure-checkout {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--pdp-text-light);
+  }
+  .secure-checkout svg {
+    width: 12px;
+    height: 12px;
+  }
+  .share-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--pdp-blue);
+    text-decoration: none;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-top: var(--pdp-spacing-md);
+  }
+
 </style>
 
 <section class="product-section">
-  <div class="container">
-    <div class="product-grid-layout">
+  <div class="product-container">
+    
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <a href="/">Home</a> / <a href="/collections/all">All Collections</a> / <span>{{ product.title }}</span>
+    </div>
+
+    <div class="product-grid">
       
-      <!-- Interactive Gallery -->
+      <!-- Gallery -->
       <div class="product-gallery">
         {%- if product.media.size > 0 -%}
-          <!-- Main Image -->
           <div class="gallery-main-wrapper">
-            <img id="MainProductImage" class="product-gallery__main-image" src="{{ product.media.first | image_url: width: 1200 }}" alt="{{ product.media.first.alt | escape }}">
+            <img id="MainImage" class="gallery-main-image" src="{{ product.media.first | image_url: width: 1000 }}" alt="{{ product.media.first.alt | escape }}">
+            <div class="gallery-expand-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
           </div>
-          
-          <!-- Thumbnail Strip -->
           {%- if product.media.size > 1 -%}
             <div class="gallery-thumbnail-strip">
               {%- for media in product.media -%}
-                <button type="button" class="thumbnail-btn {% if forloop.first %}is-active{% endif %}" data-image-url="{{ media | image_url: width: 1200 }}">
-                  <img src="{{ media | image_url: width: 300 }}" alt="{{ media.alt | escape }}" width="80" height="80" loading="lazy">
+                <button type="button" class="thumbnail-btn {% if forloop.first %}is-active{% endif %}" data-image-url="{{ media | image_url: width: 1000 }}">
+                  <img src="{{ media | image_url: width: 200 }}" alt="{{ media.alt | escape }}" loading="lazy">
                 </button>
               {%- endfor -%}
             </div>
           {%- endif -%}
         {%- else -%}
-          <!-- Placeholder if no image -->
           <div class="gallery-main-wrapper">
-            <img class="product-gallery__main-image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=1000&q=80" alt="Seravolve Product Placeholder">
+            <img class="gallery-main-image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=1000&q=80" alt="Placeholder">
           </div>
         {%- endif -%}
       </div>
 
-      <!-- Info -->
+      <!-- Info Column -->
       <div class="product-info">
         
-        <!-- Tags / Badges -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-          {%- if product.tags contains 'Trending' or product.tags contains 'Bestseller' -%}
-            <span class="product-info__badge">Bestseller</span>
-          {%- else -%}
-             <span class="product-info__badge" style="background: #EBF8FF; color: #2B6CB0;">Dermatologist Tested</span>
-          {%- endif -%}
-        </div>
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            
+            {%- when '@app' -%}
+              {% render block %}
+            
+            {%- when 'brand_title' -%}
+              <div {{ block.shopify_attributes }}>
+                <p class="product-vendor">{{ product.vendor | default: shop.name }}</p>
+                <h1 class="product-title">{{ product.title }}</h1>
+              </div>
 
-        <!-- Judge.me Review Badge Placeholder -->
-        <div class="judgeme-placeholder">
-          <!-- Start Judge.me widget -->
-          {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
-          <!-- End Judge.me widget -->
-        </div>
-        
-        <!-- Title & Price -->
-        <h1 class="product-info__title">{{ product.title | default: 'Seravolve Advanced Formula' }}</h1>
-        
-        <div class="product-info__price-wrapper">
-          <div class="product-info__price">{{ product.price | default: 4500 | money }}</div>
-        </div>
+            {%- when 'reviews' -%}
+              <div class="product-reviews" {{ block.shopify_attributes }}>
+                ★★★★★ <!-- Placeholder for Judge.me app block if added here -->
+              </div>
 
-        <!-- Urgency Banner -->
-        <div class="urgency-banner">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 10c0 4.14-3.36 7.5-7.5 7.5S2.5 14.14 2.5 10 5.86 2.5 10 2.5V0c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10h-2.5zM12.5 10c0-1.38-1.12-2.5-2.5-2.5V5c2.76 0 5 2.24 5 5h-2.5z"/><path d="M12 0l-3 7h6l-3 7z" fill="#FF8A00"/></svg>
-          High demand: Ships within 24 hours.
-        </div>
+            {%- when 'price' -%}
+              <div class="product-price-wrapper" {{ block.shopify_attributes }}>
+                <span class="price-regular">{{ product.price | money }}</span>
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                {%- endif -%}
+              </div>
 
-        <!-- Conversion Value Props -->
-        <div class="value-props">
-          <div class="value-prop-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Clinical-Grade Actives
-          </div>
-          <div class="value-prop-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            100% Vegan & Cruelty-Free
-          </div>
-          <div class="value-prop-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            30-Day Results Guarantee
-          </div>
-        </div>
+            {%- when 'badges' -%}
+              <div class="product-badges" {{ block.shopify_attributes }}>
+                {%- if block.settings.badge_1_text != blank -%}
+                  <span class="badge badge--discount">{{ block.settings.badge_1_text }}</span>
+                {%- endif -%}
+                {%- if block.settings.badge_2_text != blank -%}
+                  <span class="badge badge--trending">{{ block.settings.badge_2_text }}</span>
+                {%- endif -%}
+              </div>
 
-        <!-- Variants -->
-        {%- unless product.has_only_default_variant -%}
-          <div class="variant-picker">
-            {%- for option in product.options_with_values -%}
-              <div class="variant-picker__title">{{ option.name }}</div>
-              <div class="variant-picker__options">
-                {%- for value in option.values -%}
-                  <div class="variant-pill">
-                    <input type="radio" id="Option-{{ section.id }}-{{ forloop.index0 }}" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
-                    <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ value }}</label>
+            {%- when 'description' -%}
+              <div class="product-description" {{ block.shopify_attributes }}>
+                {{ product.description | strip_html | truncatewords: 20 }}
+              </div>
+
+            {%- when 'feature_icons' -%}
+              <div class="feature-icons" {{ block.shopify_attributes }}>
+                <div class="feature-icon-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  All Skin Types
+                </div>
+                <div class="feature-icon-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  Cruelty Free
+                </div>
+              </div>
+
+            {%- when 'countdown' -%}
+              <div class="promo-block" {{ block.shopify_attributes }}>
+                <div class="promo-tag">
+                  {{ block.settings.tag_text }}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2L2 13h9l-2 9 9-11h-9z"/></svg>
+                </div>
+                <h3 class="promo-title">{{ block.settings.promo_title }}</h3>
+                <div class="countdown-timer" data-end-date="{{ block.settings.end_date }}">
+                  <div class="countdown-box"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label">Days</span></div>
+                  <span class="countdown-sep">:</span>
+                  <div class="countdown-box"><span class="countdown-num" id="cd-hours">00</span><span class="countdown-label">Hrs</span></div>
+                  <span class="countdown-sep">:</span>
+                  <div class="countdown-box"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-label">Min</span></div>
+                  <span class="countdown-sep">:</span>
+                  <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">Sec</span></div>
+                </div>
+              </div>
+
+            {%- when 'stock_status' -%}
+              <div class="stock-status" {{ block.shopify_attributes }}>
+                <div class="stock-text-row">
+                  <div class="stock-dot"></div>
+                  <span><strong>{{ block.settings.stock_number }}</strong> in stock, ready to ship</span>
+                </div>
+                <div class="stock-progress-bar">
+                  <div class="stock-progress-fill" style="width: {{ block.settings.stock_percentage }}%;"></div>
+                </div>
+              </div>
+
+            {%- when 'variant_picker' -%}
+              {%- unless product.has_only_default_variant -%}
+                <div class="variant-selector" {{ block.shopify_attributes }}>
+                  <span class="variant-label">Size: <span id="selected-variant-label">{{ product.selected_or_first_available_variant.title }}</span></span>
+                  <div class="variant-options">
+                    {%- for variant in product.variants -%}
+                      <div class="variant-pill">
+                        <input type="radio" name="id" id="Variant-{{ variant.id }}" value="{{ variant.id }}" {% if forloop.first %}checked{% endif %}>
+                        <label for="Variant-{{ variant.id }}">{{ variant.title }}</label>
+                      </div>
+                    {%- endfor -%}
                   </div>
-                {%- endfor -%}
-              </div>
-            {%- endfor -%}
-          </div>
-        {%- endunless -%}
+                </div>
+              {%- endunless -%}
 
-        <!-- Add To Cart Form -->
-        {%- form 'product', product, class: 'product-form' -%}
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-          
-          <div class="product-form__buttons">
-            <input type="number" name="quantity" class="qty-input" value="1" min="1" aria-label="Quantity">
-            <button type="submit" name="add" class="btn-add-to-cart" {% if product.available == false %}disabled{% endif %}>
-              {%- if product.available -%}
-                Add to Cart
-              {%- else -%}
-                Out of Stock
-              {%- endif -%}
-            </button>
-          </div>
-        {%- endform -%}
-
-        <!-- Trust Badges -->
-        <div class="trust-badges">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <span style="font-size: 0.85rem; font-weight: 600; color: #4A5568;">Secure SSL Checkout</span>
-        </div>
-
-        <!-- Description -->
-        <div class="product-description" style="margin-top: 8px; font-size: 1.05rem; line-height: 1.6; color: #4A5568;">
-          {{ product.description | default: '<p>A powerful antioxidant formula designed to brighten and smooth the complexion. Engineered with clinical-grade ingredients to repair the skin barrier for visible, lasting results.</p>' }}
-        </div>
-
-        <!-- Premium Accordions -->
-        <div class="accordion-group">
-          <div class="accordion">
-            <button class="accordion__btn" type="button">
-              Key Ingredients
-              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </button>
-            <div class="accordion__content">
-              <div class="accordion__content-inner">
-                <p>Formulated without parabens, sulfates, or artificial fragrances. Key actives include Niacinamide, Hyaluronic Acid, and Vitamin C to protect and nourish your skin.</p>
+            {%- when 'quantity' -%}
+              <div class="quantity-selector" {{ block.shopify_attributes }}>
+                <span class="quantity-label">Quantity</span>
+                <div class="quantity-controls">
+                  <button type="button" class="qty-btn" id="qty-minus">−</button>
+                  <input type="number" class="qty-input" name="quantity" id="qty-input" value="1" min="1">
+                  <button type="button" class="qty-btn" id="qty-plus">+</button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="accordion">
-            <button class="accordion__btn" type="button">
-              How to Use
-              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </button>
-            <div class="accordion__content">
-              <div class="accordion__content-inner">
-                <p>Apply 2-3 drops to clean skin morning and night. Gently press into the face and neck until fully absorbed. Follow with moisturizer to lock in hydration.</p>
+
+            {%- when 'key_ingredients' -%}
+              <div class="key-ingredients" {{ block.shopify_attributes }}>
+                <div class="ingredients-header">
+                  Key Ingredients
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+                <div class="ingredient-bars">
+                  {%- if block.settings.ing_1_name != blank -%}
+                  <div class="ingredient-item">
+                    <div class="ingredient-bar-bg">
+                      <div class="ingredient-bar-fill" style="width: {{ block.settings.ing_1_pct }}%;"></div>
+                    </div>
+                    <div class="ingredient-info">
+                      <div class="ingredient-name">
+                        <svg class="ingredient-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        {{ block.settings.ing_1_name }}
+                      </div>
+                      <span>{{ block.settings.ing_1_pct }}%</span>
+                    </div>
+                  </div>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.ing_2_name != blank -%}
+                  <div class="ingredient-item">
+                    <div class="ingredient-bar-bg">
+                      <div class="ingredient-bar-fill" style="width: {{ block.settings.ing_2_pct }}%;"></div>
+                    </div>
+                    <div class="ingredient-info">
+                      <div class="ingredient-name">
+                        <svg class="ingredient-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        {{ block.settings.ing_2_name }}
+                      </div>
+                      <span>{{ block.settings.ing_2_pct }}%</span>
+                    </div>
+                  </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.ing_3_name != blank -%}
+                  <div class="ingredient-item">
+                    <div class="ingredient-bar-bg">
+                      <div class="ingredient-bar-fill" style="width: {{ block.settings.ing_3_pct }}%;"></div>
+                    </div>
+                    <div class="ingredient-info">
+                      <div class="ingredient-name">
+                        <svg class="ingredient-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        {{ block.settings.ing_3_name }}
+                      </div>
+                      <span>{{ block.settings.ing_3_pct }}%</span>
+                    </div>
+                  </div>
+                  {%- endif -%}
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="accordion">
-            <button class="accordion__btn" type="button">
-              Shipping & Returns
-              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </button>
-            <div class="accordion__content">
-              <div class="accordion__content-inner">
-                <p><strong>Free Delivery:</strong> Enjoy free shipping on all orders with no minimum purchase required.<br><br><strong>Returns:</strong> We accept returns strictly for broken or damaged items within 5 days of delivery.</p>
+
+            {%- when 'buy_buttons' -%}
+              <div class="product-actions" {{ block.shopify_attributes }}>
+                <button type="button" class="btn btn-secondary">Add To Bag</button>
+                <button type="button" class="btn btn-primary">Buy It Now</button>
               </div>
-            </div>
-          </div>
-        </div>
+
+            {%- when 'trust_share' -%}
+              <div class="trust-section" {{ block.shopify_attributes }}>
+                <div class="payment-icons">
+                  <img src="https://cdn.shopify.com/s/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg" alt="Visa">
+                  <img src="https://cdn.shopify.com/s/assets/payment_icons/master-173035bc8124581983d4efa50cf8626e8553c2b311353fbf67485f9c1a2b88d1.svg" alt="Mastercard">
+                  <img src="https://cdn.shopify.com/s/assets/payment_icons/american_express-2264c9b8b57b23b0b0831827e90cd7bcda2836adc42a912ebedf545dead35b20.svg" alt="Amex">
+                  <img src="https://cdn.shopify.com/s/assets/payment_icons/paypal-49e4c1e03244b6d2de0d270ca0d22dd15da6e92cc7266e93eb43762df5aa355d.svg" alt="PayPal">
+                  <img src="https://cdn.shopify.com/s/assets/payment_icons/diners_club-16436b9fb6dd9060edb51f1c7c44e23941e544ad798282d6aef160431ce56b41.svg" alt="Diners">
+                  <img src="https://cdn.shopify.com/s/assets/payment_icons/discover-cc9808e50193c7496e7a5245eb86d5e06f02e2476c0ea7abb48015ad9ea89d33.svg" alt="Discover">
+                </div>
+                <div class="secure-checkout">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Secured checkout
+                </div>
+              </div>
+              <a href="#" class="share-link" {{ block.shopify_attributes }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
+                SHARE
+              </a>
+
+          {%- endcase -%}
+        {%- endfor -%}
 
       </div>
     </div>
@@ -527,54 +764,266 @@
 </section>
 
 <script>
-  // Interactive Gallery Logic
-  const mainImage = document.getElementById('MainProductImage');
-  const thumbnails = document.querySelectorAll('.thumbnail-btn');
+  document.addEventListener("DOMContentLoaded", () => {
+    // Gallery Logic
+    const mainImg = document.getElementById('MainImage');
+    const thumbs = document.querySelectorAll('.thumbnail-btn');
+    if(mainImg && thumbs.length > 0) {
+      thumbs.forEach(btn => {
+        btn.addEventListener('click', () => {
+          thumbs.forEach(t => t.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          mainImg.style.opacity = '0';
+          setTimeout(() => {
+            mainImg.src = btn.dataset.imageUrl;
+            mainImg.style.opacity = '1';
+          }, 150);
+        });
+      });
+    }
 
-  if (mainImage && thumbnails.length > 0) {
-    thumbnails.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Remove active class from all
-        thumbnails.forEach(t => t.classList.remove('is-active'));
-        // Add active to clicked
-        btn.classList.add('is-active');
-        
-        // Swap image
-        const newUrl = btn.getAttribute('data-image-url');
-        
-        // Fade effect
-        mainImage.style.opacity = '0';
-        setTimeout(() => {
-          mainImage.src = newUrl;
-          mainImage.style.opacity = '1';
-        }, 150);
+    // Quantity Logic
+    const minus = document.getElementById('qty-minus');
+    const plus = document.getElementById('qty-plus');
+    const input = document.getElementById('qty-input');
+    if(minus && plus && input) {
+      minus.addEventListener('click', () => {
+        if(input.value > 1) input.value = parseInt(input.value) - 1;
+      });
+      plus.addEventListener('click', () => {
+        input.value = parseInt(input.value) + 1;
+      });
+    }
+
+    // Variant Logic
+    const variantRadios = document.querySelectorAll('.variant-pill input');
+    const variantLabel = document.getElementById('selected-variant-label');
+    variantRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if(e.target.checked && variantLabel) {
+          variantLabel.textContent = e.target.nextElementSibling.textContent;
+        }
       });
     });
-  }
 
-  // Premium Accordion Logic
-  document.querySelectorAll('.accordion__btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const parent = btn.closest('.accordion');
-      const icon = btn.querySelector('.accordion__icon');
-      
-      parent.classList.toggle('is-open');
-      
-      if(parent.classList.contains('is-open')) {
-        // Change to minus icon
-        icon.innerHTML = '<line x1="5" y1="12" x2="19" y2="12"></line>';
-      } else {
-        // Change to plus icon
-        icon.innerHTML = '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>';
+    // Countdown Logic
+    const countdownEl = document.querySelector('.countdown-timer');
+    if(countdownEl) {
+      const endDateStr = countdownEl.dataset.endDate;
+      const endDate = new Date(endDateStr).getTime();
+      const dayEl = document.getElementById('cd-days');
+      const hrEl = document.getElementById('cd-hours');
+      const minEl = document.getElementById('cd-mins');
+      const secEl = document.getElementById('cd-secs');
+
+      if(!isNaN(endDate)) {
+        setInterval(() => {
+          const now = new Date().getTime();
+          const distance = endDate - now;
+          if(distance < 0) return;
+          
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          if(dayEl) dayEl.textContent = days.toString().padStart(2, '0');
+          if(hrEl) hrEl.textContent = hours.toString().padStart(2, '0');
+          if(minEl) minEl.textContent = minutes.toString().padStart(2, '0');
+          if(secEl) secEl.textContent = seconds.toString().padStart(2, '0');
+        }, 1000);
       }
-    });
+    }
   });
 </script>
 
 {% schema %}
 {
-  "name": "Product Details",
-  "settings": []
+  "name": "Product Information",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "brand_title",
+      "name": "Brand & Title",
+      "limit": 1
+    },
+    {
+      "type": "reviews",
+      "name": "Reviews Star Rating",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "badges",
+      "name": "Badges",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_1_text",
+          "label": "Badge 1 Text",
+          "default": "11% OFF"
+        },
+        {
+          "type": "text",
+          "id": "badge_2_text",
+          "label": "Badge 2 Text",
+          "default": "TRENDING"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Short Description",
+      "limit": 1
+    },
+    {
+      "type": "feature_icons",
+      "name": "Feature Icons Row",
+      "limit": 1
+    },
+    {
+      "type": "countdown",
+      "name": "Countdown Promo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag_text",
+          "label": "Tagline Text",
+          "default": "Christmas Sale"
+        },
+        {
+          "type": "text",
+          "id": "promo_title",
+          "label": "Promo Title",
+          "default": "Flat 20% Off on your first order!"
+        },
+        {
+          "type": "text",
+          "id": "end_date",
+          "label": "End Date (MM/DD/YYYY)",
+          "default": "12/25/2026"
+        }
+      ]
+    },
+    {
+      "type": "stock_status",
+      "name": "Stock Status Bar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "stock_number",
+          "label": "Stock Amount",
+          "default": "26"
+        },
+        {
+          "type": "range",
+          "id": "stock_percentage",
+          "label": "Progress Bar Fill %",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 15
+        }
+      ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant Picker",
+      "limit": 1
+    },
+    {
+      "type": "quantity",
+      "name": "Quantity Selector",
+      "limit": 1
+    },
+    {
+      "type": "key_ingredients",
+      "name": "Key Ingredients",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "ing_1_name",
+          "label": "Ingredient 1 Name",
+          "default": "Green Tea Extract"
+        },
+        {
+          "type": "range",
+          "id": "ing_1_pct",
+          "label": "Ingredient 1 %",
+          "min": 0,
+          "max": 100,
+          "default": 4
+        },
+        {
+          "type": "text",
+          "id": "ing_2_name",
+          "label": "Ingredient 2 Name",
+          "default": "Peptides"
+        },
+        {
+          "type": "range",
+          "id": "ing_2_pct",
+          "label": "Ingredient 2 %",
+          "min": 0,
+          "max": 100,
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "ing_3_name",
+          "label": "Ingredient 3 Name",
+          "default": "Panthenol"
+        },
+        {
+          "type": "range",
+          "id": "ing_3_pct",
+          "label": "Ingredient 3 %",
+          "min": 0,
+          "max": 100,
+          "default": 2
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy Buttons",
+      "limit": 1
+    },
+    {
+      "type": "trust_share",
+      "name": "Trust & Share Block",
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Information",
+      "blocks": [
+        { "type": "brand_title" },
+        { "type": "reviews" },
+        { "type": "price" },
+        { "type": "badges" },
+        { "type": "description" },
+        { "type": "feature_icons" },
+        { "type": "countdown" },
+        { "type": "stock_status" },
+        { "type": "variant_picker" },
+        { "type": "quantity" },
+        { "type": "key_ingredients" },
+        { "type": "buy_buttons" },
+        { "type": "trust_share" }
+      ]
+    }
+  ]
 }
 {% endschema %}
