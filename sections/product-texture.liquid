@@ -123,6 +123,18 @@
   }
 </style>
 
+{%- comment -%}
+  DYNAMIC PER PRODUCT via metafields:
+  1. Go to Shopify Admin → Settings → Custom data → Products
+  2. Add metafield: "Texture Image" (namespace: custom, key: texture_image, type: File / Image)
+  3. Add metafield: "Texture Label" (namespace: custom, key: texture_label, type: Single line text)
+  4. Then edit each product and upload its unique texture image + label text.
+  Section settings act as fallback if no metafield is set.
+{%- endcomment -%}
+
+{%- assign tex_image = product.metafields.custom.texture_image.value | default: section.settings.texture_image -%}
+{%- assign tex_label = product.metafields.custom.texture_label.value | default: section.settings.label_text -%}
+
 <section class="texture-section" id="texture-{{ section.id }}">
   <div class="texture-section__inner">
     {%- if section.settings.heading != blank -%}
@@ -133,11 +145,11 @@
     {%- endif -%}
 
     <div class="texture-section__image-wrap" id="texture-image-{{ section.id }}">
-      {%- if section.settings.texture_image != blank -%}
+      {%- if tex_image != blank -%}
         <img
           class="texture-section__image"
-          src="{{ section.settings.texture_image | image_url: width: 1400 }}"
-          alt="{{ section.settings.image_alt | default: 'Product texture close-up' }}"
+          src="{{ tex_image | image_url: width: 1400 }}"
+          alt="{{ section.settings.image_alt | default: product.title | append: ' texture close-up' }}"
           loading="lazy"
           width="1400"
           height="900"
@@ -146,8 +158,8 @@
         {{ 'lifestyle-2' | placeholder_svg_tag: 'texture-section__image' }}
       {%- endif -%}
 
-      {%- if section.settings.label_text != blank -%}
-        <span class="texture-section__label">{{ section.settings.label_text }}</span>
+      {%- if tex_label != blank -%}
+        <span class="texture-section__label">{{ tex_label }}</span>
       {%- endif -%}
     </div>
 
