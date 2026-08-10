@@ -268,12 +268,22 @@
     <!-- Features -->
     <div class="wli-features-mobile-wrap">
       {%- for block in section.blocks -%}
-        <div class="wli-feature wli-feature--{{ forloop.index }}" {{ block.shopify_attributes }}>
+        {%- assign f_idx = forloop.index -%}
+        {%- assign f_title_key = 'feature_' | append: f_idx | append: '_title' -%}
+        {%- assign f_text_key = 'feature_' | append: f_idx | append: '_text' -%}
+        {%- assign f_title = product.metafields.custom[f_title_key].value | default: block.settings.title -%}
+        {%- assign f_text = product.metafields.custom[f_text_key].value | default: block.settings.text -%}
+
+        <div class="wli-feature wli-feature--{{ f_idx }}" {{ block.shopify_attributes }}>
           <div class="wli-feature-inner">
-            <div class="wli-feature-number">{{ forloop.index }}</div>
+            <div class="wli-feature-number">{{ f_idx }}</div>
             <div class="wli-feature-content">
-              <h3 class="wli-feature-title">{{ block.settings.title }}</h3>
-              <p class="wli-feature-text">{{ block.settings.text }}</p>
+              {%- if f_title != blank -%}
+                <h3 class="wli-feature-title">{{ f_title }}</h3>
+              {%- endif -%}
+              {%- if f_text != blank -%}
+                <p class="wli-feature-text">{{ f_text }}</p>
+              {%- endif -%}
             </div>
           </div>
         </div>
