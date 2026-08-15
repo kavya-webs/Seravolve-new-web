@@ -391,7 +391,7 @@
 
     <!-- Center: Sale Text & Live Countdown Timer -->
     <div class="announcement-bar__sale">
-      <span class="announcement-bar__sale-text">Sale upto 40%</span>
+      <span class="announcement-bar__sale-text">Independence Day Sale &mdash; Flat 20% OFF</span>
       <div class="announcement-bar__timer" id="HeaderCountdown">
         <span class="timer-pill"><span id="timer-days">27</span><span class="timer-pill__unit">DAYS</span></span>
         <span class="timer-colon">:</span>
@@ -526,10 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Live Header Countdown Timer
-  const targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() + 27);
-  targetDate.setHours(targetDate.getHours() + 17);
-  targetDate.setMinutes(targetDate.getMinutes() + 34);
+  const targetDate = new Date('2026-08-28T23:59:59+05:30');
 
   function updateCountdown() {
     const now = new Date().getTime();
