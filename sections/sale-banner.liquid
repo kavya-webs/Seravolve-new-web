@@ -150,7 +150,7 @@
       <path id="badgePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
       <text font-family="Inter, sans-serif" font-size="7" font-weight="700" fill="#ffffff" letter-spacing="1">
         <textPath href="#badgePath" startOffset="0%">
-          • SERAVOLVE • LAUNCH OFFER • SERAVOLVE • LAUNCH OFFER
+          • SERAVOLVE • 20% OFF SALE • SERAVOLVE • 20% OFF SALE
         </textPath>
       </text>
     </svg>
@@ -158,8 +158,8 @@
 
   <!-- Content Card -->
   <div class="sale-banner__content">
-    <h2 class="sale-banner__title">Limited-time Launch Offers</h2>
-    <p class="sale-banner__text">Up to 50% Off. Don't miss out on our exclusive launch deals</p>
+    <h2 class="sale-banner__title">🇮🇳 Independence Day Sale</h2>
+    <p class="sale-banner__text">Flat 20% OFF on all products from MRP. Valid Aug 15–28, 2026</p>
     <div class="countdown" id="SaleCountdown">
       <div class="countdown__item">
         <div class="countdown__number" id="cd-days">30</div>
@@ -187,8 +187,7 @@
 
 <script>
 (function() {
-  const end = new Date();
-  end.setDate(end.getDate() + 30);
+  const end = new Date('2026-08-28T23:59:59+05:30');
   function update() {
     const now = new Date();
     const diff = end - now;
