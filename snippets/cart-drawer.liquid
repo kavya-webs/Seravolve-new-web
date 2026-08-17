@@ -305,9 +305,9 @@
 
   <!-- Free Shipping Banner -->
   <div class="cart-drawer__shipping-bar" id="CartDrawerShippingBar">
-    <div class="cart-drawer__shipping-text" id="CartDrawerShippingText">Add ₹999 for FREE Shipping!</div>
+    <div class="cart-drawer__shipping-text" id="CartDrawerShippingText">🎉 FREE Shipping on all orders!</div>
     <div class="cart-drawer__shipping-progress">
-      <div class="cart-drawer__shipping-fill" id="CartDrawerShippingFill" style="width: 0%;"></div>
+      <div class="cart-drawer__shipping-fill" id="CartDrawerShippingFill" style="width: 100%;"></div>
     </div>
   </div>
 
@@ -389,16 +389,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (headerBadgeEl) headerBadgeEl.textContent = cart.item_count;
     if (subtotalEl) subtotalEl.textContent = formatMoney(cart.total_price);
 
-    // Shipping threshold calculation (e.g. ₹999 / 99900 cents)
-    const threshold = 99900;
-    if (cart.total_price >= threshold) {
-      if (shippingText) shippingText.textContent = "🎉 You've unlocked FREE Shipping!";
-      if (shippingFill) shippingFill.style.width = '100%';
-    } else {
-      const needed = threshold - cart.total_price;
-      if (shippingText) shippingText.textContent = `Add ${formatMoney(needed)} more for FREE Shipping!`;
-      if (shippingFill) shippingFill.style.width = `${Math.min(100, Math.round((cart.total_price / threshold) * 100))}%`;
-    }
+    // Free shipping on all orders
+    if (shippingText) shippingText.textContent = "🎉 FREE Shipping on all orders!";
+    if (shippingFill) shippingFill.style.width = '100%';
 
     if (!cart.items || cart.items.length === 0) {
       if (listEl) {
