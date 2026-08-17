@@ -84,53 +84,6 @@
     z-index: 1;
   }
 
-  .hero-slide::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; height: 50%;
-    background: linear-gradient(to top, rgba(18,59,90,0.6) 0%, transparent 100%);
-    z-index: 2;
-  }
-
-  .hero-slide__content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    color: #fff;
-    padding: 0 20px;
-  }
-  .hero-slide__title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    color: #fff;
-    margin-bottom: var(--spacing-sm);
-    font-family: var(--font-heading);
-    font-style: italic;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  }
-  .hero-slide__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 40px;
-    background-color: var(--color-cta);
-    color: #fff;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 50px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  .hero-slide__btn:hover { 
-    background-color: var(--color-cta-hover); 
-    transform: scale(1.02);
-    opacity: 1; 
-  }
 
   /* Navigation */
   .hero-nav {
@@ -165,7 +118,7 @@
   .hero-progress__bar {
     height: 100%;
     background: #fff;
-    width: 33.3%;
+    width: 50%;
     transition: width 0.5s;
   }
 </style>
@@ -173,33 +126,15 @@
 <section class="hero-slider-section">
   <div class="hero-slider-track">
     <div class="hero-slider" id="HeroSlider">
-      
-      <!-- Slide 1: Full Seravolve Routine -->
-      <div class="hero-slide is-active">
-        <img class="hero-slide__image" src="{{ 'hero-banner-1-full-routine.png' | asset_url }}" alt="Full Seravolve Routine" loading="eager">
-        <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Complete Science-Backed 5-Step Routine</h2>
-          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Shop the Routine</a>
-        </div>
-      </div>
+      <!-- Slide 1 -->
+      <a href="{{ routes.all_products_collection_url }}" class="hero-slide is-active">
+        <img class="hero-slide__image" src="{{ 'hero-banner-new-1.jpg' | asset_url }}" alt="Science-Backed Skincare, Simplified" loading="eager">
+      </a>
 
-      <!-- Slide 2: Why Seravolve -->
-      <div class="hero-slide">
-        <img class="hero-slide__image" src="{{ 'hero-banner-2-why-seravolve.png' | asset_url }}" alt="Why Seravolve" loading="lazy">
-        <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Pure Science Meets Clean Beauty</h2>
-          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Discover Why Us</a>
-        </div>
-      </div>
-
-      <!-- Slide 3: Radiance Glow -->
-      <div class="hero-slide">
-        <img class="hero-slide__image" src="{{ 'hero-banner-3-radiance-glow.png' | asset_url }}" alt="Skin Brightening Routine" loading="lazy">
-        <div class="hero-slide__content">
-          <h2 class="hero-slide__title">Brighten, Hydrate & Protect</h2>
-          <a href="{{ routes.all_products_collection_url }}" class="hero-slide__btn">Build Routine</a>
-        </div>
-      </div>
+      <!-- Slide 2 -->
+      <a href="{{ routes.all_products_collection_url }}" class="hero-slide">
+        <img class="hero-slide__image" src="{{ 'hero-banner-new-2.jpg' | asset_url }}" alt="Protect. Hydrate. Repeat." loading="lazy">
+      </a>
 
     </div>
 
