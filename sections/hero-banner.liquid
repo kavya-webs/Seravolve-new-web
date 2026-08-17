@@ -40,6 +40,8 @@
     .hero-progress {
       width: 70px;
     }
+    .desktop-only { display: none; }
+    .mobile-only { display: block; }
   }
 
   .hero-slider-track {
@@ -82,6 +84,10 @@
     width: 100%; height: 100%;
     object-fit: cover;
     z-index: 1;
+  }
+
+  .mobile-only {
+    display: none;
   }
 
 
@@ -128,12 +134,14 @@
     <div class="hero-slider" id="HeroSlider">
       <!-- Slide 1 -->
       <a href="{{ routes.all_products_collection_url }}" class="hero-slide is-active">
-        <img class="hero-slide__image" src="{{ 'Bannar-1.jpg' | asset_url }}" alt="Seravolve Banner 1" loading="eager">
+        <img class="hero-slide__image desktop-only" src="{{ 'Bannar-1.jpg' | asset_url }}" alt="Seravolve Banner 1" loading="eager">
+        <img class="hero-slide__image mobile-only" src="{{ 'bannar-mobile-1.jpg' | asset_url }}" alt="Seravolve Banner 1 Mobile" loading="eager">
       </a>
 
       <!-- Slide 2 -->
       <a href="{{ routes.all_products_collection_url }}" class="hero-slide">
-        <img class="hero-slide__image" src="{{ 'Bannar-2.jpg' | asset_url }}" alt="Seravolve Banner 2" loading="lazy">
+        <img class="hero-slide__image desktop-only" src="{{ 'Bannar-2.jpg' | asset_url }}" alt="Seravolve Banner 2" loading="lazy">
+        <img class="hero-slide__image mobile-only" src="{{ 'bannar-mobile-2.jpg' | asset_url }}" alt="Seravolve Banner 2 Mobile" loading="lazy">
       </a>
 
     </div>
