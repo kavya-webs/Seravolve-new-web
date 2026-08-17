@@ -60,52 +60,6 @@
       ],
       "settings": {}
     },
-    "product_texture_4ggJBN": {
-      "type": "product-texture",
-      "blocks": {
-        "detail_pill_AmC9cN": {
-          "type": "detail_pill",
-          "settings": {
-            "icon": "droplet",
-            "text": "Gel Consistency"
-          }
-        },
-        "detail_pill_CTe4F4": {
-          "type": "detail_pill",
-          "settings": {
-            "icon": "palette",
-            "text": "Cyan Blue Color"
-          }
-        },
-        "detail_pill_RTpNVa": {
-          "type": "detail_pill",
-          "settings": {
-            "icon": "sparkle",
-            "text": "Non-Greasy Finish"
-          }
-        },
-        "detail_pill_WHr97d": {
-          "type": "detail_pill",
-          "settings": {
-            "icon": "leaf",
-            "text": "Paraben-Free"
-          }
-        }
-      },
-      "block_order": [
-        "detail_pill_AmC9cN",
-        "detail_pill_CTe4F4",
-        "detail_pill_RTpNVa",
-        "detail_pill_WHr97d"
-      ],
-      "name": "Product Texture",
-      "settings": {
-        "heading": "Feel the Texture",
-        "subheading": "A macro look at what goes on your skin — clean, lightweight, and luxurious.",
-        "image_alt": "Product texture close-up",
-        "label_text": "Lightweight Gel Texture"
-      }
-    },
     "why_love_it_b47WL8": {
       "type": "why-love-it",
       "blocks": {
@@ -167,6 +121,52 @@
         "product_image": "shopify://shop_images/4_6a17def8-bf8d-4a6f-a822-f4299794b0f0.png"
       }
     },
+    "product_texture_4ggJBN": {
+      "type": "product-texture",
+      "blocks": {
+        "detail_pill_AmC9cN": {
+          "type": "detail_pill",
+          "settings": {
+            "icon": "droplet",
+            "text": "Gel Consistency"
+          }
+        },
+        "detail_pill_CTe4F4": {
+          "type": "detail_pill",
+          "settings": {
+            "icon": "palette",
+            "text": "Cyan Blue Color"
+          }
+        },
+        "detail_pill_RTpNVa": {
+          "type": "detail_pill",
+          "settings": {
+            "icon": "sparkle",
+            "text": "Non-Greasy Finish"
+          }
+        },
+        "detail_pill_WHr97d": {
+          "type": "detail_pill",
+          "settings": {
+            "icon": "leaf",
+            "text": "Paraben-Free"
+          }
+        }
+      },
+      "block_order": [
+        "detail_pill_AmC9cN",
+        "detail_pill_CTe4F4",
+        "detail_pill_RTpNVa",
+        "detail_pill_WHr97d"
+      ],
+      "name": "Product Texture",
+      "settings": {
+        "heading": "Feel the Texture",
+        "subheading": "A macro look at what goes on your skin — clean, lightweight, and luxurious.",
+        "image_alt": "Product texture close-up",
+        "label_text": "Lightweight Gel Texture"
+      }
+    },
     "disclosures": {
       "type": "disclosures",
       "settings": {
@@ -195,6 +195,26 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "178695233827a46127": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_LDhn6A": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_LDhn6A"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -202,6 +222,7 @@
     "why_love_it_b47WL8",
     "product_texture_4ggJBN",
     "disclosures",
-    "related-products"
+    "related-products",
+    "178695233827a46127"
   ]
 }
