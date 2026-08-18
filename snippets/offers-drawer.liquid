@@ -131,13 +131,6 @@
       <div class="offer-card__code">Auto Applied</div>
     </div>
 
-    <!-- Offer 2: BOGO Independence Day (Aug 15-16 only) -->
-    <div class="offer-card" id="BogoOfferCard">
-      <h3 class="offer-card__title" style="color:#E53E3E;">&#127470;&#127475; Buy 1 Get 1 FREE!</h3>
-      <p>Special Independence Day offer &mdash; buy any product and get one FREE! Valid Aug 15 &amp; 16 only.</p>
-      <div class="offer-card__code">BOGO1</div>
-      <button class="btn btn--outline" style="width: 100%;" onclick="navigator.clipboard.writeText('BOGO1'); this.textContent='Copied!'; setTimeout(()=>{this.textContent='COPY CODE'},2000);">COPY CODE</button>
-    </div>
 
 
   </div>
@@ -166,13 +159,6 @@
     closeBtn.addEventListener('click', closeOffers);
     overlay.addEventListener('click', closeOffers);
 
-    // Auto-hide BOGO offer after Aug 16, 2026 11:59 PM IST
-    const bogoCard = document.getElementById('BogoOfferCard');
-    if (bogoCard) {
-      const bogoEnd = new Date('2026-08-16T23:59:59+05:30');
-      if (new Date() > bogoEnd) {
-        bogoCard.style.display = 'none';
-      }
-    }
+
   });
 </script>
