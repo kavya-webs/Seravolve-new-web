@@ -1,280 +1,157 @@
 <style>
-  .why-choose {
+  .comparison-table-section {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-secondary);
-    overflow: hidden;
+    background-color: var(--color-bg-secondary);
   }
-
-  .why-choose__header {
-    text-align: center;
-    max-width: 640px;
-    margin: 0 auto var(--spacing-lg);
-    padding: 0 20px;
-  }
-  .why-choose__label {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    color: var(--color-cta);
-    margin-bottom: 12px;
-  }
-  .why-choose__title {
-    font-family: var(--font-heading);
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-    color: var(--color-text-heading);
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
-  .why-choose__subtitle {
-    font-size: 1.05rem;
-    color: var(--color-text-body);
-    line-height: 1.6;
-  }
-
-  /* ── Card Grid ── */
-  .why-choose__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1100px;
+  .comparison-table-container {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 40px;
-  }
-  @media (max-width: 900px) {
-    .why-choose__grid {
-      grid-template-columns: repeat(2, 1fr);
-      padding: 0 20px;
-      gap: 16px;
-    }
-  }
-  @media (max-width: 560px) {
-    .why-choose__grid {
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-  }
-
-  .why-choose__card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 32px 28px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    border: 1px solid rgba(0, 149, 255, 0.06);
-  }
-  .why-choose__card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-cta), var(--color-accent));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .why-choose__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(0, 149, 255, 0.1);
-  }
-  .why-choose__card:hover::before {
-    opacity: 1;
-  }
-
-  .why-choose__icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    background: var(--color-bg-alternate);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    color: var(--color-cta);
-    transition: background 0.3s, color 0.3s;
-  }
-  .why-choose__card:hover .why-choose__icon {
-    background: var(--color-cta);
-    color: #fff;
-  }
-
-  .why-choose__card-title {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-text-heading);
-    margin-bottom: 8px;
-  }
-  .why-choose__card-text {
-    font-size: 0.9rem;
-    color: var(--color-text-body);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ── Bottom Stats Strip ── */
-  .why-choose__stats {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    margin-top: var(--spacing-lg);
     padding: 0 20px;
-    flex-wrap: wrap;
   }
-  @media (max-width: 560px) {
-    .why-choose__stats {
-      gap: 24px;
-    }
-  }
-  .why-choose__stat {
-    text-align: center;
-  }
-  .why-choose__stat-number {
+  .comparison-table-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 700;
-    color: var(--color-bg-dark);
-    line-height: 1;
-    margin-bottom: 4px;
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    color: var(--color-text-heading);
+    text-align: center;
+    margin-bottom: 48px;
+    font-weight: 500;
   }
-  .why-choose__stat-label {
-    font-size: 0.8rem;
+  .comparison-table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 12px 8px;
+    min-width: 750px;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 14px 20px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  
+  /* Row header (labels) column */
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    text-align: left;
+    background: transparent;
+    border: none;
+    font-weight: 500;
     color: var(--color-text-body);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    width: 31%;
+    padding-left: 0;
+  }
+  .comparison-table td:first-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    color: var(--color-text-heading);
+  }
+
+  /* Seravolve Pillar Column */
+  .comparison-table .seravolve-cell {
+    background-color: var(--color-bg-dark); /* #123B5A */
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    width: 23%;
+    border: 1px solid var(--color-bg-dark);
+  }
+  .comparison-table th.seravolve-cell {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  /* Competitor Columns */
+  .comparison-table .competitor-cell {
+    background-color: #ffffff;
+    color: var(--color-text-body);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    width: 23%;
+  }
+  .comparison-table th.competitor-cell {
+    font-weight: 500;
+    color: var(--color-text-body);
+  }
+  
+  /* Text values style */
+  .comparison-table .val-no {
+    color: #9CA3AF;
+  }
+  .comparison-table .competitor-cell.val-yes {
+    color: var(--color-text-heading);
     font-weight: 500;
   }
 </style>
 
-<section class="why-choose" aria-labelledby="why-choose-heading">
-  <div class="why-choose__header">
-    <span class="why-choose__label">The Seravolve Difference</span>
-    <h2 id="why-choose-heading" class="why-choose__title">Why Choose Seravolve?</h2>
-    <p class="why-choose__subtitle">Formulated with clinical-grade actives, zero fillers, and designed to work as a complete system — not random products.</p>
-  </div>
-
-  <div class="why-choose__grid">
-
-    <!-- Card 1: Science-Backed -->
-    <div class="why-choose__card">
-      <div class="why-choose__icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v7l3 4v2H6v-2l3-4V3z"/><path d="M8 22h8"/><path d="M7 18h10"/></svg>
-      </div>
-      <h3 class="why-choose__card-title">Science-Backed Formulas</h3>
-      <p class="why-choose__card-text">Every product is built on proven actives — Ceramides, Niacinamide, Vitamin C, Hyaluronic Acid — at effective concentrations.</p>
-    </div>
-
-    <!-- Card 2: Complete System -->
-    <div class="why-choose__card">
-      <div class="why-choose__icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      </div>
-      <h3 class="why-choose__card-title">Complete 5-Step System</h3>
-      <p class="why-choose__card-text">Not random products. Our 5-step routine is designed to work together — each product amplifies the next for best results.</p>
-    </div>
-
-    <!-- Card 3: Clean & Safe -->
-    <div class="why-choose__card">
-      <div class="why-choose__icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-      </div>
-      <h3 class="why-choose__card-title">Clean & Safe</h3>
-      <p class="why-choose__card-text">No parabens, sulphates, silicones, or harmful fillers. Cruelty-free, dermatologically tested, and suitable for all skin types.</p>
-    </div>
-
-    <!-- Card 4: Curated Routines -->
-    <div class="why-choose__card">
-      <div class="why-choose__icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      </div>
-      <h3 class="why-choose__card-title">6 Curated Routines</h3>
-      <p class="why-choose__card-text">Pick a ready-made routine for acne, brightening, UV defence, barrier repair, or the full Seravolve system. No guesswork.</p>
-    </div>
-
-    <!-- Card 5: All Skin Types -->
-    <div class="why-choose__card">
-      <div class="why-choose__icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-      </div>
-      <h3 class="why-choose__card-title">For Every Skin Type</h3>
-      <p class="why-choose__card-text">Oily, dry, combination, sensitive — our gentle yet effective formulas are pH-balanced and work across all skin profiles.</p>
-    </div>
-
-    <!-- Card 6: Eco Packaging -->
-    <div class="why-choose__card">
-      <div class="why-choose__icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l1-1h18l1 1"/><path d="M6 18V8a1 1 0 011-1h10a1 1 0 011 1v10"/><path d="M10 7V5a2 2 0 014 0v2"/><path d="M12 12v3"/><path d="M10 14h4"/></svg>
-      </div>
-      <h3 class="why-choose__card-title">Eco-Conscious Packaging</h3>
-      <p class="why-choose__card-text">Recyclable materials, minimal waste, and thoughtfully designed packaging that's as kind to the planet as it is to your skin.</p>
-    </div>
-
-  </div>
-
-  <!-- Stats Strip -->
-  <div class="why-choose__stats">
-    <div class="why-choose__stat">
-      <div class="why-choose__stat-number" data-count="5">0</div>
-      <div class="why-choose__stat-label">Products</div>
-    </div>
-    <div class="why-choose__stat">
-      <div class="why-choose__stat-number" data-count="6">0</div>
-      <div class="why-choose__stat-label">Curated Routines</div>
-    </div>
-    <div class="why-choose__stat">
-      <div class="why-choose__stat-number" data-count="15" data-suffix="+">0</div>
-      <div class="why-choose__stat-label">Active Ingredients</div>
-    </div>
-    <div class="why-choose__stat">
-      <div class="why-choose__stat-number" data-count="100" data-suffix="%">0</div>
-      <div class="why-choose__stat-label">Cruelty-Free</div>
+<section class="comparison-table-section">
+  <div class="comparison-table-container">
+    <h2 class="comparison-table-title">Why Choose Seravolve?</h2>
+    
+    <div class="comparison-table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="seravolve-cell">Seravolve</th>
+            <th class="competitor-cell">Brand B</th>
+            <th class="competitor-cell">Brand C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Clean ingredients</td>
+            <td class="seravolve-cell">Yes</td>
+            <td class="competitor-cell val-yes">Yes</td>
+            <td class="competitor-cell val-no">No</td>
+          </tr>
+          <tr>
+            <td>Cruelty-free & vegan</td>
+            <td class="seravolve-cell">Yes</td>
+            <td class="competitor-cell val-yes">Yes</td>
+            <td class="competitor-cell val-no">No</td>
+          </tr>
+          <tr>
+            <td>Complete 5-step system</td>
+            <td class="seravolve-cell">Yes</td>
+            <td class="competitor-cell val-no">No</td>
+            <td class="competitor-cell val-no">No</td>
+          </tr>
+          <tr>
+            <td>Curated routines</td>
+            <td class="seravolve-cell">Yes</td>
+            <td class="competitor-cell val-no">No</td>
+            <td class="competitor-cell val-no">No</td>
+          </tr>
+          <tr>
+            <td>Suitable for all skin types</td>
+            <td class="seravolve-cell">Yes</td>
+            <td class="competitor-cell val-no">No</td>
+            <td class="competitor-cell val-yes">Yes</td>
+          </tr>
+          <tr>
+            <td>Eco-conscious packaging</td>
+            <td class="seravolve-cell">Yes</td>
+            <td class="competitor-cell val-no">No</td>
+            <td class="competitor-cell val-no">No</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const counters = document.querySelectorAll('.why-choose__stat-number[data-count]');
-  let animated = false;
-
-  function animateCounters() {
-    if (animated) return;
-    animated = true;
-    counters.forEach(el => {
-      const target = parseInt(el.dataset.count);
-      const suffix = el.dataset.suffix || '';
-      const duration = 1200;
-      const start = performance.now();
-
-      function tick(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.round(target * eased) + suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    });
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) animateCounters();
-    });
-  }, { threshold: 0.3 });
-
-  const section = document.querySelector('.why-choose__stats');
-  if (section) observer.observe(section);
-});
-</script>
-
 {% schema %}
 {
-  "name": "Why Choose Seravolve",
+  "name": "Comparison Table",
   "settings": [],
-  "presets": [{ "name": "Why Choose Seravolve" }]
+  "presets": [{ "name": "Comparison Table" }]
 }
 {% endschema %}
