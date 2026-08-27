@@ -880,17 +880,16 @@
   "url": "{{ shop.url }}{{ product.url }}",
   "brand": {
     "@type": "Brand",
-    "name": {{ product.vendor | json }}
+    "name": {{ product.vendor | default: shop.name | json }}
   },
-  "sku": {{ product.selected_or_first_available_variant.sku | json }},
+  "sku": {{ product.selected_or_first_available_variant.sku | default: product.id | json }},
   "offers": {
     "@type": "Offer",
     "url": "{{ shop.url }}{{ product.url }}",
-    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "priceCurrency": {{ cart.currency.iso_code | default: "INR" | json }},
     "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | json }},
-    {%- if product.compare_at_price -%}
-    "priceValidUntil": "2026-08-28",
-    {%- endif -%}
+    "priceValidUntil": "2027-12-31",
+    "itemCondition": "https://schema.org/NewCondition",
     "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
   }
 }
