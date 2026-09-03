@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- ========================================================
+       SERAVOLVE — Comprehensive XML Sitemap
+       Domain: https://seravolve.com
+       ======================================================== -->
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://seravolve.com/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- ========================================================
+       COLLECTIONS & CATALOG
+       ======================================================== -->
+  <url>
+    <loc>https://seravolve.com/collections/all</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://seravolve.com/collections/frontpage</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ========================================================
+       CORE PRODUCTS (5 Formulations)
+       ======================================================== -->
+  <url>
+    <loc>https://seravolve.com/products/salicylic-acid-facewash</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/hero.png?v=1785824662</image:loc>
+      <image:title>Seravolve 2% Salicylic Acid Facewash - 100ml</image:title>
+      <image:caption>Clarifying Facewash with 2% Salicylic Acid</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/niacinamide-rice-water-toner</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/3.png?v=1785824884</image:loc>
+      <image:title>Seravolve 3% Niacinamide &amp; Rice Water Toner</image:title>
+      <image:caption>Radiance Toner with Niacinamide and Rice Water</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/vitamin-c-face-serum</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/2.jpg?v=1785825072</image:loc>
+      <image:title>Seravolve 10% Vitamin C Face Serum – 30ml</image:title>
+      <image:caption>Antioxidant Brightening Face Serum</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/blue-moisturiser</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/Hero_a7695dde-8a24-44e6-b340-07fb95427d0c.png?v=1785825237</image:loc>
+      <image:title>Seravolve Barrier Repair Moisturiser – 50ml</image:title>
+      <image:caption>Deep Hydration Ceramide Barrier Repair Cream</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/sunscreen-fluid-spf</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/Hero.jpg?v=1785826922</image:loc>
+      <image:title>Seravolve Sunscreen Fluid – 100ml</image:title>
+      <image:caption>Ultra-Light Broad Spectrum SPF 50+ Sunscreen</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ========================================================
+       CURATED ROUTINE BUNDLES (6 Regimens)
+       ======================================================== -->
+  <url>
+    <loc>https://seravolve.com/products/full-seravolve-routine</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/Hero_c70ea65e-3e97-408c-9f9b-3fd53247cf61.png?v=1785827118</image:loc>
+      <image:title>Seravolve Full Routine (5-Step Kit)</image:title>
+      <image:caption>Complete 5-Step Daily Skincare Routine</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/skin-brightening-routine</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/Hero_a5057320-85f9-4f7f-a13f-1c3aa6ffea3f.png?v=1785827079</image:loc>
+      <image:title>Seravolve Skin Brightening Routine (3-Step Kit)</image:title>
+      <image:caption>3-Step Glow &amp; Hyperpigmentation Solution</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/barrier-repair-and-hydration-routine</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/Hero_8e72fc1f-d11f-4666-827f-b6efae64b829.png?v=1785827049</image:loc>
+      <image:title>Seravolve Barrier Repair and Hydration Routine (3-Step Kit)</image:title>
+      <image:caption>3-Step Barrier Restoration Regimen</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/acne-control-routine</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/0.png?v=1785827019</image:loc>
+      <image:title>Seravolve Acne Control Routine (3-Step Kit)</image:title>
+      <image:caption>3-Step Breakout &amp; Oil Control Regimen</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/smooth-skin-routine</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/Hero_46829fdd-290b-44cf-97e9-8b3163351f27.png?v=1785826991</image:loc>
+      <image:title>Seravolve Smooth Skin Routine (2-Step Kit)</image:title>
+      <image:caption>2-Step Texture Refinement Regimen</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/products/daily-uv-defence-routine</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cdn.shopify.com/s/files/1/0784/1395/5224/files/Hero_5aa3248f-a1dd-4fe6-bb59-3ee97057cc6a.png?v=1785826957</image:loc>
+      <image:title>Seravolve Daily UV Defence Routine (2-Step Kit)</image:title>
+      <image:caption>2-Step Essential Sun &amp; Moisture Shield</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ========================================================
+       KEY PAGES & INTERACTIVE TOOLS
+       ======================================================== -->
+  <url>
+    <loc>https://seravolve.com/pages/quiz</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/pages/routines</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/pages/about-us</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/pages/faq</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/pages/contact</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ========================================================
+       BLOG & ARTICLES
+       ======================================================== -->
+  <url>
+    <loc>https://seravolve.com/blogs/news</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ========================================================
+       LEGAL & STORE POLICIES
+       ======================================================== -->
+  <url>
+    <loc>https://seravolve.com/pages/shipping</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/pages/refund</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/pages/privacy</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/pages/terms</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- ========================================================
+       AI & LLM DISCOVERY SPECIFICATIONS
+       ======================================================== -->
+  <url>
+    <loc>https://seravolve.com/llms.txt</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://seravolve.com/agents.md</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,39 @@
+# Seravolve
+
+> Clean, science-backed skincare and dermatologist-crafted routines tailored for Indian skin types.
+
+Seravolve is an Indian clinical skincare brand dedicated to simplicity, ingredient transparency, and barrier restoration. Formulated without parabens, sulfates, synthetic fragrances, or harsh toxins, every Seravolve product is 100% vegan, cruelty-free, and calibrated with clinically validated actives at effective, non-irritating concentrations.
+
+## Individual Formulations (5 Core Products)
+- [2% Salicylic Acid Facewash](https://seravolve.com/products/salicylic-acid-facewash): Clarifying daily gel cleanser with 2% BHA (Salicylic Acid) to unclog pores, eliminate excess sebum, and prevent acne breakouts without stripping moisture.
+- [3% Niacinamide & Rice Water Toner](https://seravolve.com/products/niacinamide-rice-water-toner): Hydrating, alcohol-free toner infused with 3% Niacinamide and fermented rice water to tighten pores, regulate oil production, and restore the skin's natural pH.
+- [10% Vitamin C Face Serum](https://seravolve.com/products/vitamin-c-face-serum): Potent brightening antioxidant serum featuring 10% Ethyl Ascorbic Acid to fade hyperpigmentation, brighten dark spots, and stimulate collagen synthesis.
+- [Barrier Repair Moisturiser](https://seravolve.com/products/blue-moisturiser): Lightweight, ceramide-infused cream designed to lock in hydration, soothe redness, and repair compromised lipid barriers in all climates.
+- [Ultra-Light Sunscreen Fluid SPF 50+](https://seravolve.com/products/sunscreen-fluid-spf): Broad-spectrum UVA/UVB PA++++ physical/hybrid sunscreen with a weightless, invisible finish and zero white cast, optimized for humid weather.
+
+## Curated Skincare Routines (6 Targeted Regimens)
+- [Full Seravolve Routine (5-Step Kit)](https://seravolve.com/products/full-seravolve-routine): Complete morning and evening regimen encompassing Cleanse, Tone, Treat, Moisturize, and Protect for optimal long-term skin health.
+- [Acne Control Routine (3-Step Kit)](https://seravolve.com/products/acne-control-routine): Targeted 3-step routine (Salicylic Facewash + Niacinamide Toner + Barrier Moisturiser) to soothe active acne, minimize pores, and control shine.
+- [Skin Brightening Routine (3-Step Kit)](https://seravolve.com/products/skin-brightening-routine): Radiance-boosting system (Facewash + 10% Vitamin C Serum + Sunscreen Fluid SPF 50+) to clear dullness and even out sun-induced pigmentation.
+- [Barrier Repair and Hydration Routine (3-Step Kit)](https://seravolve.com/products/barrier-repair-and-hydration-routine): Calming regimen (Gentle Cleanser + Hydrating Rice Toner + Barrier Moisturiser) designed for dry, sensitive, or damaged skin barriers.
+- [Smooth Skin Routine (2-Step Kit)](https://seravolve.com/products/smooth-skin-routine): Fast 2-step exfoliation and hydration duo (Facewash + Moisturiser) for rough, textured skin.
+- [Daily UV Defence Routine (2-Step Kit)](https://seravolve.com/products/daily-uv-defence-routine): Minimalist day kit (Moisturiser + SPF 50+ Sunscreen Fluid) providing moisture barrier protection and blue-light/UV defense.
+
+## Interactive Tools & Guides
+- [Build Your Routine (Skin Diagnostic Quiz)](https://seravolve.com/pages/quiz): 4-step diagnostic skin quiz that assesses skin type, primary concerns, and daily lifestyle to recommend an exact tailored product combination.
+- [Routines Guide](https://seravolve.com/pages/routines): Comprehensive visual regimen guide explaining layer order, active synergy, and AM vs. PM scheduling.
+- [About Seravolve](https://seravolve.com/pages/about-us): Brand philosophy, clinical standards, dermatologist co-development, and clean beauty principles.
+- [Frequently Asked Questions](https://seravolve.com/pages/faq): Answers to questions regarding formulation safety, sensitive skin suitability, pregnancy safety, and order tracking.
+- [All Products Catalog](https://seravolve.com/collections/all): The full online catalog of individual bottles and bundled sets.
+
+## Customer Policies & Support
+- [Shipping Policy](https://seravolve.com/pages/shipping): 100% Free Shipping on all orders across India with no minimum order threshold. Orders dispatch within 24–48 hours.
+- [Refund Policy](https://seravolve.com/pages/refund): 30-day hassle-free return and satisfaction guarantee.
+- [Privacy Policy](https://seravolve.com/pages/privacy): Transparent customer privacy and data handling practices.
+- [Terms of Service](https://seravolve.com/pages/terms): Store policies, terms of purchase, and usage rights.
+- [Contact Customer Care](https://seravolve.com/pages/contact): Reach out via info@seravolve.com or +91 9978099097.
+
+## Machine-Readable Resources
+- [Parent Sitemap Index](https://seravolve.com/sitemap.xml): Primary XML sitemap index for search engines and web crawlers.
+- [Product Catalog Feed (JSON)](https://seravolve.com/collections/all/products.json): Real-time product pricing, inventory status, descriptions, and variant IDs.
+- [Agent Discovery Guide](https://seravolve.com/agents.md): UCP protocol and API connection parameters for transactional AI shopping assistants.
