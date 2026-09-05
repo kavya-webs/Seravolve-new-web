@@ -255,8 +255,7 @@
       {%- if wli_product_image -%}
         {{ wli_product_image | image_url: width: 600 | image_tag: alt: wli_heading, loading: 'lazy' }}
       {%- else -%}
-        <!-- Placeholder -->
-        <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=600&q=80" alt="Placeholder">
+        <img src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="{{ wli_heading | default: 'Seravolve Skincare' }}" loading="lazy">
       {%- endif -%}
     </div>
 

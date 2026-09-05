@@ -564,7 +564,7 @@
           {%- endif -%}
         {%- else -%}
           <div class="gallery-main-wrapper">
-            <img class="gallery-main-image" src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=1000&q=80" alt="Placeholder">
+            <img class="gallery-main-image" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="{{ product.title | default: 'Seravolve Skincare' }}" loading="lazy">
           </div>
         {%- endif -%}
       </div>
@@ -824,7 +824,7 @@
       const secEl = document.getElementById('cd-secs');
 
       if(!isNaN(endDate)) {
-        setInterval(() => {
+        const tick = () => {
           const now = new Date().getTime();
           const distance = endDate - now;
           if(distance < 0) return;
@@ -838,7 +838,9 @@
           if(hrEl) hrEl.textContent = hours.toString().padStart(2, '0');
           if(minEl) minEl.textContent = minutes.toString().padStart(2, '0');
           if(secEl) secEl.textContent = seconds.toString().padStart(2, '0');
-        }, 1000);
+        };
+        tick();
+        setInterval(tick, 1000);
       }
     }
 

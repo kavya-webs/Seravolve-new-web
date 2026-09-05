@@ -27,6 +27,14 @@
             "badge_2_text": "Clean Skincare"
           }
         },
+        "countdown_promo": {
+          "type": "countdown",
+          "settings": {
+            "tag_text": "Pre Ganesh Chaturthi Sale",
+            "promo_title": "Flat 10% Off — Limited Festive Offer!",
+            "end_date": "09/15/2026 23:59:59"
+          }
+        },
         "quantity_8LAxUT": {
           "type": "quantity",
           "settings": {}
@@ -52,6 +60,7 @@
         "brand_title_pJecxy",
         "price_W3gbg3",
         "badges_6qx8ci",
+        "countdown_promo",
         "quantity_8LAxUT",
         "feature_icons_hRFFPJ",
         "description_NYBK4a",

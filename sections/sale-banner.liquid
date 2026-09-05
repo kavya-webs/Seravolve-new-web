@@ -140,17 +140,17 @@
 </style>
 
 <section class="sale-banner">
-  <!-- Full-page background image (soap bubbles / water foam texture) -->
-  <img class="sale-banner__bg" src="https://images.unsplash.com/photo-1563804447971-6e113ab80713?w=1920&q=80" alt="Sale background" loading="lazy">
+  <!-- Full-page background image -->
+  <img class="sale-banner__bg" src="{{ 'about-hero-bg.jpg' | asset_url }}" alt="Pre Ganesh Chaturthi Sale" loading="lazy">
 
   <!-- Responsive Spinning SALE badge — top left -->
   <div class="sale-banner__badge">
-    <div class="sale-banner__badge-inner">%</div>
+    <div class="sale-banner__badge-inner">10%<br><span style="font-size: 0.55em; letter-spacing: 0.5px;">OFF</span></div>
     <svg class="sale-banner__badge-svg" viewBox="0 0 100 100">
       <path id="badgePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
       <text font-family="Inter, sans-serif" font-size="7" font-weight="700" fill="#ffffff" letter-spacing="1">
         <textPath href="#badgePath" startOffset="0%">
-          • SERAVOLVE • 20% OFF SALE • SERAVOLVE • 20% OFF SALE
+          • SERAVOLVE • 10% OFF SALE • SERAVOLVE • 10% OFF SALE
         </textPath>
       </text>
     </svg>
@@ -158,8 +158,8 @@
 
   <!-- Content Card -->
   <div class="sale-banner__content">
-    <h2 class="sale-banner__title">Special Festival Sale</h2>
-    <p class="sale-banner__text">Exclusive discounts on all products from MRP. Limited time offer.</p>
+    <h2 class="sale-banner__title">Pre Ganesh Chaturthi Sale</h2>
+    <p class="sale-banner__text">Flat 10% OFF sitewide! Celebrate the festive season with clinically proven, radiant skincare formulations. Limited time offer.</p>
     <div class="countdown" id="SaleCountdown">
       <div class="countdown__item">
         <div class="countdown__number" id="cd-days">--</div>
@@ -181,13 +181,13 @@
         <div class="countdown__label">Sec</div>
       </div>
     </div>
-    <a href="{{ routes.all_products_collection_url }}" class="sale-banner__btn">Shop Now</a>
+    <a href="{{ routes.all_products_collection_url }}" class="sale-banner__btn">Shop Festival Offers</a>
   </div>
 </section>
 
 <script>
 (function() {
-  const end = new Date('2026-08-28T23:59:59+05:30');
+  const end = new Date('2026-09-15T23:59:59+05:30');
   function update() {
     const now = new Date();
     const diff = end - now;
@@ -196,10 +196,14 @@
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
-    document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
-    document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
-    document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+    const dayEl = document.getElementById('cd-days');
+    const hrEl = document.getElementById('cd-hours');
+    const minEl = document.getElementById('cd-mins');
+    const secEl = document.getElementById('cd-secs');
+    if (dayEl) dayEl.textContent = String(d).padStart(2, '0');
+    if (hrEl) hrEl.textContent = String(h).padStart(2, '0');
+    if (minEl) minEl.textContent = String(m).padStart(2, '0');
+    if (secEl) secEl.textContent = String(s).padStart(2, '0');
   }
   update();
   setInterval(update, 1000);

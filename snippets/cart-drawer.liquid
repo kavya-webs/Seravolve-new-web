@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (listEl) {
       listEl.innerHTML = cart.items.map(item => `
         <div class="cart-drawer-item" data-key="${item.key}">
-          <img class="cart-drawer-item__img" src="${item.image || 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=200'}" alt="${item.title}">
+          <img class="cart-drawer-item__img" src="${item.image || '{{ 'seravolve-vitamin-c-serum.png' | asset_url }}'}" alt="${item.title}">
           <div class="cart-drawer-item__info">
             <a href="${item.url}" class="cart-drawer-item__title">${item.product_title}</a>
             ${item.variant_title ? `<div class="cart-drawer-item__variant">${item.variant_title}</div>` : ''}

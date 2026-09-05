@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resultsList.innerHTML = products.map(p => `
       <a href="${p.url}" class="search-result-item">
-        <img class="search-result-item__img" src="${p.image || 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=100'}" alt="${p.title}">
+        <img class="search-result-item__img" src="${p.image || '{{ 'seravolve-vitamin-c-serum.png' | asset_url }}'}" alt="${p.title}">
         <div class="search-result-item__info">
           <div class="search-result-item__title">${p.title}</div>
           <div class="search-result-item__price">₹${(p.price).toFixed(2)}</div>

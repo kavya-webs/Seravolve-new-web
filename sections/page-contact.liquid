@@ -1,0 +1,333 @@
+<div class="contact-page-container">
+  <div class="container">
+    <div class="contact-header text-center">
+      <h1 class="contact-title">Contact Us</h1>
+      <p class="contact-subtitle">Have a question about our skincare formulations, your order, or need personalized routine advice? We're here to help.</p>
+    </div>
+
+    <!-- Contact Info Cards Grid -->
+    <div class="contact-cards-grid">
+      <!-- Card 1: Registered Office Address -->
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        </div>
+        <h3 class="contact-card__title">Registered Address</h3>
+        <p class="contact-card__text">
+          <strong>Elisense Enterprise LLP</strong><br>
+          (Brand: Seravolve)<br>
+          333 Shayona Plaza, Puna-Saroli Junction, BRTS Road,<br>
+          Surat, Gujarat 395010, India
+        </p>
+      </div>
+
+      <!-- Card 2: Contact Details -->
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </div>
+        <h3 class="contact-card__title">Customer Care</h3>
+        <p class="contact-card__text">
+          <strong>Email:</strong> <a href="mailto:info@seravolve.com">info@seravolve.com</a><br>
+          <strong>Phone:</strong> <a href="tel:+919978099097">+91 9978099097</a><br>
+          <strong>Grievance Officer:</strong> Kavya Mavani
+        </p>
+      </div>
+
+      <!-- Card 3: Business Hours -->
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <h3 class="contact-card__title">Business Hours</h3>
+        <p class="contact-card__text">
+          <strong>Monday &ndash; Saturday:</strong><br>
+          10:00 AM &ndash; 6:00 PM IST<br>
+          <strong>Sunday:</strong> Closed
+        </p>
+      </div>
+
+      <!-- Card 4: Response Time -->
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h3 class="contact-card__title">Response Commitment</h3>
+        <p class="contact-card__text">
+          <strong>Email & Web Inquiries:</strong><br>
+          Within 24 business hours.<br>
+          <strong>Urgent Order Queries:</strong><br>
+          Priority phone assistance.
+        </p>
+      </div>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-form-wrapper">
+      <div class="contact-form-card">
+        <h2 class="contact-form-title">Send Us a Message</h2>
+        <p class="contact-form-desc">Fill out the form below and our team will get back to you promptly.</p>
+
+        {%- form 'contact', id: 'SeravolveContactForm', class: 'contact-form-inner' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="contact-alert contact-alert--success" role="alert">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>Thank you for reaching out! Your message has been sent successfully. We'll be in touch within 24 hours.</span>
+            </div>
+          {%- elsif form.errors -%}
+            <div class="contact-alert contact-alert--error" role="alert">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span>Please correct the errors below and try again.</span>
+            </div>
+          {%- endif -%}
+
+          <div class="form-row-two">
+            <div class="form-group">
+              <label for="ContactFormName" class="form-label">Full Name <span class="required">*</span></label>
+              <input type="text" id="ContactFormName" name="contact[name]" class="form-control" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="ContactFormEmail" class="form-label">Email Address <span class="required">*</span></label>
+              <input type="email" id="ContactFormEmail" name="contact[email]" class="form-control" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" placeholder="you@example.com" spellcheck="false" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-group">
+              <label for="ContactFormPhone" class="form-label">Phone Number</label>
+              <input type="tel" id="ContactFormPhone" name="contact[phone]" class="form-control" pattern="[0-9\-+ ]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label for="ContactFormOrder" class="form-label">Order Number (if applicable)</label>
+              <input type="text" id="ContactFormOrder" name="contact[order_number]" class="form-control" placeholder="#SV-1001">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ContactFormBody" class="form-label">Message <span class="required">*</span></label>
+            <textarea id="ContactFormBody" name="contact[body]" rows="5" class="form-control" placeholder="How can we help you today?" required>{{- form.body -}}</textarea>
+          </div>
+
+          <button type="submit" class="contact-submit-btn">Send Message</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact-page-container {
+    padding: 60px 20px 100px;
+    background-color: #F8FAFC;
+    min-height: 80vh;
+  }
+  .contact-page-container .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .contact-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+  }
+  .contact-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #0A1E30;
+    font-family: var(--font-heading, inherit);
+    margin-bottom: 12px;
+  }
+  .contact-subtitle {
+    font-size: 1.1rem;
+    color: #475569;
+    line-height: 1.6;
+  }
+  .contact-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 50px;
+  }
+  .contact-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 28px 24px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 16px rgba(10, 30, 48, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .contact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(10, 30, 48, 0.08);
+  }
+  .contact-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #EBF8FF;
+    color: #184B79;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .contact-card__title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #0A1E30;
+    margin-bottom: 10px;
+    font-family: var(--font-heading, inherit);
+  }
+  .contact-card__text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+  .contact-card__text a {
+    color: #184B79;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+  }
+  .contact-card__text a:hover {
+    color: #0A1E30;
+  }
+  .contact-form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .contact-form-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 8px 30px rgba(10, 30, 48, 0.06);
+  }
+  .contact-form-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0A1E30;
+    margin-bottom: 8px;
+    font-family: var(--font-heading, inherit);
+  }
+  .contact-form-desc {
+    font-size: 1rem;
+    color: #64748B;
+    margin-bottom: 30px;
+  }
+  .contact-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+  }
+  .contact-alert--success {
+    background-color: #ECFDF5;
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+  }
+  .contact-alert--error {
+    background-color: #FEF2F2;
+    color: #991B1B;
+    border: 1px solid #FECACA;
+  }
+  .form-row-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 600px) {
+    .form-row-two {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .contact-form-card {
+      padding: 24px 18px;
+    }
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+  .form-label .required {
+    color: #EF4444;
+  }
+  .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #0A1E30;
+    background-color: #FFFFFF;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  .form-control:focus {
+    outline: none;
+    border-color: #184B79;
+    box-shadow: 0 0 0 3px rgba(24, 75, 121, 0.15);
+  }
+  textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+  }
+  .contact-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 36px;
+    background-color: #0A1E30;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 100%;
+  }
+  .contact-submit-btn:hover {
+    background-color: #184B79;
+  }
+  @media (min-width: 600px) {
+    .contact-submit-btn {
+      width: auto;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact Page",
+  "settings": []
+}
+{% endschema %}

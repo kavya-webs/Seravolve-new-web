@@ -398,7 +398,7 @@
           {%- if featured.image -%}
             <img class="blog-featured__image" src="{{ featured.image | image_url: width: 800 }}" alt="{{ featured.image.alt | escape }}" loading="lazy">
           {%- else -%}
-            <img class="blog-featured__image" src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80" alt="Skincare blog article" loading="lazy">
+            <img class="blog-featured__image" src="{{ 'smooth-skin-routine-lifestyle.png' | asset_url }}" alt="Seravolve Skincare" loading="lazy">
           {%- endif -%}
         </div>
         <div class="blog-featured__content">
@@ -430,7 +430,7 @@
             {%- if article.image -%}
               <img class="blog-card__image" src="{{ article.image | image_url: width: 600 }}" alt="{{ article.image.alt | escape }}" loading="lazy">
             {%- else -%}
-              <img class="blog-card__image" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="Skincare article" loading="lazy">
+              <img class="blog-card__image" src="{{ 'event-sky_5712.jpg' | asset_url }}" alt="Seravolve Skincare" loading="lazy">
             {%- endif -%}
           </div>
           <div class="blog-card__body">
