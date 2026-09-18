@@ -210,3 +210,18 @@ img {
   z-index: 2;
   border-radius: 4px;
 }
+
+/* Global SVG / Icon Fixes */
+.icon, 
+.svg-wrapper > svg,
+.share-button__button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+.icon-arrow,
+.article-template__back svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
