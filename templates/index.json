@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -18,7 +27,76 @@
     },
     "as-seen-in": {
       "type": "as-seen-in",
-      "settings": {}
+      "blocks": {
+        "video_t4k4DE": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-53676.mp4"
+          }
+        },
+        "video_cAgTQ7": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-66151.mp4"
+          }
+        },
+        "video_CYYaQG": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-49583.mp4"
+          }
+        },
+        "video_ABFGyx": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-6998.mp4"
+          }
+        },
+        "video_LwCkRy": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-30552.mp4"
+          }
+        },
+        "video_8YA6cE": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-19640.mp4"
+          }
+        },
+        "video_zrmmGY": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-47295.mp4"
+          }
+        },
+        "video_cihUNy": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-61595.mp4"
+          }
+        },
+        "video_RNHaMr": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Video-54244.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "video_t4k4DE",
+        "video_cAgTQ7",
+        "video_CYYaQG",
+        "video_ABFGyx",
+        "video_LwCkRy",
+        "video_8YA6cE",
+        "video_zrmmGY",
+        "video_cihUNy",
+        "video_RNHaMr"
+      ],
+      "settings": {
+        "heading": "As Seen In"
+      }
     },
     "collection-categories": {
       "type": "collection-categories",
