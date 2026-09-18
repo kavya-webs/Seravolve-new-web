@@ -296,6 +296,44 @@
     padding: var(--spacing-md) 0;
     border-top: 1px solid rgba(0,0,0,0.06);
     margin-top: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  .sera-article-share__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  .sera-article-share__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--color-bg-secondary);
+    border: 1.5px solid rgba(0,0,0,0.08);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-text-body);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .sera-article-share__btn:hover {
+    background: var(--color-bg-alternate);
+    border-color: var(--color-cta);
+    color: var(--color-cta);
+  }
+  .sera-article-share__btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .sera-article-share__btn.is-copied {
+    background: rgba(56, 178, 108, 0.1);
+    border-color: var(--color-success);
+    color: var(--color-success);
   }
 
   /* Quiz CTA Card */
@@ -557,13 +595,28 @@
 
         <!-- Share -->
         <div class="sera-article-share">
-          {%- assign share_url = request.origin | append: article.url -%}
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'share' -%}
-              {% render 'share-button', block: block, share_link: share_url %}
-            {%- endif -%}
-          {%- endfor -%}
+          <span class="sera-article-share__label">Share</span>
+          <button class="sera-article-share__btn" id="sera-copy-link" data-url="{{ request.origin }}{{ article.url }}" type="button" aria-label="Copy article link to clipboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sera-share-icon-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span class="sera-share-btn-text">Copy Link</span>
+          </button>
         </div>
+        <script>
+          document.getElementById('sera-copy-link').addEventListener('click', function() {
+            var btn = this;
+            var url = btn.dataset.url;
+            navigator.clipboard.writeText(url).then(function() {
+              btn.classList.add('is-copied');
+              btn.querySelector('.sera-share-btn-text').textContent = 'Copied!';
+              btn.querySelector('.sera-share-icon-link').innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
+              setTimeout(function() {
+                btn.classList.remove('is-copied');
+                btn.querySelector('.sera-share-btn-text').textContent = 'Copy Link';
+                btn.querySelector('.sera-share-icon-link').innerHTML = '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>';
+              }, 2000);
+            });
+          });
+        </script>
 
         <!-- Back to Blog -->
         <div class="sera-article-back">
