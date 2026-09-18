@@ -16,6 +16,10 @@
       "type": "video-testimonials",
       "settings": {}
     },
+    "as-seen-in": {
+      "type": "as-seen-in",
+      "settings": {}
+    },
     "collection-categories": {
       "type": "collection-categories",
       "settings": {}
@@ -50,6 +54,7 @@
     "marquee",
     "featured-tabbed",
     "video-testimonials",
+    "as-seen-in",
     "collection-categories",
     "sale-banner",
     "featured-dark",
