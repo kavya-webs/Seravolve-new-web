@@ -13,28 +13,6 @@
     font-size: 1rem;
     margin-bottom: var(--spacing-md);
   }
-  .tabbed-products__tabs {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-  }
-  .tabbed-products__tab {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-text-body);
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-  }
-  .tabbed-products__tab.is-active {
-    color: var(--color-cta);
-    border-bottom-color: var(--color-cta);
-    font-weight: 500;
-  }
 
   .tabbed-products__grid {
     display: grid;
@@ -135,37 +113,23 @@
 
 <section class="tabbed-products">
   <div class="container">
-    <h2 class="tabbed-products__heading">Your 5-Step Routine</h2>
-    <p class="tabbed-products__subheading">Formulated with proven actives for every step of your routine</p>
-    
-    <div class="tabbed-products__tabs">
-      <button class="tabbed-products__tab is-active" data-tab="all">All Products</button>
-      <button class="tabbed-products__tab" data-tab="bestsellers">Best Sellers</button>
-    </div>
+    <h2 class="tabbed-products__heading">Bestsellers</h2>
+    <p class="tabbed-products__subheading">Our most-loved products, clinically formulated for real results</p>
 
     <div class="tabbed-products__grid" id="TabbedProductGrid">
-      {%- assign all_products = collections['all'].products -%}
-      {%- if all_products and all_products.size > 0 -%}
-        {%- for product in all_products limit: 10 -%}
-          {%- assign is_bestseller = false -%}
-          {%- if product.tags contains 'bestseller' or product.tags contains 'Best Seller' or forloop.index == 1 or forloop.index == 3 or forloop.index == 5 -%}
-            {%- assign is_bestseller = true -%}
-          {%- endif -%}
-          <a href="{{ product.url }}" class="product-tab-card" data-bestseller="{{ is_bestseller }}">
+      {%- assign bestseller_handles = 'seravolve-2-salicylic-acid-facewash-100ml,seravolve-10-vitamin-c-face-serum-30ml,acne-control-routine,smooth-skin-routine,seravolve-barrier-repair-moisturiser-50ml' | split: ',' -%}
+      {%- for handle in bestseller_handles -%}
+        {%- assign product = all_products[handle] -%}
+        {%- if product and product.title != blank -%}
+          <a href="{{ product.url }}" class="product-tab-card">
             <div class="product-tab-card__image-wrapper">
               <span class="product-tab-card__step">{{ forloop.index }}</span>
-              {%- if is_bestseller -%}
-                <span class="product-tab-card__badge">Bestseller</span>
-              {%- endif -%}
+              <span class="product-tab-card__badge">Bestseller</span>
               {%- if product.featured_image -%}
                 <img class="product-tab-card__image product-tab-card__image--main" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">
                 {%- if product.images[1] -%}
                   <img class="product-tab-card__image product-tab-card__image--hover" src="{{ product.images[1] | image_url: width: 600 }}" alt="{{ product.title | escape }} Alternate View" loading="lazy">
-                {%- else -%}
-                  <img class="product-tab-card__image product-tab-card__image--hover" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">
                 {%- endif -%}
-              {%- else -%}
-                <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="{{ product.title }}" loading="lazy">
               {%- endif -%}
             </div>
             <div class="product-tab-card__content">
@@ -173,112 +137,11 @@
               <p class="product-tab-card__subtitle">{{ product.price | money }}</p>
             </div>
           </a>
-        {%- endfor -%}
-      {%- else -%}
-        <!-- Step 1: Facewash (Bestseller) -->
-        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="true">
-          <div class="product-tab-card__image-wrapper">
-            <span class="product-tab-card__step">1</span>
-            <span class="product-tab-card__badge">Bestseller</span>
-            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-facewash-front.jpeg' | asset_url }}" alt="Seravolve Facewash" loading="lazy">
-            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-facewash-back.jpeg' | asset_url }}" alt="Seravolve Facewash Back" loading="lazy">
-          </div>
-          <div class="product-tab-card__content">
-            <h3 class="product-tab-card__title">Facewash</h3>
-            <p class="product-tab-card__subtitle">Cleanse</p>
-          </div>
-        </a>
-
-        <!-- Step 2: Toner -->
-        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="false">
-          <div class="product-tab-card__image-wrapper">
-            <span class="product-tab-card__step">2</span>
-            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-toner-front.jpeg' | asset_url }}" alt="Seravolve Toner" loading="lazy">
-            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-toner-back.jpeg' | asset_url }}" alt="Seravolve Toner Back" loading="lazy">
-          </div>
-          <div class="product-tab-card__content">
-            <h3 class="product-tab-card__title">Toner</h3>
-            <p class="product-tab-card__subtitle">Prep & Balance</p>
-          </div>
-        </a>
-
-        <!-- Step 3: Serum (Bestseller) -->
-        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="true">
-          <div class="product-tab-card__image-wrapper">
-            <span class="product-tab-card__step">3</span>
-            <span class="product-tab-card__badge">Bestseller</span>
-            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'seravolve-vitamin-c-serum.png' | asset_url }}" alt="Seravolve Serum" loading="lazy">
-            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-serum-back.jpeg' | asset_url }}" alt="Seravolve Serum Back" loading="lazy">
-          </div>
-          <div class="product-tab-card__content">
-            <h3 class="product-tab-card__title">Serum</h3>
-            <p class="product-tab-card__subtitle">Treat & Target</p>
-          </div>
-        </a>
-
-        <!-- Step 4: Moisturiser -->
-        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="false">
-          <div class="product-tab-card__image-wrapper">
-            <span class="product-tab-card__step">4</span>
-            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-moisturiser-front.jpeg' | asset_url }}" alt="Seravolve Moisturiser" loading="lazy">
-            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-moisturiser-back.jpeg' | asset_url }}" alt="Seravolve Moisturiser Back" loading="lazy">
-          </div>
-          <div class="product-tab-card__content">
-            <h3 class="product-tab-card__title">Moisturiser</h3>
-            <p class="product-tab-card__subtitle">Hydrate & Nourish</p>
-          </div>
-        </a>
-
-        <!-- Step 5: Sunscreen (Bestseller) -->
-        <a href="{{ routes.all_products_collection_url }}" class="product-tab-card" data-bestseller="true">
-          <div class="product-tab-card__image-wrapper">
-            <span class="product-tab-card__step">5</span>
-            <span class="product-tab-card__badge">Bestseller</span>
-            <img class="product-tab-card__image product-tab-card__image--main" src="{{ 'all-5-products-sunscreen-front.jpeg' | asset_url }}" alt="Seravolve Sunscreen" loading="lazy">
-            <img class="product-tab-card__image product-tab-card__image--hover" src="{{ 'all-5-products-sunscreen-back.jpeg' | asset_url }}" alt="Seravolve Sunscreen Back" loading="lazy">
-          </div>
-          <div class="product-tab-card__content">
-            <h3 class="product-tab-card__title">Sunscreen</h3>
-            <p class="product-tab-card__subtitle">Protect & Shield</p>
-          </div>
-        </a>
-      {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
     </div>
   </div>
 </section>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.tabbed-products__tab');
-  const cards = document.querySelectorAll('.product-tab-card');
-  const grid = document.getElementById('TabbedProductGrid');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Toggle Tab Active State
-      tabs.forEach(t => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
-
-      const filter = tab.getAttribute('data-tab');
-
-      // Fade animation
-      if (grid) grid.style.opacity = 0;
-      
-      setTimeout(() => {
-        cards.forEach(card => {
-          if (filter === 'all') {
-            card.style.display = 'flex';
-          } else {
-            const isBestseller = card.getAttribute('data-bestseller') === 'true';
-            card.style.display = isBestseller ? 'flex' : 'none';
-          }
-        });
-        if (grid) grid.style.opacity = 1;
-      }, 200);
-    });
-  });
-});
-</script>
 
 {% schema %}
 {
