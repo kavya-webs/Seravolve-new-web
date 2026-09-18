@@ -19,13 +19,16 @@
   }
   .category-card {
     position: relative;
-    border-radius: 20px;
+    border-radius: 50%;
     overflow: hidden;
-    aspect-ratio: 3/4;
+    aspect-ratio: 1/1;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     text-decoration: none;
+    max-width: 220px;
+    width: 100%;
+    margin: 0 auto;
   }
   .category-card__image {
     position: absolute;
@@ -40,18 +43,20 @@
   .category-card::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; height: 40%;
-    background: linear-gradient(to top, rgba(18,59,90,0.7), transparent);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(18,59,90,0.4);
     z-index: 1;
   }
   .category-card__label {
     position: relative;
     z-index: 2;
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     color: #fff;
-    padding-bottom: var(--spacing-lg);
+    padding-bottom: 0;
+    text-align: center;
+    width: 90%;
   }
 </style>
 
