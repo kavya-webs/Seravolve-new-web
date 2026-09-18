@@ -117,7 +117,7 @@
     <p class="tabbed-products__subheading">Our most-loved products, clinically formulated for real results</p>
 
     <div class="tabbed-products__grid" id="TabbedProductGrid">
-      {%- assign bestseller_handles = 'seravolve-2-salicylic-acid-facewash-100ml,seravolve-10-vitamin-c-face-serum-30ml,acne-control-routine,smooth-skin-routine,seravolve-barrier-repair-moisturiser-50ml' | split: ',' -%}
+      {%- assign bestseller_handles = 'salicylic-acid-facewash,vitamin-c-face-serum,acne-control-routine,smooth-skin-routine,blue-moisturiser' | split: ',' -%}
       {%- for handle in bestseller_handles -%}
         {%- assign product = all_products[handle] -%}
         {%- if product and product.title != blank -%}
