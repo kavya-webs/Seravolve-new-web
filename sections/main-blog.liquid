@@ -1,15 +1,35 @@
 <style>
   /* ============================================
-     BLOG PAGE — Skincare Tips & Expertise
+     BLOG PAGE — Seravolve Skincare Journal
      ============================================ */
 
+  /* Breadcrumb */
+  .sera-blog-breadcrumb {
+    padding: var(--spacing-md) 0 0;
+    background: var(--color-bg-primary);
+  }
+  .sera-blog-breadcrumb__list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--color-text-body);
+  }
+  .sera-blog-breadcrumb__list a {
+    color: var(--color-cta);
+    font-weight: 500;
+  }
+  .sera-blog-breadcrumb__list a:hover { opacity: 0.8; }
+  .sera-blog-breadcrumb__sep { opacity: 0.4; }
+
   /* Hero */
-  .blog-hero {
-    padding: var(--spacing-xxl) 0 var(--spacing-lg);
+  .sera-blog-hero {
+    padding: var(--spacing-lg) 0;
     text-align: center;
     background: var(--color-bg-primary);
   }
-  .blog-hero__badge {
+  .sera-blog-hero__badge {
     display: inline-block;
     background: var(--color-bg-alternate);
     color: var(--color-cta);
@@ -21,20 +41,58 @@
     font-weight: 600;
     margin-bottom: var(--spacing-sm);
   }
-  .blog-hero__title {
+  .sera-blog-hero__title {
     font-size: clamp(2.2rem, 5vw, 3.8rem);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
   }
-  .blog-hero__subtitle {
+  .sera-blog-hero__subtitle {
     color: var(--color-text-body);
     font-size: 1.05rem;
     max-width: 560px;
-    margin: 0 auto;
+    margin: 0 auto var(--spacing-md);
     line-height: 1.7;
   }
 
+  /* Search Bar */
+  .sera-blog-search {
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .sera-blog-search__input {
+    width: 100%;
+    padding: 14px 50px 14px 20px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    background: var(--color-bg-secondary);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .sera-blog-search__input:focus {
+    border-color: var(--color-cta);
+    box-shadow: 0 0 0 3px rgba(0,149,255,0.1);
+  }
+  .sera-blog-search__btn {
+    position: absolute;
+    right: 6px; top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-cta);
+    border: none;
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .sera-blog-search__btn:hover { background: var(--color-cta-hover); }
+  .sera-blog-search__btn svg { width: 16px; height: 16px; }
+
   /* Category Filter Chips */
-  .blog-filters {
+  .sera-blog-filters {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -42,7 +100,7 @@
     padding: 0 20px var(--spacing-lg);
     background: var(--color-bg-primary);
   }
-  .blog-filter-btn {
+  .sera-blog-filter-btn {
     padding: 10px 22px;
     border-radius: 50px;
     border: 1.5px solid rgba(0,0,0,0.1);
@@ -54,19 +112,19 @@
     cursor: pointer;
     transition: all 0.3s ease;
   }
-  .blog-filter-btn:hover,
-  .blog-filter-btn.is-active {
+  .sera-blog-filter-btn:hover,
+  .sera-blog-filter-btn.is-active {
     background: var(--color-cta);
     color: #fff;
     border-color: var(--color-cta);
   }
 
   /* Featured Article Card */
-  .blog-featured {
+  .sera-blog-featured {
     padding: 0 0 var(--spacing-xl);
     background: var(--color-bg-primary);
   }
-  .blog-featured__card {
+  .sera-blog-featured__card {
     display: grid;
     grid-template-columns: 1fr;
     gap: 0;
@@ -74,35 +132,38 @@
     overflow: hidden;
     background: var(--color-bg-secondary);
     transition: box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
   }
-  .blog-featured__card:hover {
+  .sera-blog-featured__card:hover {
     box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    opacity: 1;
   }
   @media (min-width: 768px) {
-    .blog-featured__card {
+    .sera-blog-featured__card {
       grid-template-columns: 1.2fr 1fr;
     }
   }
-  .blog-featured__image-wrapper {
+  .sera-blog-featured__image-wrapper {
     aspect-ratio: 16 / 10;
     overflow: hidden;
   }
-  .blog-featured__image {
+  .sera-blog-featured__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
   }
-  .blog-featured__card:hover .blog-featured__image {
+  .sera-blog-featured__card:hover .sera-blog-featured__image {
     transform: scale(1.03);
   }
-  .blog-featured__content {
+  .sera-blog-featured__content {
     padding: var(--spacing-lg);
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  .blog-featured__label {
+  .sera-blog-featured__label {
     display: inline-block;
     background: var(--color-cta);
     color: #fff;
@@ -115,7 +176,7 @@
     margin-bottom: 16px;
     width: fit-content;
   }
-  .blog-featured__meta {
+  .sera-blog-featured__meta {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -123,14 +184,14 @@
     font-size: 0.8rem;
     margin-bottom: 12px;
   }
-  .blog-featured__title {
+  .sera-blog-featured__title {
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-family: var(--font-heading);
     color: var(--color-text-heading);
     margin-bottom: 12px;
     line-height: 1.3;
   }
-  .blog-featured__excerpt {
+  .sera-blog-featured__excerpt {
     color: var(--color-text-body);
     font-size: 0.95rem;
     line-height: 1.7;
@@ -140,7 +201,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .blog-featured__link {
+  .sera-blog-featured__link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -149,34 +210,34 @@
     font-size: 0.9rem;
     transition: gap 0.3s;
   }
-  .blog-featured__link:hover {
+  .sera-blog-featured__link:hover {
     gap: 10px;
     opacity: 1;
   }
 
   /* Articles Grid */
-  .blog-grid {
+  .sera-blog-grid {
     padding: 0 0 var(--spacing-xl);
     background: var(--color-bg-primary);
   }
-  .blog-grid__inner {
+  .sera-blog-grid__inner {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
   }
   @media (min-width: 600px) {
-    .blog-grid__inner {
+    .sera-blog-grid__inner {
       grid-template-columns: repeat(2, 1fr);
     }
   }
   @media (min-width: 1024px) {
-    .blog-grid__inner {
+    .sera-blog-grid__inner {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
   /* Article Card */
-  .blog-card {
+  .sera-blog-card {
     background: var(--color-bg-primary);
     border-radius: 16px;
     overflow: hidden;
@@ -187,31 +248,31 @@
     display: flex;
     flex-direction: column;
   }
-  .blog-card:hover {
+  .sera-blog-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(0,0,0,0.07);
     opacity: 1;
   }
-  .blog-card__image-wrapper {
+  .sera-blog-card__image-wrapper {
     aspect-ratio: 16 / 10;
     overflow: hidden;
   }
-  .blog-card__image {
+  .sera-blog-card__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
   }
-  .blog-card:hover .blog-card__image {
+  .sera-blog-card:hover .sera-blog-card__image {
     transform: scale(1.05);
   }
-  .blog-card__body {
+  .sera-blog-card__body {
     padding: var(--spacing-md);
     flex: 1;
     display: flex;
     flex-direction: column;
   }
-  .blog-card__category {
+  .sera-blog-card__category {
     display: inline-block;
     background: var(--color-bg-alternate);
     color: var(--color-cta);
@@ -224,7 +285,7 @@
     margin-bottom: 12px;
     width: fit-content;
   }
-  .blog-card__meta {
+  .sera-blog-card__meta {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -232,7 +293,7 @@
     font-size: 0.75rem;
     margin-bottom: 10px;
   }
-  .blog-card__title {
+  .sera-blog-card__title {
     font-size: 1.1rem;
     font-family: var(--font-heading);
     color: var(--color-text-heading);
@@ -243,7 +304,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .blog-card__excerpt {
+  .sera-blog-card__excerpt {
     color: var(--color-text-body);
     font-size: 0.85rem;
     line-height: 1.6;
@@ -254,7 +315,7 @@
     margin-bottom: var(--spacing-sm);
     flex: 1;
   }
-  .blog-card__read {
+  .sera-blog-card__read {
     color: var(--color-cta);
     font-size: 0.85rem;
     font-weight: 600;
@@ -263,21 +324,73 @@
     gap: 4px;
     transition: gap 0.3s;
   }
-  .blog-card:hover .blog-card__read {
+  .sera-blog-card:hover .sera-blog-card__read {
     gap: 8px;
   }
 
+  /* Inline Quiz CTA Card */
+  .sera-blog-quiz-cta {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--color-bg-dark), #1a5276);
+    border-radius: 20px;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--spacing-sm);
+    min-height: 220px;
+  }
+  .sera-blog-quiz-cta__emoji {
+    font-size: 2.5rem;
+  }
+  .sera-blog-quiz-cta__title {
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    color: #fff;
+    margin-bottom: 0;
+  }
+  .sera-blog-quiz-cta__text {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .sera-blog-quiz-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: #fff;
+    color: var(--color-bg-dark);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 50px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .sera-blog-quiz-cta__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    opacity: 1;
+  }
+
   /* Newsletter CTA */
-  .blog-newsletter {
+  .sera-blog-newsletter {
     padding: var(--spacing-xl) 0;
     background: var(--color-bg-alternate);
     text-align: center;
   }
-  .blog-newsletter__title {
+  .sera-blog-newsletter__title {
     font-size: clamp(1.5rem, 3vw, 2.2rem);
     margin-bottom: var(--spacing-xs);
   }
-  .blog-newsletter__text {
+  .sera-blog-newsletter__text {
     color: var(--color-text-body);
     font-size: 1rem;
     margin-bottom: var(--spacing-md);
@@ -285,13 +398,13 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .blog-newsletter__form {
+  .sera-blog-newsletter__form {
     display: flex;
     max-width: 440px;
     margin: 0 auto;
     gap: 0;
   }
-  .blog-newsletter__input {
+  .sera-blog-newsletter__input {
     flex: 1;
     padding: 14px 20px;
     border: 1.5px solid rgba(0,0,0,0.1);
@@ -301,10 +414,10 @@
     outline: none;
     transition: border-color 0.3s;
   }
-  .blog-newsletter__input:focus {
+  .sera-blog-newsletter__input:focus {
     border-color: var(--color-cta);
   }
-  .blog-newsletter__btn {
+  .sera-blog-newsletter__btn {
     padding: 14px 28px;
     background: var(--color-cta);
     color: #fff;
@@ -316,20 +429,20 @@
     cursor: pointer;
     transition: background 0.3s;
   }
-  .blog-newsletter__btn:hover {
+  .sera-blog-newsletter__btn:hover {
     background: var(--color-cta-hover);
   }
 
   /* Pagination */
-  .blog-pagination {
+  .sera-blog-pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
     padding: var(--spacing-lg) 0 0;
   }
-  .blog-pagination a,
-  .blog-pagination span {
+  .sera-blog-pagination a,
+  .sera-blog-pagination span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -342,75 +455,138 @@
     transition: all 0.25s;
     color: var(--color-text-body);
   }
-  .blog-pagination a:hover {
+  .sera-blog-pagination a:hover {
     background: var(--color-bg-alternate);
     color: var(--color-cta);
     opacity: 1;
   }
-  .blog-pagination .is-current {
+  .sera-blog-pagination .is-current {
     background: var(--color-cta);
     color: #fff;
   }
 </style>
 
-<!-- SEO Schema -->
+<!-- BreadcrumbList + Blog Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "Seravolve Skincare Blog",
-  "description": "Expert skincare tips, ingredient guides, dermatology insights, and routine advice from the Seravolve team.",
-  "url": "{{ canonical_url }}",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Seravolve"
-  }
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "{{ shop.url }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ blog.title | escape }}",
+          "item": "{{ shop.url }}{{ blog.url }}"
+        }
+      ]
+    },
+    {
+      "@type": "Blog",
+      "name": "{{ blog.title | escape }}",
+      "description": "Expert skincare tips, ingredient guides, and routine advice from the Seravolve team.",
+      "url": "{{ shop.url }}{{ blog.url }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Seravolve",
+        "url": "{{ shop.url }}"
+      }
+    }
+  ]
 }
 </script>
 
-{%- paginate blog.articles by 7 -%}
+{%- paginate blog.articles by 12 -%}
 
-<!-- ===== HERO ===== -->
-<section class="blog-hero" aria-label="Blog hero">
+<!-- ===== BREADCRUMB ===== -->
+<nav class="sera-blog-breadcrumb" aria-label="Breadcrumb">
   <div class="container">
-    <span class="blog-hero__badge">Skincare Journal</span>
-    <h1 class="blog-hero__title">{{ blog.title | default: "Skincare Tips & Expertise" }}</h1>
-    <p class="blog-hero__subtitle">Expert advice on ingredients, routines, and skin health — loved by our community.</p>
+    <ol class="sera-blog-breadcrumb__list">
+      <li><a href="/">Home</a></li>
+      <li class="sera-blog-breadcrumb__sep" aria-hidden="true">›</li>
+      <li aria-current="page">{{ blog.title }}</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ===== HERO + SEARCH ===== -->
+<section class="sera-blog-hero" aria-label="Blog hero">
+  <div class="container">
+    <span class="sera-blog-hero__badge">Skincare Journal</span>
+    <h1 class="sera-blog-hero__title">{{ blog.title | default: "Skincare Tips & Expertise" }}</h1>
+    <p class="sera-blog-hero__subtitle">Expert advice on ingredients, routines, and skin health — loved by our community.</p>
+    <form class="sera-blog-search" action="/search" method="get" role="search" aria-label="Search blog articles">
+      <input type="hidden" name="type" value="article">
+      <input type="hidden" name="options[prefix]" value="last">
+      <input
+        class="sera-blog-search__input"
+        type="search"
+        name="q"
+        placeholder="Search articles..."
+        aria-label="Search articles"
+      >
+      <button class="sera-blog-search__btn" type="submit" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+    </form>
   </div>
 </section>
 
 <!-- ===== CATEGORY FILTER CHIPS ===== -->
-<div class="blog-filters" aria-label="Blog category filters">
-  <button class="blog-filter-btn is-active" data-blog-tag="all">All</button>
-  <button class="blog-filter-btn" data-blog-tag="routine">Skincare Routine</button>
-  <button class="blog-filter-btn" data-blog-tag="ingredients">Ingredients</button>
-  <button class="blog-filter-btn" data-blog-tag="dermatology">Dermatology Insights</button>
-  <button class="blog-filter-btn" data-blog-tag="lifestyle">Lifestyle</button>
-</div>
+<nav class="sera-blog-filters" aria-label="Blog category filters">
+  <button class="sera-blog-filter-btn is-active" data-blog-tag="all">All</button>
+  <button class="sera-blog-filter-btn" data-blog-tag="routine">Skincare Routine</button>
+  <button class="sera-blog-filter-btn" data-blog-tag="ingredients">Ingredients</button>
+  <button class="sera-blog-filter-btn" data-blog-tag="skin concerns">Skin Concerns</button>
+  <button class="sera-blog-filter-btn" data-blog-tag="lifestyle">Lifestyle</button>
+</nav>
 
 <!-- ===== FEATURED ARTICLE ===== -->
 {%- if blog.articles.size > 0 -%}
   {%- assign featured = blog.articles.first -%}
-  <section class="blog-featured" aria-label="Featured article">
+  {%- assign featured_words = featured.content | strip_html | split: ' ' | size -%}
+  {%- assign featured_read_time = featured_words | divided_by: 200 | plus: 1 -%}
+  <section class="sera-blog-featured" aria-label="Featured article">
     <div class="container">
-      <a href="{{ featured.url }}" class="blog-featured__card" style="text-decoration:none;color:inherit;">
-        <div class="blog-featured__image-wrapper">
+      <a href="{{ featured.url }}" class="sera-blog-featured__card" aria-label="Read featured article: {{ featured.title | escape }}">
+        <div class="sera-blog-featured__image-wrapper">
           {%- if featured.image -%}
-            <img class="blog-featured__image" src="{{ featured.image | image_url: width: 800 }}" alt="{{ featured.image.alt | escape }}" loading="lazy">
+            <img
+              class="sera-blog-featured__image"
+              src="{{ featured.image | image_url: width: 800 }}"
+              srcset="
+                {{ featured.image | image_url: width: 400 }} 400w,
+                {{ featured.image | image_url: width: 600 }} 600w,
+                {{ featured.image | image_url: width: 800 }} 800w,
+                {{ featured.image | image_url: width: 1200 }} 1200w
+              "
+              sizes="(min-width: 768px) 55vw, 100vw"
+              alt="{{ featured.image.alt | default: featured.title | escape }}"
+              width="{{ featured.image.width }}"
+              height="{{ featured.image.height }}"
+              loading="eager"
+            >
           {%- else -%}
-            <img class="blog-featured__image" src="{{ 'smooth-skin-routine-lifestyle.png' | asset_url }}" alt="Seravolve Skincare" loading="lazy">
+            <img class="sera-blog-featured__image" src="{{ 'smooth-skin-routine-lifestyle.png' | asset_url }}" alt="Seravolve Skincare featured article" loading="eager" width="800" height="500">
           {%- endif -%}
         </div>
-        <div class="blog-featured__content">
-          <span class="blog-featured__label">Featured</span>
-          <div class="blog-featured__meta">
-            <span>{{ featured.published_at | date: "%b %d, %Y" }}</span>
-            <span>•</span>
-            <span>{{ featured.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 }} min read</span>
+        <div class="sera-blog-featured__content">
+          <span class="sera-blog-featured__label">Featured</span>
+          <div class="sera-blog-featured__meta">
+            <time datetime="{{ featured.published_at | date: '%Y-%m-%d' }}">{{ featured.published_at | date: "%b %d, %Y" }}</time>
+            <span aria-hidden="true">•</span>
+            <span>{{ featured_read_time }} min read</span>
           </div>
-          <h2 class="blog-featured__title">{{ featured.title }}</h2>
-          <p class="blog-featured__excerpt">{{ featured.excerpt_or_content | strip_html | truncate: 180 }}</p>
-          <span class="blog-featured__link">
+          <h2 class="sera-blog-featured__title">{{ featured.title }}</h2>
+          <p class="sera-blog-featured__excerpt">{{ featured.excerpt_or_content | strip_html | truncate: 180 }}</p>
+          <span class="sera-blog-featured__link" aria-hidden="true">
             Read Article <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </span>
         </div>
@@ -420,69 +596,101 @@
 {%- endif -%}
 
 <!-- ===== ARTICLES GRID ===== -->
-<section class="blog-grid" aria-label="Blog articles">
+<section class="sera-blog-grid" aria-label="Blog articles">
   <div class="container">
-    <div class="blog-grid__inner">
+    <div class="sera-blog-grid__inner">
 
+      {%- assign card_counter = 0 -%}
       {%- for article in blog.articles offset: 1 -%}
-        <a href="{{ article.url }}" class="blog-card" data-tags="{{ article.tags | join: ',' | downcase }}">
-          <div class="blog-card__image-wrapper">
+        {%- assign card_counter = card_counter | plus: 1 -%}
+        {%- assign word_count = article.content | strip_html | split: ' ' | size -%}
+        {%- assign read_time = word_count | divided_by: 200 | plus: 1 -%}
+
+        <a href="{{ article.url }}" class="sera-blog-card" data-tags="{{ article.tags | join: ',' | downcase }}" aria-label="Read article: {{ article.title | escape }}">
+          <div class="sera-blog-card__image-wrapper">
             {%- if article.image -%}
-              <img class="blog-card__image" src="{{ article.image | image_url: width: 600 }}" alt="{{ article.image.alt | escape }}" loading="lazy">
+              <img
+                class="sera-blog-card__image"
+                src="{{ article.image | image_url: width: 600 }}"
+                srcset="
+                  {{ article.image | image_url: width: 300 }} 300w,
+                  {{ article.image | image_url: width: 450 }} 450w,
+                  {{ article.image | image_url: width: 600 }} 600w
+                "
+                sizes="(min-width: 1024px) 33vw, (min-width: 600px) 50vw, 100vw"
+                alt="{{ article.image.alt | default: article.title | escape }}"
+                width="{{ article.image.width }}"
+                height="{{ article.image.height }}"
+                loading="lazy"
+              >
             {%- else -%}
-              <img class="blog-card__image" src="{{ 'event-sky_5712.jpg' | asset_url }}" alt="Seravolve Skincare" loading="lazy">
+              <img class="sera-blog-card__image" src="{{ 'event-sky_5712.jpg' | asset_url }}" alt="Seravolve skincare article" loading="lazy" width="600" height="375">
             {%- endif -%}
           </div>
-          <div class="blog-card__body">
+          <div class="sera-blog-card__body">
             {%- if article.tags.size > 0 -%}
-              <span class="blog-card__category">{{ article.tags.first }}</span>
+              <span class="sera-blog-card__category">{{ article.tags.first }}</span>
             {%- else -%}
-              <span class="blog-card__category">Skincare</span>
+              <span class="sera-blog-card__category">Skincare</span>
             {%- endif -%}
-            <div class="blog-card__meta">
-              <span>{{ article.published_at | date: "%b %d, %Y" }}</span>
-              <span>•</span>
-              <span>{{ article.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 }} min read</span>
+            <div class="sera-blog-card__meta">
+              <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%b %d, %Y" }}</time>
+              <span aria-hidden="true">•</span>
+              <span>{{ read_time }} min read</span>
             </div>
-            <h2 class="blog-card__title">{{ article.title }}</h2>
-            <p class="blog-card__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
-            <span class="blog-card__read">
+            <h2 class="sera-blog-card__title">{{ article.title }}</h2>
+            <p class="sera-blog-card__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+            <span class="sera-blog-card__read" aria-hidden="true">
               Read Article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </span>
           </div>
         </a>
+
+        {%- if card_counter == 6 -%}
+          <!-- Quiz CTA inline card -->
+          <div class="sera-blog-quiz-cta">
+            <span class="sera-blog-quiz-cta__emoji" aria-hidden="true">✨</span>
+            <h2 class="sera-blog-quiz-cta__title">Not Sure Where to Start?</h2>
+            <p class="sera-blog-quiz-cta__text">Take our 60-second skin quiz and get a personalized routine — powered by science.</p>
+            <a href="/pages/quiz" class="sera-blog-quiz-cta__btn">
+              Take the Skin Quiz
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        {%- endif -%}
+
       {%- endfor -%}
 
     </div>
 
     {%- if paginate.pages > 1 -%}
-      <div class="blog-pagination">
+      <nav class="sera-blog-pagination" aria-label="Blog pagination">
         {%- if paginate.previous -%}
-          <a href="{{ paginate.previous.url }}">←</a>
+          <a href="{{ paginate.previous.url }}" aria-label="Previous page">←</a>
         {%- endif -%}
         {%- for part in paginate.parts -%}
           {%- if part.is_link -%}
-            <a href="{{ part.url }}">{{ part.title }}</a>
+            <a href="{{ part.url }}" aria-label="Page {{ part.title }}">{{ part.title }}</a>
           {%- else -%}
-            <span class="{% if paginate.current_page == part.title %}is-current{% endif %}">{{ part.title }}</span>
+            <span class="{% if paginate.current_page == part.title %}is-current{% endif %}" {% if paginate.current_page == part.title %}aria-current="page"{% endif %}>{{ part.title }}</span>
           {%- endif -%}
         {%- endfor -%}
         {%- if paginate.next -%}
-          <a href="{{ paginate.next.url }}">→</a>
+          <a href="{{ paginate.next.url }}" aria-label="Next page">→</a>
         {%- endif -%}
-      </div>
+      </nav>
     {%- endif -%}
   </div>
 </section>
 
 <!-- ===== NEWSLETTER ===== -->
-<section class="blog-newsletter" aria-label="Newsletter signup">
+<section class="sera-blog-newsletter" aria-label="Newsletter signup">
   <div class="container">
-    <h2 class="blog-newsletter__title">Get Expert Skincare Advice in Your Inbox</h2>
-    <p class="blog-newsletter__text">Join 10,000+ readers who get our weekly skincare tips, product launches, and exclusive offers.</p>
-    <form class="blog-newsletter__form">
-      <input type="email" class="blog-newsletter__input" placeholder="Enter your email" required>
-      <button type="submit" class="blog-newsletter__btn">Subscribe</button>
+    <h2 class="sera-blog-newsletter__title">Get Expert Skincare Advice in Your Inbox</h2>
+    <p class="sera-blog-newsletter__text">Join 10,000+ readers who get our weekly skincare tips, product launches, and exclusive offers.</p>
+    <form class="sera-blog-newsletter__form" aria-label="Newsletter signup form">
+      <input type="email" class="sera-blog-newsletter__input" placeholder="Enter your email" required aria-label="Email address">
+      <button type="submit" class="sera-blog-newsletter__btn">Subscribe</button>
     </form>
   </div>
 </section>
@@ -491,8 +699,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const filterBtns = document.querySelectorAll('.blog-filter-btn');
-  const cards = document.querySelectorAll('.blog-card');
+  const filterBtns = document.querySelectorAll('.sera-blog-filter-btn');
+  const cards = document.querySelectorAll('.sera-blog-card');
+  const featured = document.querySelector('.sera-blog-featured');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -508,6 +717,11 @@ document.addEventListener('DOMContentLoaded', () => {
           card.style.display = 'none';
         }
       });
+
+      /* Hide featured card when filtering by tag */
+      if (featured) {
+        featured.style.display = tag === 'all' ? '' : 'none';
+      }
     });
   });
 });

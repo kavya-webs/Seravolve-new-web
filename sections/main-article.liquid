@@ -1,106 +1,659 @@
-{{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
+<style>
+  /* ============================================
+     ARTICLE PAGE — Seravolve Blog Post
+     ============================================ */
 
-<article class="article-template">
-  {%- for block in section.blocks -%}
-    {%- case block.type -%}
-      {%- when '@app' -%}
-        <div class="page-width page-width--narrow">
-          {% render block %}
-        </div>
-      {%- when 'featured_image' -%}
-        {%- if article.image -%}
-          <div
-            class="article-template__hero-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-            {{ block.shopify_attributes }}
-          >
-            <div
-              class="article-template__hero-{{ block.settings.image_height }} media"
-              {% if block.settings.image_height == 'adapt' and article.image %}
-                style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
-              {% endif %}
-            >
-              <img
-                srcset="
-                  {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
-                  {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
-                  {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
-                  {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
-                  {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
-                  {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
-                  {{ article.image | image_url }} {{ article.image.width }}w
-                "
-                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 }}px, (min-width: 750px) calc(100vw - 10rem), 100vw"
-                src="{{ article.image | image_url: width: 1100 }}"
-                loading="eager"
-                fetchpriority="high"
-                width="{{ article.image.width }}"
-                height="{{ article.image.height }}"
-                alt="{{ article.image.alt | escape }}"
-              >
-            </div>
-          </div>
+  /* Breadcrumb */
+  .sera-article-breadcrumb {
+    padding: var(--spacing-md) 0 0;
+  }
+  .sera-article-breadcrumb__list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--color-text-body);
+    flex-wrap: wrap;
+  }
+  .sera-article-breadcrumb__list a {
+    color: var(--color-cta);
+    font-weight: 500;
+  }
+  .sera-article-breadcrumb__sep { opacity: 0.4; }
+
+  /* Article Header */
+  .sera-article-header {
+    padding: var(--spacing-md) 0 var(--spacing-sm);
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .sera-article-header__category {
+    display: inline-block;
+    background: var(--color-bg-alternate);
+    color: var(--color-cta);
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+  .sera-article-header__title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-sm);
+  }
+  .sera-article-header__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--color-text-body);
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+  .sera-article-header__author {
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  .sera-article-header__dot {
+    opacity: 0.4;
+  }
+
+  /* Hero Image */
+  .sera-article-hero {
+    margin-bottom: var(--spacing-lg);
+  }
+  .sera-article-hero__image-wrapper {
+    max-width: 960px;
+    margin: var(--spacing-md) auto 0;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+  .sera-article-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Article Layout (content + TOC sidebar) */
+  .sera-article-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    max-width: 960px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .sera-article-layout {
+      grid-template-columns: 1fr 240px;
+    }
+  }
+
+  /* Table of Contents */
+  .sera-article-toc {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .sera-article-toc {
+      display: block;
+      position: sticky;
+      top: 100px;
+      max-height: calc(100vh - 140px);
+      overflow-y: auto;
+    }
+  }
+  .sera-article-toc__title {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--color-text-body);
+    margin-bottom: var(--spacing-sm);
+  }
+  .sera-article-toc__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sera-article-toc__link {
+    font-size: 0.83rem;
+    color: var(--color-text-body);
+    line-height: 1.5;
+    padding: 4px 0 4px 12px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .sera-article-toc__link:hover,
+  .sera-article-toc__link.is-active {
+    color: var(--color-cta);
+    border-left-color: var(--color-cta);
+    opacity: 1;
+  }
+
+  /* Mobile TOC (collapsible) */
+  .sera-article-toc-mobile {
+    display: block;
+    margin-bottom: var(--spacing-md);
+    background: var(--color-bg-secondary);
+    border-radius: 12px;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  @media (min-width: 1024px) {
+    .sera-article-toc-mobile { display: none; }
+  }
+  .sera-article-toc-mobile__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .sera-article-toc-mobile__toggle svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+  }
+  .sera-article-toc-mobile.is-open .sera-article-toc-mobile__toggle svg {
+    transform: rotate(180deg);
+  }
+  .sera-article-toc-mobile__list {
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: var(--spacing-sm);
+  }
+  .sera-article-toc-mobile.is-open .sera-article-toc-mobile__list {
+    display: flex;
+  }
+  .sera-article-toc-mobile__link {
+    font-size: 0.85rem;
+    color: var(--color-cta);
+    padding: 4px 0;
+  }
+
+  /* Article Content Styling (RTE) */
+  .sera-article-content {
+    max-width: 680px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-body);
+  }
+  .sera-article-content h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+  }
+  .sera-article-content h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+  }
+  .sera-article-content p {
+    margin-bottom: var(--spacing-sm);
+  }
+  .sera-article-content a {
+    color: var(--color-cta);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .sera-article-content a:hover { opacity: 0.8; }
+
+  /* Blockquote */
+  .sera-article-content blockquote {
+    border-left: 4px solid var(--color-cta);
+    background: var(--color-bg-alternate);
+    padding: var(--spacing-md);
+    border-radius: 0 12px 12px 0;
+    margin: var(--spacing-md) 0;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-text-heading);
+  }
+  .sera-article-content blockquote p {
+    margin-bottom: 0;
+  }
+
+  /* Lists */
+  .sera-article-content ul,
+  .sera-article-content ol {
+    margin: var(--spacing-sm) 0 var(--spacing-md);
+    padding-left: 1.5rem;
+  }
+  .sera-article-content li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .sera-article-content ol li {
+    padding-left: 4px;
+  }
+  .sera-article-content ul li::marker {
+    color: var(--color-cta);
+  }
+  .sera-article-content ol li::marker {
+    color: var(--color-cta);
+    font-weight: 600;
+  }
+
+  /* FAQ Section (auto-detected) */
+  .sera-article-content .sera-faq-section h3 {
+    background: var(--color-bg-secondary);
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+  .sera-article-content .sera-faq-section h3:hover {
+    background: var(--color-bg-alternate);
+  }
+  .sera-article-content .sera-faq-section h3::after {
+    content: '+';
+    font-size: 1.3rem;
+    color: var(--color-cta);
+    flex-shrink: 0;
+    font-family: var(--font-body);
+    font-weight: 300;
+    transition: transform 0.3s;
+  }
+  .sera-article-content .sera-faq-section h3.is-open::after {
+    content: '−';
+  }
+  .sera-article-content .sera-faq-section .sera-faq-answer {
+    padding: 12px 20px 20px;
+    font-size: 0.95rem;
+    display: none;
+  }
+  .sera-article-content .sera-faq-section .sera-faq-answer.is-open {
+    display: block;
+  }
+
+  /* Share Row */
+  .sera-article-share {
+    max-width: 680px;
+    padding: var(--spacing-md) 0;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    margin-top: var(--spacing-md);
+  }
+
+  /* Quiz CTA Card */
+  .sera-article-quiz-cta {
+    max-width: 760px;
+    margin: var(--spacing-xl) auto;
+    background: linear-gradient(135deg, var(--color-bg-dark), #1a5276);
+    border-radius: 20px;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+  .sera-article-quiz-cta__emoji {
+    font-size: 2.5rem;
+  }
+  .sera-article-quiz-cta__title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: #fff;
+    margin-bottom: 0;
+  }
+  .sera-article-quiz-cta__text {
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+    max-width: 460px;
+    line-height: 1.7;
+  }
+  .sera-article-quiz-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 36px;
+    background: #fff;
+    color: var(--color-bg-dark);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .sera-article-quiz-cta__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    opacity: 1;
+  }
+
+  /* Related Posts */
+  .sera-article-related {
+    max-width: 960px;
+    margin: 0 auto var(--spacing-xl);
+  }
+  .sera-article-related__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--spacing-md);
+  }
+  .sera-article-related__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  @media (min-width: 600px) {
+    .sera-article-related__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .sera-article-related__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Back to Blog */
+  .sera-article-back {
+    max-width: 760px;
+    margin: 0 auto var(--spacing-lg);
+  }
+  .sera-article-back__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-cta);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: gap 0.3s;
+  }
+  .sera-article-back__link:hover {
+    gap: 12px;
+    opacity: 1;
+  }
+  .sera-article-back__link svg {
+    width: 16px;
+    height: 16px;
+    transform: rotate(180deg);
+  }
+</style>
+
+{%- comment -%} Calculate read time {%- endcomment -%}
+{%- assign article_words = article.content | strip_html | split: ' ' | size -%}
+{%- assign article_read_time = article_words | divided_by: 200 | plus: 1 -%}
+
+<!-- ===== STRUCTURED DATA ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "{{ shop.url }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ blog.title | escape }}",
+          "item": "{{ shop.url }}{{ blog.url }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ article.title | escape }}",
+          "item": "{{ shop.url }}{{ article.url }}"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ shop.url }}{{ article.url }}"
+      },
+      "headline": {{ article.title | json }},
+      "description": {{ article.excerpt_or_content | strip_html | truncate: 160 | json }},
+      {%- if article.image -%}
+      "image": {
+        "@type": "ImageObject",
+        "url": "https:{{ article.image | image_url: width: 1200 }}",
+        "width": {{ article.image.width }},
+        "height": {{ article.image.height }}
+      },
+      {%- endif -%}
+      "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+      "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+      "author": {
+        "@type": "Organization",
+        "name": "Seravolve Team"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Seravolve",
+        "url": "{{ shop.url }}"
+      },
+      "wordCount": {{ article_words }}
+    }
+  ]
+}
+</script>
+
+<article class="sera-article" itemscope itemtype="https://schema.org/Article">
+  <div class="page-width">
+
+    <!-- ===== BREADCRUMB ===== -->
+    <nav class="sera-article-breadcrumb" aria-label="Breadcrumb">
+      <ol class="sera-article-breadcrumb__list">
+        <li><a href="/">Home</a></li>
+        <li class="sera-article-breadcrumb__sep" aria-hidden="true">›</li>
+        <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+        <li class="sera-article-breadcrumb__sep" aria-hidden="true">›</li>
+        <li aria-current="page">{{ article.title | truncate: 40 }}</li>
+      </ol>
+    </nav>
+
+    <!-- ===== ARTICLE HEADER ===== -->
+    <header class="sera-article-header">
+      {%- if article.tags.size > 0 -%}
+        <span class="sera-article-header__category">{{ article.tags.first }}</span>
+      {%- else -%}
+        <span class="sera-article-header__category">Skincare</span>
+      {%- endif -%}
+
+      <h1 class="sera-article-header__title" itemprop="headline">{{ article.title | escape }}</h1>
+
+      <div class="sera-article-header__meta">
+        <span class="sera-article-header__author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+          <span itemprop="name">Seravolve Team</span>
+        </span>
+        <span class="sera-article-header__dot" aria-hidden="true">•</span>
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}" itemprop="datePublished">
+          {{ article.published_at | date: "%B %d, %Y" }}
+        </time>
+        {%- assign published_date = article.published_at | date: "%Y-%m-%d" -%}
+        {%- assign updated_date = article.updated_at | date: "%Y-%m-%d" -%}
+        {%- if updated_date != published_date -%}
+          <span class="sera-article-header__dot" aria-hidden="true">•</span>
+          <span style="font-style: italic;">
+            Updated <time datetime="{{ article.updated_at | date: '%Y-%m-%d' }}" itemprop="dateModified">{{ article.updated_at | date: "%b %d, %Y" }}</time>
+          </span>
         {%- endif -%}
+        <span class="sera-article-header__dot" aria-hidden="true">•</span>
+        <span>{{ article_read_time }} min read</span>
+      </div>
+    </header>
 
-      {%- when 'title' -%}
-        <header
-          class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          <h1
-            class="article-template__title"
+    <!-- ===== HERO IMAGE ===== -->
+    {%- if article.image -%}
+      <div class="sera-article-hero">
+        <div class="sera-article-hero__image-wrapper">
+          <img
+            class="sera-article-hero__img"
+            src="{{ article.image | image_url: width: 1100 }}"
+            srcset="
+              {% if article.image.width >= 400 %}{{ article.image | image_url: width: 400 }} 400w,{% endif %}
+              {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
+              {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
+              {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
+              {{ article.image | image_url }} {{ article.image.width }}w
+            "
+            sizes="(min-width: 960px) 960px, 100vw"
+            alt="{{ article.image.alt | default: article.title | escape }}"
+            width="{{ article.image.width }}"
+            height="{{ article.image.height }}"
+            loading="eager"
+            fetchpriority="high"
+            itemprop="image"
           >
-            {{ article.title | escape }}
-          </h1>
-          {%- if block.settings.blog_show_date -%}
-            <span class="circle-divider caption-with-letter-spacing">
-              {{- article.published_at | time_tag: format: 'date' -}}
-            </span>
-          {%- endif -%}
-          {%- if block.settings.blog_show_author -%}
-            <span class="caption-with-letter-spacing">
-              <span>{{ article.author }}</span>
-            </span>
-          {%- endif -%}
-        </header>
+        </div>
+      </div>
+    {%- endif -%}
 
-      {%- when 'content' -%}
-        <div
-          class="article-template__content page-width page-width--narrow rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
+  </div>
+
+  <!-- ===== CONTENT AREA (with TOC sidebar) ===== -->
+  <div class="page-width">
+    <div class="sera-article-layout">
+
+      <!-- Main Content Column -->
+      <div>
+        <!-- Mobile TOC (collapsible, rendered by JS if 4+ H2s) -->
+        <div class="sera-article-toc-mobile" id="sera-toc-mobile" style="display:none;">
+          <button class="sera-article-toc-mobile__toggle" aria-expanded="false" aria-controls="sera-toc-mobile-list">
+            Table of Contents
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <ol class="sera-article-toc-mobile__list" id="sera-toc-mobile-list" role="list"></ol>
+        </div>
+
+        <!-- Article Body -->
+        <div class="sera-article-content rte" itemprop="articleBody">
           {{ article.content }}
         </div>
 
-      {%- when 'share' -%}
-        <div
-          class="article-template__social-sharing page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          {% assign share_url = request.origin | append: article.url %}
-          {% render 'share-button', block: block, share_link: share_url %}
+        <!-- Share -->
+        <div class="sera-article-share">
+          {%- assign share_url = request.origin | append: article.url -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'share' -%}
+              {% render 'share-button', block: block, share_link: share_url %}
+            {%- endif -%}
+          {%- endfor -%}
         </div>
-    {%- endcase -%}
-  {%- endfor -%}
 
-  <div class="article-template__back element-margin-top center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <a href="{{ blog.url }}" class="article-template__link link animate-arrow">
-      <span class="icon-wrap">
-        <span class="svg-wrapper">
-          {{- 'icon-arrow.svg' | inline_asset_content -}}
-        </span>
-      </span>
-      {{ 'blogs.article.back_to_blog' | t: title: blog.title | escape }}
-    </a>
+        <!-- Back to Blog -->
+        <div class="sera-article-back">
+          <a href="{{ blog.url }}" class="sera-article-back__link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            Back to {{ blog.title }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Desktop TOC Sidebar -->
+      <aside class="sera-article-toc" id="sera-toc-desktop" aria-label="Table of contents" style="display:none;">
+        <p class="sera-article-toc__title">Contents</p>
+        <ol class="sera-article-toc__list" id="sera-toc-desktop-list" role="list"></ol>
+      </aside>
+
+    </div>
   </div>
+
+  <!-- ===== QUIZ CTA ===== -->
+  <div class="page-width">
+    <div class="sera-article-quiz-cta">
+      <span class="sera-article-quiz-cta__emoji" aria-hidden="true">✨</span>
+      <h2 class="sera-article-quiz-cta__title">Find Your Perfect Routine</h2>
+      <p class="sera-article-quiz-cta__text">Answer a few quick questions and get a personalized skincare routine — powered by science, tailored to your skin.</p>
+      <a href="/pages/quiz" class="sera-article-quiz-cta__btn">
+        Take the Skin Quiz
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== RELATED POSTS ===== -->
+  {%- assign related_posts = blog.articles | where_not: 'id', article.id -%}
+  <div class="page-width">
+    <section class="sera-article-related" aria-label="Related articles">
+      <h2 class="sera-article-related__title">Keep Reading</h2>
+      <div class="sera-article-related__grid">
+        {%- assign related_count = 0 -%}
+        {%- for related in blog.articles limit: 4 -%}
+          {%- if related.id != article.id and related_count < 3 -%}
+            {%- assign related_count = related_count | plus: 1 -%}
+            {%- assign rel_words = related.content | strip_html | split: ' ' | size -%}
+            {%- assign rel_read_time = rel_words | divided_by: 200 | plus: 1 -%}
+            <a href="{{ related.url }}" class="sera-blog-card" aria-label="Read related article: {{ related.title | escape }}">
+              <div class="sera-blog-card__image-wrapper">
+                {%- if related.image -%}
+                  <img
+                    class="sera-blog-card__image"
+                    src="{{ related.image | image_url: width: 450 }}"
+                    alt="{{ related.image.alt | default: related.title | escape }}"
+                    width="{{ related.image.width }}"
+                    height="{{ related.image.height }}"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <img class="sera-blog-card__image" src="{{ 'event-sky_5712.jpg' | asset_url }}" alt="Seravolve skincare article" loading="lazy" width="600" height="375">
+                {%- endif -%}
+              </div>
+              <div class="sera-blog-card__body">
+                {%- if related.tags.size > 0 -%}
+                  <span class="sera-blog-card__category">{{ related.tags.first }}</span>
+                {%- endif -%}
+                <div class="sera-blog-card__meta">
+                  <time datetime="{{ related.published_at | date: '%Y-%m-%d' }}">{{ related.published_at | date: "%b %d, %Y" }}</time>
+                  <span aria-hidden="true">•</span>
+                  <span>{{ rel_read_time }} min read</span>
+                </div>
+                <h3 class="sera-blog-card__title" style="font-size:1.05rem;">{{ related.title }}</h3>
+                <p class="sera-blog-card__excerpt">{{ related.excerpt_or_content | strip_html | truncate: 100 }}</p>
+                <span class="sera-blog-card__read" aria-hidden="true">
+                  Read Article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== COMMENTS (if enabled) ===== -->
   {%- if blog.comments_enabled? -%}
     <div class="article-template__comment-wrapper background-secondary">
       <div
         id="comments"
-        class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        class="page-width page-width--narrow"
       >
         {%- if article.comments_count > 0 -%}
           {%- assign anchorId = '#Comments-' | append: article.id -%}
-
           <h2 id="Comments-{{ article.id }}" tabindex="-1">
             {{ 'blogs.article.comments' | t: count: article.comments_count }}
           </h2>
@@ -114,13 +667,12 @@
                   </footer>
                 </article>
               {%- endif -%}
-
               {%- for comment in article.comments -%}
                 <article id="{{ comment.id }}" class="article-template__comments-comment">
                   {{ comment.content }}
                   <footer class="right">
-                    <span class="circle-divider caption-with-letter-spacing">{{ comment.author }}</span
-                    ><span class="caption-with-letter-spacing">
+                    <span class="circle-divider caption-with-letter-spacing">{{ comment.author }}</span>
+                    <span class="caption-with-letter-spacing">
                       {{- comment.created_at | time_tag: format: 'date' -}}
                     </span>
                   </footer>
@@ -173,7 +725,6 @@
               </h3>
             </div>
           {%- endif -%}
-
           <div
             {% if blog.moderated? == false %}
               class="article-template__comments-fields"
@@ -181,101 +732,26 @@
           >
             <div class="article-template__comment-fields">
               <div class="field field--with-error">
-                <input
-                  type="text"
-                  name="comment[author]"
-                  id="CommentForm-author"
-                  class="field__input"
-                  autocomplete="name"
-                  value="{{ form.author }}"
-                  aria-required="true"
-                  required
-                  {% if form.errors contains 'author' %}
-                    aria-invalid="true"
-                    aria-describedby="CommentForm-author-error"
-                  {% endif %}
-                  placeholder="{{ 'blogs.article.name' | t }}"
-                >
-                <label class="field__label" for="CommentForm-author">
-                  {{- 'blogs.article.name' | t }}
-                  <span aria-hidden="true">*</span></label
-                >
+                <input type="text" name="comment[author]" id="CommentForm-author" class="field__input" autocomplete="name" value="{{ form.author }}" aria-required="true" required {% if form.errors contains 'author' %}aria-invalid="true" aria-describedby="CommentForm-author-error"{% endif %} placeholder="{{ 'blogs.article.name' | t }}">
+                <label class="field__label" for="CommentForm-author">{{ 'blogs.article.name' | t }} <span aria-hidden="true">*</span></label>
                 {%- if form.errors contains 'author' -%}
-                  <small id="CommentForm-author-error">
-                    <span class="form__message">
-                      <span class="svg-wrapper">
-                        {{- 'icon-error.svg' | inline_asset_content -}}
-                      </span>
-                      {{- 'blogs.article.name' | t }}
-                      {{ form.errors.messages.author }}.</span
-                    >
-                  </small>
+                  <small id="CommentForm-author-error"><span class="form__message"><span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>{{ 'blogs.article.name' | t }} {{ form.errors.messages.author }}.</span></small>
                 {%- endif -%}
               </div>
               <div class="field field--with-error">
-                <input
-                  type="email"
-                  name="comment[email]"
-                  id="CommentForm-email"
-                  autocomplete="email"
-                  class="field__input"
-                  value="{{ form.email }}"
-                  autocorrect="off"
-                  autocapitalize="off"
-                  aria-required="true"
-                  required
-                  {% if form.errors contains 'email' %}
-                    aria-invalid="true"
-                    aria-describedby="CommentForm-email-error"
-                  {% endif %}
-                  placeholder="{{ 'blogs.article.email' | t }}"
-                >
-                <label class="field__label" for="CommentForm-email">
-                  {{- 'blogs.article.email' | t }}
-                  <span aria-hidden="true">*</span></label
-                >
+                <input type="email" name="comment[email]" id="CommentForm-email" autocomplete="email" class="field__input" value="{{ form.email }}" autocorrect="off" autocapitalize="off" aria-required="true" required {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="CommentForm-email-error"{% endif %} placeholder="{{ 'blogs.article.email' | t }}">
+                <label class="field__label" for="CommentForm-email">{{ 'blogs.article.email' | t }} <span aria-hidden="true">*</span></label>
                 {%- if form.errors contains 'email' -%}
-                  <small id="CommentForm-email-error">
-                    <span class="form__message">
-                      <span class="svg-wrapper">
-                        {{- 'icon-error.svg' | inline_asset_content -}}
-                      </span>
-                      {{- 'blogs.article.email' | t }}
-                      {{ form.errors.messages.email }}.</span
-                    >
-                  </small>
+                  <small id="CommentForm-email-error"><span class="form__message"><span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>{{ 'blogs.article.email' | t }} {{ form.errors.messages.email }}.</span></small>
                 {%- endif -%}
               </div>
             </div>
             <div class="field field--with-error">
-              <textarea
-                rows="5"
-                name="comment[body]"
-                id="CommentForm-body"
-                class="text-area field__input"
-                aria-required="true"
-                required
-                {% if form.errors contains 'body' %}
-                  aria-invalid="true"
-                  aria-describedby="CommentForm-body-error"
-                {% endif %}
-                placeholder="{{ 'blogs.article.message' | t }}"
-              >{{ form.body }}</textarea>
-              <label class="form__label field__label" for="CommentForm-body">
-                {{- 'blogs.article.message' | t }}
-                <span aria-hidden="true">*</span></label
-              >
+              <textarea rows="5" name="comment[body]" id="CommentForm-body" class="text-area field__input" aria-required="true" required {% if form.errors contains 'body' %}aria-invalid="true" aria-describedby="CommentForm-body-error"{% endif %} placeholder="{{ 'blogs.article.message' | t }}">{{ form.body }}</textarea>
+              <label class="form__label field__label" for="CommentForm-body">{{ 'blogs.article.message' | t }} <span aria-hidden="true">*</span></label>
             </div>
             {%- if form.errors contains 'body' -%}
-              <small id="CommentForm-body-error">
-                <span class="form__message">
-                  <span class="svg-wrapper">
-                    {{- 'icon-error.svg' | inline_asset_content -}}
-                  </span>
-                  {{- 'blogs.article.message' | t }}
-                  {{ form.errors.messages.body }}.</span
-                >
-              </small>
+              <small id="CommentForm-body-error"><span class="form__message"><span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>{{ 'blogs.article.message' | t }} {{ form.errors.messages.body }}.</span></small>
             {%- endif -%}
           </div>
           {%- if blog.moderated? -%}
@@ -288,8 +764,148 @@
   {%- endif -%}
 </article>
 
-<script type="application/ld+json">
-  {{ article | structured_data }}
+<!-- ===== JS: TOC Generation + FAQ Accordion + FAQPage Schema ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const content = document.querySelector('.sera-article-content');
+  if (!content) return;
+
+  /* ── TABLE OF CONTENTS ── */
+  const headings = content.querySelectorAll('h2');
+  if (headings.length >= 4) {
+    const desktopToc = document.getElementById('sera-toc-desktop');
+    const desktopList = document.getElementById('sera-toc-desktop-list');
+    const mobileToc = document.getElementById('sera-toc-mobile');
+    const mobileList = document.getElementById('sera-toc-mobile-list');
+
+    headings.forEach((h, i) => {
+      const id = 'section-' + (i + 1);
+      h.id = id;
+
+      /* Desktop link */
+      const dLi = document.createElement('li');
+      const dA = document.createElement('a');
+      dA.className = 'sera-article-toc__link';
+      dA.href = '#' + id;
+      dA.textContent = h.textContent;
+      dLi.appendChild(dA);
+      desktopList.appendChild(dLi);
+
+      /* Mobile link */
+      const mLi = document.createElement('li');
+      const mA = document.createElement('a');
+      mA.className = 'sera-article-toc-mobile__link';
+      mA.href = '#' + id;
+      mA.textContent = h.textContent;
+      mLi.appendChild(mA);
+      mobileList.appendChild(mLi);
+    });
+
+    desktopToc.style.display = '';
+    mobileToc.style.display = '';
+
+    /* Mobile toggle */
+    const toggle = mobileToc.querySelector('.sera-article-toc-mobile__toggle');
+    toggle.addEventListener('click', () => {
+      mobileToc.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', mobileToc.classList.contains('is-open'));
+    });
+
+    /* Active state on scroll (desktop) */
+    const tocLinks = desktopList.querySelectorAll('.sera-article-toc__link');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('is-active'));
+          const activeLink = desktopList.querySelector(`a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -60% 0px' });
+
+    headings.forEach(h => observer.observe(h));
+  }
+
+  /* ── FAQ DETECTION & ACCORDION ── */
+  const allH2 = content.querySelectorAll('h2');
+  let faqHeading = null;
+  allH2.forEach(h => {
+    if (h.textContent.toLowerCase().includes('frequently asked') || h.textContent.toLowerCase().includes('faq')) {
+      faqHeading = h;
+    }
+  });
+
+  if (faqHeading) {
+    /* Wrap everything after the FAQ heading in a container */
+    const faqSection = document.createElement('div');
+    faqSection.className = 'sera-faq-section';
+    let sibling = faqHeading.nextElementSibling;
+    const faqPairs = [];
+
+    while (sibling && sibling.tagName !== 'H2') {
+      const next = sibling.nextElementSibling;
+      if (sibling.tagName === 'H3') {
+        faqSection.appendChild(sibling);
+        /* Collect the answer paragraphs */
+        const answerDiv = document.createElement('div');
+        answerDiv.className = 'sera-faq-answer';
+        let answerSibling = next;
+        while (answerSibling && answerSibling.tagName !== 'H3' && answerSibling.tagName !== 'H2') {
+          const answerNext = answerSibling.nextElementSibling;
+          answerDiv.appendChild(answerSibling);
+          answerSibling = answerNext;
+        }
+        faqSection.appendChild(answerDiv);
+        faqPairs.push({ q: sibling.textContent.trim(), a: answerDiv.textContent.trim() });
+        sibling = answerSibling;
+      } else {
+        faqSection.appendChild(sibling);
+        sibling = next;
+      }
+    }
+
+    faqHeading.parentNode.insertBefore(faqSection, faqHeading.nextSibling);
+
+    /* Accordion click */
+    faqSection.querySelectorAll('h3').forEach(q => {
+      q.addEventListener('click', () => {
+        const answer = q.nextElementSibling;
+        if (answer && answer.classList.contains('sera-faq-answer')) {
+          q.classList.toggle('is-open');
+          answer.classList.toggle('is-open');
+        }
+      });
+    });
+
+    /* Open first FAQ by default */
+    const firstQ = faqSection.querySelector('h3');
+    const firstA = faqSection.querySelector('.sera-faq-answer');
+    if (firstQ && firstA) {
+      firstQ.classList.add('is-open');
+      firstA.classList.add('is-open');
+    }
+
+    /* Inject FAQPage schema */
+    if (faqPairs.length > 0) {
+      const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqPairs.map(p => ({
+          "@type": "Question",
+          "name": p.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": p.a
+          }
+        }))
+      };
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(faqSchema);
+      document.head.appendChild(script);
+    }
+  }
+});
 </script>
 
 {% schema %}
@@ -310,22 +926,10 @@
           "type": "select",
           "id": "image_height",
           "options": [
-            {
-              "value": "adapt",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__1.label"
-            },
-            {
-              "value": "small",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__2.label"
-            },
-            {
-              "value": "medium",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__3.label"
-            },
-            {
-              "value": "large",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__4.label"
-            }
+            { "value": "adapt", "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__1.label" },
+            { "value": "small", "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__2.label" },
+            { "value": "medium", "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__3.label" },
+            { "value": "large", "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__4.label" }
           ],
           "default": "adapt",
           "label": "t:sections.main-article.blocks.featured_image.settings.image_height.label"
