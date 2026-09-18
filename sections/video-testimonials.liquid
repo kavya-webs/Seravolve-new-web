@@ -162,59 +162,12 @@
       </div>
     </a>
 
-    <!-- Routine 4: Barrier Repair Routine (3 Steps) -->
-    <a href="/products/barrier-repair-and-hydration-routine" class="routine-card" aria-label="Shop Barrier Repair Routine">
-      <div class="routine-card__image-wrapper">
-        {% assign routine_product = all_products['barrier-repair-and-hydration-routine'] %}
-        <img class="routine-card__image" src="{{ routine_product.featured_image | image_url: width: 600 }}" alt="{{ routine_product.title | escape | default: 'Barrier Repair Routine' }}" loading="lazy">
-        <span class="routine-card__badge">3 Steps</span>
-      </div>
-      <div class="routine-card__content">
-        <h3 class="routine-card__title">Barrier Repair Routine</h3>
-        <div class="routine-card__products">
-          <span class="routine-card__tag">Toner</span>
-          <span class="routine-card__tag">Moisturizer</span>
-          <span class="routine-card__tag">Sunscreen</span>
-        </div>
-        <span class="routine-card__cta">Shop Routine →</span>
-      </div>
-    </a>
-
-    <!-- Routine 5: Skin Brightening Routine (3 Steps) -->
-    <a href="/products/skin-brightening-routine" class="routine-card" aria-label="Shop Skin Brightening Routine">
-      <div class="routine-card__image-wrapper">
-        {% assign routine_product = all_products['skin-brightening-routine'] %}
-        <img class="routine-card__image" src="{{ routine_product.featured_image | image_url: width: 600 }}" alt="{{ routine_product.title | escape | default: 'Skin Brightening Routine' }}" loading="lazy">
-        <span class="routine-card__badge">3 Steps</span>
-      </div>
-      <div class="routine-card__content">
-        <h3 class="routine-card__title">Skin Brightening Routine</h3>
-        <div class="routine-card__products">
-          <span class="routine-card__tag">Facewash</span>
-          <span class="routine-card__tag">Toner</span>
-          <span class="routine-card__tag">Vitamin C Serum</span>
-        </div>
-        <span class="routine-card__cta">Shop Routine →</span>
-      </div>
-    </a>
-
-    <!-- Routine 6: Full Seravolve Routine (5 Steps) -->
-    <a href="/products/full-seravolve-routine" class="routine-card" aria-label="Shop Full Seravolve Routine">
-      <div class="routine-card__image-wrapper">
-        {% assign routine_product = all_products['full-seravolve-routine'] %}
-        <img class="routine-card__image" src="{{ routine_product.featured_image | image_url: width: 600 }}" alt="{{ routine_product.title | escape | default: 'Full Seravolve Routine' }}" loading="lazy">
-        <span class="routine-card__badge">5 Steps</span>
-      </div>
-      <div class="routine-card__content">
-        <h3 class="routine-card__title">Full Seravolve Routine</h3>
-        <div class="routine-card__products">
-          <span class="routine-card__tag">Facewash</span>
-          <span class="routine-card__tag">Toner</span>
-          <span class="routine-card__tag">Serum</span>
-          <span class="routine-card__tag">Moisturizer</span>
-          <span class="routine-card__tag">Sunscreen</span>
-        </div>
-        <span class="routine-card__cta">Shop Routine →</span>
+    <!-- More Routines Card -->
+    <a href="/pages/routines" class="routine-card" aria-label="View All Routines" style="background: var(--color-bg-alternate); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 2px dashed #E2E8F0; box-shadow: none; min-height: 100%;">
+      <div class="routine-card__content" style="align-items: center; flex: none; padding: 40px 20px;">
+        <h3 class="routine-card__title" style="margin-bottom: 16px; font-size: 1.4rem;">More on Routines page</h3>
+        <p style="color: var(--color-text-body); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.4;">Discover more curated regimens designed for your specific skin goals.</p>
+        <span class="routine-card__cta" style="margin-top: 0;">View All Routines →</span>
       </div>
     </a>
 
